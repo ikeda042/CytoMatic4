@@ -33,7 +33,7 @@ class Cell(Base):
 
 
 
-def data_analysis(db_name:str = "test.db", image_size:int = 100,out_name:str ="cell"):
+def data_analysis(db_name:str = "test.db", image_size:int = 100,out_name:str ="cell",dual_layer_mode:bool = True):
     try:
         os.mkdir("Cell")
     except:
@@ -63,7 +63,11 @@ def data_analysis(db_name:str = "test.db", image_size:int = 100,out_name:str ="c
     except:
         pass
     try:
-        os.mkdir("Cell/fluo_incide_cell_only")
+        os.mkdir("Cell/fluo1_incide_cell_only")
+    except:
+        pass
+    try:
+        os.mkdir("Cell/fluo2_incide_cell_only")
     except:
         pass
     try:
@@ -95,6 +99,11 @@ def data_analysis(db_name:str = "test.db", image_size:int = 100,out_name:str ="c
         kurtosises = []
 
         """
+        二重染色用データ
+        """
+        mean_fluo_raw_intensities_2 = []
+
+        """
         テクスチャ解析パラメータ
         """
         energies = []
@@ -120,13 +129,14 @@ def data_analysis(db_name:str = "test.db", image_size:int = 100,out_name:str ="c
                 cv2.imwrite(f"Cell/ph/{n}.png",image_ph_copy)
 
                 print([list(i[0]) for i in pickle.loads(cell.contour)])
-                coords_inside_cell,  points_inside_cell= [], []
+                coords_inside_cell_1,  points_inside_cell_1 = [], []
+                coords_inside_cell_2,  points_inside_cell_2 = [], []
 
                 image_fluo1 = cv2.imdecode(np.frombuffer(cell.img_fluo1, dtype=np.uint8), cv2.IMREAD_GRAYSCALE)
                 fluo_out1 = cv2.imdecode(np.frombuffer(cell.img_fluo1, dtype=np.uint8), cv2.IMREAD_COLOR)
                 
-                cv2.drawContours(fluo_out,pickle.loads(cell.contour),-1,(0,0,255),1)
-                cv2.imwrite(f"Cell/fluo/{n}.png",fluo_out)
+                cv2.drawContours(fluo_out1,pickle.loads(cell.contour),-1,(0,0,255),1)
+                cv2.imwrite(f"Cell/fluo1/{n}.png",fluo_out1)
                 
 
                 output_image =  np.zeros((image_size,image_size),dtype=np.uint8)
@@ -135,9 +145,25 @@ def data_analysis(db_name:str = "test.db", image_size:int = 100,out_name:str ="c
                 for i in range(image_size):
                     for j in range(image_size):
                         if cv2.pointPolygonTest(pickle.loads(cell.contour), (j,i), False)>=0:
-                            output_image[i][j] = image_fluo[i][j]
+                            output_image[i][j] = image_fluo1[i][j]
                             
-                cv2.imwrite(f"Cell/fluo_incide_cell_only/{n}.png",output_image)
+                cv2.imwrite(f"Cell/fluo1_incide_cell_only/{n}.png",output_image)
+
+                if dual_layer_mode:
+                    image_fluo2 = cv2.imdecode(np.frombuffer(cell.img_fluo2, dtype=np.uint8), cv2.IMREAD_GRAYSCALE)
+                    fluo_out2 = cv2.imdecode(np.frombuffer(cell.img_fluo2, dtype=np.uint8), cv2.IMREAD_COLOR)
+                    cv2.drawContours(fluo_out2,pickle.loads(cell.contour),-1,(0,0,255),1)
+                    cv2.imwrite(f"Cell/fluo2/{n}.png",fluo_out2)
+
+                    output_image =  np.zeros((image_size,image_size),dtype=np.uint8)
+                    # cv2.drawContours(output_image, [pickle.loads(cell.contour)], 0, 255, thickness=cv2.FILLED)
+
+                    for i in range(image_size):
+                        for j in range(image_size):
+                            if cv2.pointPolygonTest(pickle.loads(cell.contour), (j,i), False)>=0:
+                                output_image[i][j] = image_fluo2[i][j]
+                                
+                    cv2.imwrite(f"Cell/fluo2_incide_cell_only/{n}.png",output_image)
 
 
                 
@@ -213,19 +239,24 @@ def data_analysis(db_name:str = "test.db", image_size:int = 100,out_name:str ="c
                     for i in range(image_size):
                         for j in range(image_size):
                             if cv2.pointPolygonTest(pickle.loads(cell.contour), (i,j), False)>=0:
-                                coords_inside_cell.append([i,j])
-                                points_inside_cell.append(output_image[j][i])
-
+                                coords_inside_cell_1.append([i,j])
+                                points_inside_cell_1.append(output_image[j][i])
+                    if dual_layer_mode:
+                        for i in range(image_size):
+                            for j in range(image_size):
+                                if cv2.pointPolygonTest(pickle.loads(cell.contour), (i,j), False)>=0:
+                                    coords_inside_cell_2.append([i,j])
+                                    points_inside_cell_2.append(image_fluo2[j][i])
 
                     contour = [[j,i] for i,j in [i[0] for i in pickle.loads(cell.contour)]]
-                    X = np.array([[i[1] for i in coords_inside_cell],[i[0] for i in coords_inside_cell]])
+                    X = np.array([[i[1] for i in coords_inside_cell_1],[i[0] for i in coords_inside_cell_1]])
                     Sigma = np.cov(X)
                     eigenvalues, eigenvectors = eig(Sigma)
 
                     if eigenvalues[1] < eigenvalues[0]:
                         m = eigenvectors[1][1]/eigenvectors[1][0]
                         Q = np.array([eigenvectors[1],eigenvectors[0]])
-                        U = [Q.transpose()@np.array([i,j]) for i,j in coords_inside_cell]
+                        U = [Q.transpose()@np.array([i,j]) for i,j in coords_inside_cell_1]
                         U = [[j,i] for i,j in U]
                         contour_U = [Q.transpose()@np.array([j,i]) for i,j in contour]
                         contour_U = [[j,i] for i,j in contour_U]
@@ -235,7 +266,7 @@ def data_analysis(db_name:str = "test.db", image_size:int = 100,out_name:str ="c
                     else:
                         m = eigenvectors[0][1]/eigenvectors[0][0]
                         Q = np.array([eigenvectors[0],eigenvectors[1]])
-                        U = [Q.transpose()@np.array([j,i]).transpose() for i,j in coords_inside_cell]
+                        U = [Q.transpose()@np.array([j,i]).transpose() for i,j in coords_inside_cell_1]
                         contour_U = [Q.transpose()@np.array([i,j]) for i,j in contour]
                         color = "blue"
                         center = [cell.center_x,cell.center_y]
@@ -249,8 +280,8 @@ def data_analysis(db_name:str = "test.db", image_size:int = 100,out_name:str ="c
                     fig = plt.figure(figsize=[6,6])
                     cmap = plt.get_cmap('inferno')
                     x = np.linspace(0,100,1000)
-                    max_points = max(points_inside_cell)
-                    plt.scatter(u1,u2,c =[i/max_points for i in points_inside_cell],s = 10,cmap=cmap )
+                    max_points = max(points_inside_cell_1)
+                    plt.scatter(u1,u2,c =[i/max_points for i in points_inside_cell_1],s = 10,cmap=cmap )
                     plt.scatter(u1_contour,u2_contour,s = 10,color = "lime" )
                     plt.grid()
 
@@ -278,17 +309,19 @@ def data_analysis(db_name:str = "test.db", image_size:int = 100,out_name:str ="c
                     plt.xlim(min_u1-10,max_u1+10)
                     plt.ylim(u2_c-40,u2_c+40)
 
-                    normalized_points = [i/max_points for i in points_inside_cell]
+                    normalized_points = [i/max_points for i in points_inside_cell_1]
 
                     #######################################################統計データ#######################################################
                     med = sorted(normalized_points)[len(normalized_points)//2]
-                    med_raw = sorted(points_inside_cell)[len(points_inside_cell)//2]
+                    med_raw = sorted(points_inside_cell_1)[len(points_inside_cell_1)//2]
                     meds.append(med)
                     means.append(sum(normalized_points)/len(normalized_points))
                     vars.append(np.var(normalized_points))
                     max_intensities.append(max_points)
                     max_int_minus_med.append(max_points-med_raw)
-                    mean_fluo_raw_intensities.append(sum(points_inside_cell)/len(points_inside_cell))
+                    mean_fluo_raw_intensities.append(sum(points_inside_cell_1)/len(points_inside_cell_1))
+                    if dual_layer_mode:
+                        mean_fluo_raw_intensities_2.append(sum(points_inside_cell_2)/len(points_inside_cell_2))
                     #######################################################統計データ#######################################################
                     plt.text(u1_c,u2_c+25,s=f"Mean:{round(sum(normalized_points)/len(normalized_points),3)}\nMed:{round(sorted(normalized_points)[len(normalized_points)//2],3)}",color = "red",ha="center",va="top")
                     if med < 0.7:
@@ -311,7 +344,7 @@ def data_analysis(db_name:str = "test.db", image_size:int = 100,out_name:str ="c
                     plt.grid()
                     fig_histo.savefig(f"Cell/histo/{n}.png")
                     plt.close()
-                    data = [i/255 for i in points_inside_cell]
+                    data = [i/255 for i in points_inside_cell_1]
                     skewness = skew(data)
                     kurtosis_ = kurtosis(data)
                     skewnesses.append(skewness)
@@ -334,6 +367,10 @@ def data_analysis(db_name:str = "test.db", image_size:int = 100,out_name:str ="c
     with open(f"{out_name}_meds_means_vars.txt",mode="w") as fpout:
         for i in range(len(meds)):
             fpout.write(f"{meds[i]},{means[i]},{vars[i]}\n")
+    with open(f"{out_name}_fluo_2_mean_fluo_intensities.txt",mode="w") as fpout:
+        for i in range(len(mean_fluo_raw_intensities_2)):
+            fpout.write(f"{mean_fluo_raw_intensities_2[i]}\n")
+
     # with open(f"{out_name}_max_int_minus_med.txt",mode="w") as fpout:
     #     for i in range(len(meds)):
     #         fpout.write(f"{max_int_minus_med[i]}\n")
