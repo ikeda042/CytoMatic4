@@ -7,7 +7,7 @@ from pyfiles.database import Base, Cell
 from sqlalchemy import create_engine, update
 from sqlalchemy.orm import sessionmaker
 from typing import Literal
-
+from nd2extract import extract_nd2
 #Parameters to specify
 #####################################################
 file_name = "data.tif"
@@ -15,9 +15,13 @@ param1 = 100
 param2 = 255
 img_size = 200
 mode: Literal["all","data_analysis","delete_all"] = "all"
-dual_layer_mode = False
+dual_layer_mode = True
+nd2_extract = True
+nd2_filename = "sk328cip120min.nd2"
 #####################################################
 if __name__ == "__main__":
+    if nd2_extract:
+        extract_nd2(nd2_filename)
     if mode == "all":
         image_process(input_filename=file_name, param1=param1, param2=param2,image_size=img_size,fluo_dual_layer_mode=dual_layer_mode)
         app()

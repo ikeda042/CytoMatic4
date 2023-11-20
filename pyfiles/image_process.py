@@ -25,13 +25,10 @@ def image_process(input_filename: str = "data.tif",
             cell_id: str = f"F{k}C{j}"
             img_ph = cv2.imread(f'TempData/frames/tiff_{k}/Cells/ph/{j}.png')
             img_fluo1 = cv2.imread(f'TempData/frames/tiff_{k}/Cells/fluo1/{j}.png')
-           
+            
             img_ph_gray = cv2.cvtColor(img_ph,cv2.COLOR_BGR2GRAY)
             img_fluo1_gray = cv2.cvtColor(img_fluo1,cv2.COLOR_BGR2GRAY)
 
-            
-        
-            
             ret, thresh = cv2.threshold(img_ph_gray,param1,param2,cv2.THRESH_BINARY)
             img_canny = cv2.Canny(thresh,0,150)
             contours_raw, hierarchy  = cv2.findContours(img_canny,cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_NONE)
@@ -49,6 +46,7 @@ def image_process(input_filename: str = "data.tif",
          
             if fluo_dual_layer_mode:
                 img_fluo2 = cv2.imread(f'TempData/frames/tiff_{k}/Cells/fluo2/{j}.png')
+                print(f"empData/frames/tiff_{k}/Cells/fluo2/{j}.png")
                 img_fluo2_gray = cv2.cvtColor(img_fluo2,cv2.COLOR_BGR2GRAY)
                 cv2.drawContours(img_fluo2,contours,-1,(0,255,0),1)
                 cv2.imwrite(f"TempData/frames/tiff_{k}/Cells/fluo2_contour/{j}.png",img_fluo2)
