@@ -15,10 +15,8 @@ param1 = 100
 param2 = 255
 img_size = 200
 mode: Literal["all","data_analysis","delete_all"] = "all"
-dual_layer_mode = True
+dual_layer_mode = False
 #####################################################
-
-
 if __name__ == "__main__":
     if mode == "all":
         image_process(input_filename=file_name, param1=param1, param2=param2,image_size=img_size,fluo_dual_layer_mode=dual_layer_mode)

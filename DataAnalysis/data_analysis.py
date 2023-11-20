@@ -30,8 +30,7 @@ class Cell(Base):
     contour = Column(BLOB)
     center_x = Column(FLOAT)
     center_y = Column(FLOAT)
-
-
+    
 
 def data_analysis(db_name:str = "test.db", image_size:int = 100,out_name:str ="cell",dual_layer_mode:bool = True):
     try:
@@ -78,7 +77,7 @@ def data_analysis(db_name:str = "test.db", image_size:int = 100,out_name:str ="c
         os.mkdir("Cell/GLCM")
     except:
         pass
-
+        
     engine = create_engine(f'sqlite:///{db_name}', echo=False)
     Base.metadata.create_all(engine)
     Session = sessionmaker(bind=engine)
@@ -117,6 +116,10 @@ def data_analysis(db_name:str = "test.db", image_size:int = 100,out_name:str ="c
         for cell in tqdm(cells):
             if  cell.manual_label != "N/A" and cell.manual_label!= None:
                 n+=1
+
+                """
+                Load image
+                """
                 image_ph = cv2.imdecode(np.frombuffer(cell.img_ph, dtype=np.uint8), cv2.IMREAD_COLOR)
                 image_ph_copy = image_ph.copy()
                 cv2.drawContours(image_ph_copy,pickle.loads(cell.contour),-1,(0,255,0),1)
@@ -128,20 +131,19 @@ def data_analysis(db_name:str = "test.db", image_size:int = 100,out_name:str ="c
                 cv2.putText(image_ph, f"{cell.cell_id}", position, font, font_scale, font_color, thickness)
                 cv2.imwrite(f"Cell/ph/{n}.png",image_ph_copy)
 
-                print([list(i[0]) for i in pickle.loads(cell.contour)])
+
+                cell_contour = [list(i[0]) for i in pickle.loads(cell.contour)]
+                print(cell_contour)
+
                 coords_inside_cell_1,  points_inside_cell_1 = [], []
                 coords_inside_cell_2,  points_inside_cell_2 = [], []
 
                 image_fluo1 = cv2.imdecode(np.frombuffer(cell.img_fluo1, dtype=np.uint8), cv2.IMREAD_GRAYSCALE)
                 fluo_out1 = cv2.imdecode(np.frombuffer(cell.img_fluo1, dtype=np.uint8), cv2.IMREAD_COLOR)
-                
                 cv2.drawContours(fluo_out1,pickle.loads(cell.contour),-1,(0,0,255),1)
                 cv2.imwrite(f"Cell/fluo1/{n}.png",fluo_out1)
-                
-
                 output_image =  np.zeros((image_size,image_size),dtype=np.uint8)
                 # cv2.drawContours(output_image, [pickle.loads(cell.contour)], 0, 255, thickness=cv2.FILLED)
-
                 for i in range(image_size):
                     for j in range(image_size):
                         if cv2.pointPolygonTest(pickle.loads(cell.contour), (j,i), False)>=0:
