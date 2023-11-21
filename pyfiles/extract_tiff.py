@@ -35,7 +35,7 @@ def extract_tiff(tiff_file,fluo_dual_layer:bool = False, singe_layer_mode:bool =
                 if (i+2)%3 == 0:
                     filename = f"TempData/Fluo1/{img_num}.tif"
                 elif (i+2)%3 == 1:
-                    filename = f"TempData//Fluo2/{img_num}.tif"
+                    filename = f"TempData/Fluo2/{img_num}.tif"
                     img_num += 1
                 else:
                     filename = f"TempData/PH/{img_num}.tif"
@@ -55,7 +55,7 @@ def extract_tiff(tiff_file,fluo_dual_layer:bool = False, singe_layer_mode:bool =
                     filename = f"TempData/Fluo1/{img_num}.tif"
                     img_num += 1
                 else:
-                    filename = f"TempData//PH/{img_num}.tif"
+                    filename = f"TempData/PH/{img_num}.tif"
                 print(filename)
                 tiff.save(filename, format='TIFF')
 
