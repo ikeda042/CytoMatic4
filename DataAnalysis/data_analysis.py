@@ -237,7 +237,7 @@ def data_analysis(db_name:str = "test.db", image_size:int = 100,out_name:str ="c
                     #########################################################################
                 
 
-                if True:
+                if False:
                     if not single_layer_mode:
                         for i in range(image_size):
                             for j in range(image_size):
