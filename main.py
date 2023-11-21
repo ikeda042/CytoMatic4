@@ -45,7 +45,7 @@ if __name__ == "__main__":
                 stmt = update(Cell).where(Cell.cell_id == cell[1]).values(manual_label = cell[2])
                 session.execute(stmt)
                 session.commit()
-        data_analysis(db_name=f"{file_name.split('.')[0]}.db", image_size=img_size,out_name = file_name.split(".")[0],dual_layer_mode=dual_layer_mode,single_layer_mode=True)
+        # data_analysis(db_name=f"{file_name.split('.')[0]}.db", image_size=img_size,out_name = file_name.split(".")[0],dual_layer_mode=dual_layer_mode,single_layer_mode=True)
         
     elif mode == "data_analysis":
         data_analysis(db_name=f"{file_name.split('.')[0]}.db", image_size=img_size,out_name = file_name.split(".")[0],dual_layer_mode=dual_layer_mode)
