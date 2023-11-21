@@ -10,11 +10,15 @@ def init(input_filename: str,
          param1: int = 140,
          param2: int = 255,
          image_size:int = 100,
-         fluo_dual_layer_mode:bool = True) -> int:
+         fluo_dual_layer_mode:bool = True,
+         single_layer_mode:bool = False) -> int:
     
     if fluo_dual_layer_mode:
         set_num = 3
         init_folders = ["Fluo1", "Fluo2", "PH","frames","app_data"]
+    elif single_layer_mode:
+        set_num = 1
+        init_folders = ["PH","frames","app_data"]
     else:
         set_num = 2
         init_folders = ["Fluo1", "PH","frames","app_data"]
@@ -110,7 +114,9 @@ def init(input_filename: str,
         contours = list(filter(lambda x: cv2.moments(x)["m01"] / cv2.moments(x)["m00"] > 400 and cv2.moments(x)["m01"] / cv2.moments(x)["m00"] < 1700, contours))
         
         output_size = (image_size, image_size)
-        cropped_images_fluo_1 = crop_contours(image_fluo_1, contours, output_size)
+
+        if not single_layer_mode:
+            cropped_images_fluo_1 = crop_contours(image_fluo_1, contours, output_size)
         if fluo_dual_layer_mode:
             cropped_images_fluo_2 = crop_contours(image_fluo_2, contours, output_size)
         cropped_images_ph = crop_contours(image_ph, contours, output_size)
@@ -131,6 +137,11 @@ def init(input_filename: str,
                     brightness_factor_fluo2 = 255/ np.max(fluo2)
                     image_fluo2_brightened =  cv2.convertScaleAbs(fluo2, alpha=brightness_factor_fluo2 , beta=0)
                     cv2.imwrite(f'TempData/frames/tiff_{k}/Cells/fluo_adjusted/{n}.png', image_fluo2_brightened)
+                    n += 1
+        elif single_layer_mode:
+            for j, ph in zip([i for i in range(len(cropped_images_ph))], cropped_images_ph):
+                if len(ph) == output_size[0] and len(ph[0]) == output_size[1]:
+                    cv2.imwrite(f'TempData/frames/tiff_{k}/Cells/ph/{n}.png', ph)
                     n += 1
         else:
             for j, ph, fluo1 in zip([i for i in range(len(cropped_images_ph))], cropped_images_ph, cropped_images_fluo_1):

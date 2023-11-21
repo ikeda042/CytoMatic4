@@ -1,11 +1,17 @@
 import os 
 from PIL import Image
 
-def extract_tiff(tiff_file,fluo_dual_layer:bool = True) -> int:
+def extract_tiff(tiff_file,fluo_dual_layer:bool = True,singe_layer_mode:bool = True) -> int:
     folders = [folder for folder in os.listdir("TempData") if os.path.isdir(os.path.join(".", folder))]
 
     if fluo_dual_layer:
         for i in [i for i in ["Fluo1","Fluo2","PH"] if i not in folders]:
+            try:
+                os.mkdir(f"TempData/{i}")
+            except:
+                continue
+    elif singe_layer_mode:
+        for i in [i for i in ["PH"] if i not in folders]:
             try:
                 os.mkdir(f"TempData/{i}")
             except:
@@ -30,6 +36,12 @@ def extract_tiff(tiff_file,fluo_dual_layer:bool = True) -> int:
                     img_num += 1
                 else:
                     filename = f"TempData/PH/{img_num}.tif"
+                print(filename)
+                tiff.save(filename, format='TIFF')
+        elif singe_layer_mode:
+            for i in range(num_pages):
+                tiff.seek(i)
+                filename = f"TempData/PH/{img_num}.tif"
                 print(filename)
                 tiff.save(filename, format='TIFF')
         else:
