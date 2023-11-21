@@ -11,7 +11,7 @@ from nd2extract import extract_nd2
 
 #Parameters to specify
 #####################################################
-file_name = "data.tif"
+file_name = "Flb.f_S-35s_A_1_0%_0.4.tif"
 param1 = 100
 param2 = 255
 img_size = 200

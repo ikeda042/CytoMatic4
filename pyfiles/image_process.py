@@ -44,9 +44,10 @@ def image_process(input_filename: str = "data.tif",
             
             if not single_layer_mode:
                 cv2.drawContours(img_fluo1,contours,-1,(0,255,0),1)
+                cv2.imwrite(f"TempData/frames/tiff_{k}/Cells/fluo1_contour/{j}.png",img_fluo1)
             cv2.drawContours(img_ph,contours,-1,(0,255,0),1)
             cv2.imwrite(f"TempData/frames/tiff_{k}/Cells/ph_contour/{j}.png",img_ph)
-            cv2.imwrite(f"TempData/frames/tiff_{k}/Cells/fluo1_contour/{j}.png",img_fluo1)
+          
          
             if fluo_dual_layer_mode:
                 img_fluo2 = cv2.imread(f'TempData/frames/tiff_{k}/Cells/fluo2/{j}.png')
@@ -79,7 +80,8 @@ def image_process(input_filename: str = "data.tif",
                     cv2.rectangle(image_ph_copy,(image_size-scale_bar_mergins-scale_bar_length,image_size-scale_bar_mergins),(image_size-scale_bar_mergins,image_size-scale_bar_mergins-scale_bar_thickness),scale_bar_color,-1)
                     # cv2.putText(image_ph_copy,f"{round(scale_bar_size,2)} µm",(image_size-scale_bar_mergins-scale_bar_length,image_size-scale_bar_mergins-2*scale_bar_thickness),cv2.FONT_HERSHEY_SIMPLEX,0.2,scale_bar_text_color,1,cv2.LINE_AA)
                     #scale bar for image_fluo
-                    cv2.rectangle(image_fluo1_copy,(image_size-scale_bar_mergins-scale_bar_length,image_size-scale_bar_mergins),(image_size-scale_bar_mergins,image_size-scale_bar_mergins-scale_bar_thickness),scale_bar_color,-1)
+                    if not single_layer_mode:
+                        cv2.rectangle(image_fluo1_copy,(image_size-scale_bar_mergins-scale_bar_length,image_size-scale_bar_mergins),(image_size-scale_bar_mergins,image_size-scale_bar_mergins-scale_bar_thickness),scale_bar_color,-1)
                     # cv2.putText(image_fluo_copy,f"{round(scale_bar_size,2)} µm",(image_size-scale_bar_mergins-scale_bar_length,image_size-scale_bar_mergins-2*scale_bar_thickness),cv2.FONT_HERSHEY_SIMPLEX,0.2,scale_bar_text_color,1,cv2.LINE_AA)
                     if fluo_dual_layer_mode:
                         image_fluo2_copy = img_fluo2.copy()
@@ -106,7 +108,7 @@ def image_process(input_filename: str = "data.tif",
                     print(center_x,center_y)
                     if fluo_dual_layer_mode:
                         cell = Cell(cell_id=cell_id, label_experiment="", perimeter=perimeter, area=area, img_ph=image_ph_data, img_fluo1=image_fluo1_data, img_fluo2 =image_fluo2_data ,contour=contour, center_x=center_x, center_y=center_y)
-                    if not single_layer_mode:
+                    if single_layer_mode:
                         cell = Cell(cell_id=cell_id, label_experiment="", perimeter=perimeter, area=area, img_ph=image_ph_data, contour=contour, center_x=center_x, center_y=center_y)
 
                     else:
