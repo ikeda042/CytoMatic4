@@ -1,6 +1,13 @@
 from PIL import Image
 
 def combine_tiff_layers(file_a, file_b, output_file):
+    """
+    Ph0, fluo1_0
+    Ph0, fluo2_0
+    の組み合わせの画像を
+    Ph0, fluo1_0, fluo2_0の連番tifに変換する関数。
+    """
+    
     # ファイルを開く
     with Image.open(file_a) as img_a, Image.open(file_b) as img_b:
         # 出力画像リスト
@@ -18,7 +25,7 @@ def combine_tiff_layers(file_a, file_b, output_file):
             img_a.seek(i * 2 + 1)  # 1, 3, 5, ...のレイヤー
             output_images.append(img_a.copy())
 
-            # ファイルBの発光画像を取得
+            # ファイルBの蛍光画像を取得
             img_b.seek(i * 2 + 1)  # 1, 3, 5, ...のレイヤー
             output_images.append(img_b.copy())
 
