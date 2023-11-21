@@ -11,21 +11,21 @@ from nd2extract import extract_nd2
 
 #Parameters to specify
 #####################################################
-file_name = "Flb1.tif"
-param1 = 100
+file_name = "data.tif"
+param1 = 84
 param2 = 255
 img_size = 300
-mode: Literal["all","data_analysis","delete_all"] = "all"
-dual_layer_mode = False
-single_layer_mode = True
-nd2_extract = False
-nd2_filename = "None"
+mode: Literal["all","data_analysis","delete_all"] = "delete_all"
+dual_layer_mode = True
+single_layer_mode = False
+nd2_extract = True
+nd2_filename = "sk328cip120min.nd2"
 #####################################################
 delete_all()
 if __name__ == "__main__":
-    if nd2_extract:
-        extract_nd2(nd2_filename)
     if mode == "all":
+        if nd2_extract:
+            extract_nd2(nd2_filename)
         image_process(input_filename=file_name, param1=param1, param2=param2,image_size=img_size,fluo_dual_layer_mode=dual_layer_mode,single_layer_mode=single_layer_mode)
         app()
         conn = sqlite3.connect('image_labels.db')
@@ -51,6 +51,8 @@ if __name__ == "__main__":
         data_analysis(db_name=f"{file_name.split('.')[0]}.db", image_size=img_size,out_name = file_name.split(".")[0],dual_layer_mode=dual_layer_mode)
     # elif mode == "delete_all":
     #     delete_all(input_filename=file_name)
+    elif mode == "delete_all":
+        delete_all()
     else:
         data_analysis(db_name=f"{file_name.split('.')[0]}.db", image_size=img_size,out_name = file_name.split(".")[0],dual_layer_mode=dual_layer_mode)
 
