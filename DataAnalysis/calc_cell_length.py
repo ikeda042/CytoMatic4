@@ -277,8 +277,13 @@ def calculate_cell_length(db_name:str):
 
 
 
+def list_files(directory):
+    return os.listdir(directory)
 
-
-
-calculate_cell_length("Flb1.db")
+# 使用例
+directory_path = './'
+files_and_dirs = [i for i in list_files(directory_path) if i.split(".")[-1] == "db"]
+print(files_and_dirs)
+for i in files_and_dirs:
+    calculate_cell_length(i)
 
