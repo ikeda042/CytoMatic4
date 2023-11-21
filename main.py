@@ -21,7 +21,7 @@ single_layer_mode = True
 nd2_extract = False
 nd2_filename = "None"
 #####################################################
-
+delete_all()
 if __name__ == "__main__":
     if nd2_extract:
         extract_nd2(nd2_filename)
@@ -46,7 +46,7 @@ if __name__ == "__main__":
                 session.execute(stmt)
                 session.commit()
         data_analysis(db_name=f"{file_name.split('.')[0]}.db", image_size=img_size,out_name = file_name.split(".")[0],dual_layer_mode=dual_layer_mode,single_layer_mode=True)
-        # delete_all()
+        
     elif mode == "data_analysis":
         data_analysis(db_name=f"{file_name.split('.')[0]}.db", image_size=img_size,out_name = file_name.split(".")[0],dual_layer_mode=dual_layer_mode)
     # elif mode == "delete_all":
