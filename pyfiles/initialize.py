@@ -37,7 +37,7 @@ def init(input_filename: str,
             continue
     
     #画像の枚数を取得
-    num_tif = extract_tiff(input_filename,fluo_dual_layer=fluo_dual_layer_mode)
+    num_tif = extract_tiff(input_filename,fluo_dual_layer=fluo_dual_layer_mode,singe_layer_mode=single_layer_mode)
     #フォルダの作成
     for i in tqdm(range(num_tif//set_num)):
         try:
