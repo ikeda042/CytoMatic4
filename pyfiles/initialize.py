@@ -90,8 +90,8 @@ def init(input_filename: str,
                 os.mkdir(f"TempData/frames/tiff_{i}/Cells/fluo2_contour")
             except Exception as e:
                 print(e)
-            
 
+    
     for k in tqdm(range(num_tif//set_num)):
         print(f"TempData/PH/{k}.tif")
         image_ph = cv2.imread(f"TempData/PH/{k}.tif")
