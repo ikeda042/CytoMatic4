@@ -11,10 +11,10 @@ from nd2extract import extract_nd2
 
 #Parameters to specify
 #####################################################
-file_name = "Flb.f_S-35s_A_1_0%_0.4.tif"
+file_name = "Flb1.tif"
 param1 = 100
 param2 = 255
-img_size = 200
+img_size = 300
 mode: Literal["all","data_analysis","delete_all"] = "all"
 dual_layer_mode = False
 single_layer_mode = True
@@ -45,10 +45,12 @@ if __name__ == "__main__":
                 stmt = update(Cell).where(Cell.cell_id == cell[1]).values(manual_label = cell[2])
                 session.execute(stmt)
                 session.commit()
+        data_analysis(db_name=f"{file_name.split('.')[0]}.db", image_size=img_size,out_name = file_name.split(".")[0],dual_layer_mode=dual_layer_mode,single_layer_mode=True)
+        # delete_all()
     elif mode == "data_analysis":
         data_analysis(db_name=f"{file_name.split('.')[0]}.db", image_size=img_size,out_name = file_name.split(".")[0],dual_layer_mode=dual_layer_mode)
     # elif mode == "delete_all":
     #     delete_all(input_filename=file_name)
-    # else:
-    #     raise ValueError("mode must be all, data_analysis or delete_all")
+    else:
+        data_analysis(db_name=f"{file_name.split('.')[0]}.db", image_size=img_size,out_name = file_name.split(".")[0],dual_layer_mode=dual_layer_mode)
 

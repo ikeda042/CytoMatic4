@@ -32,7 +32,7 @@ class Cell(Base):
     center_y = Column(FLOAT)
     
 
-def data_analysis(db_name:str = "test.db", image_size:int = 100,out_name:str ="cell",dual_layer_mode:bool = True):
+def data_analysis(db_name:str = "test.db", image_size:int = 100,out_name:str ="cell",dual_layer_mode:bool = True,single_layer_mode:bool = False):
     try:
         os.mkdir("Cell")
     except:
@@ -137,19 +137,19 @@ def data_analysis(db_name:str = "test.db", image_size:int = 100,out_name:str ="c
 
                 coords_inside_cell_1,  points_inside_cell_1 = [], []
                 coords_inside_cell_2,  points_inside_cell_2 = [], []
-
-                image_fluo1 = cv2.imdecode(np.frombuffer(cell.img_fluo1, dtype=np.uint8), cv2.IMREAD_GRAYSCALE)
-                fluo_out1 = cv2.imdecode(np.frombuffer(cell.img_fluo1, dtype=np.uint8), cv2.IMREAD_COLOR)
-                cv2.drawContours(fluo_out1,pickle.loads(cell.contour),-1,(0,0,255),1)
-                cv2.imwrite(f"Cell/fluo1/{n}.png",fluo_out1)
-                output_image =  np.zeros((image_size,image_size),dtype=np.uint8)
-                # cv2.drawContours(output_image, [pickle.loads(cell.contour)], 0, 255, thickness=cv2.FILLED)
-                for i in range(image_size):
-                    for j in range(image_size):
-                        if cv2.pointPolygonTest(pickle.loads(cell.contour), (j,i), False)>=0:
-                            output_image[i][j] = image_fluo1[i][j]
-                            
-                cv2.imwrite(f"Cell/fluo1_incide_cell_only/{n}.png",output_image)
+                if not single_layer_mode:
+                    image_fluo1 = cv2.imdecode(np.frombuffer(cell.img_fluo1, dtype=np.uint8), cv2.IMREAD_GRAYSCALE)
+                    fluo_out1 = cv2.imdecode(np.frombuffer(cell.img_fluo1, dtype=np.uint8), cv2.IMREAD_COLOR)
+                    cv2.drawContours(fluo_out1,pickle.loads(cell.contour),-1,(0,0,255),1)
+                    cv2.imwrite(f"Cell/fluo1/{n}.png",fluo_out1)
+                    output_image =  np.zeros((image_size,image_size),dtype=np.uint8)
+                    # cv2.drawContours(output_image, [pickle.loads(cell.contour)], 0, 255, thickness=cv2.FILLED)
+                    for i in range(image_size):
+                        for j in range(image_size):
+                            if cv2.pointPolygonTest(pickle.loads(cell.contour), (j,i), False)>=0:
+                                output_image[i][j] = image_fluo1[i][j]
+                                
+                    cv2.imwrite(f"Cell/fluo1_incide_cell_only/{n}.png",output_image)
 
                 if dual_layer_mode:
                     image_fluo2 = cv2.imdecode(np.frombuffer(cell.img_fluo2, dtype=np.uint8), cv2.IMREAD_GRAYSCALE)
@@ -168,81 +168,87 @@ def data_analysis(db_name:str = "test.db", image_size:int = 100,out_name:str ="c
                     cv2.imwrite(f"Cell/fluo2_incide_cell_only/{n}.png",output_image)
 
 
-                
-                ############################以下勾配計算##################################
-                # Sobelフィルタを適用してX方向の勾配を計算
-                sobel_x = cv2.Sobel(output_image, cv2.CV_64F, 1, 0, ksize=3)
+                if not single_layer_mode:
+                    ############################以下勾配計算##################################
+                    # Sobelフィルタを適用してX方向の勾配を計算
+                    sobel_x = cv2.Sobel(output_image, cv2.CV_64F, 1, 0, ksize=3)
 
-                # Sobelフィルタを適用してY方向の勾配を計算
-                sobel_y = cv2.Sobel(output_image, cv2.CV_64F, 0, 1, ksize=3)
+                    # Sobelフィルタを適用してY方向の勾配を計算
+                    sobel_y = cv2.Sobel(output_image, cv2.CV_64F, 0, 1, ksize=3)
 
-                # 勾配の合成（勾配強度と角度を計算）
-                gradient_magnitude = np.sqrt(sobel_x**2 + sobel_y**2)
+                    # 勾配の合成（勾配強度と角度を計算）
+                    gradient_magnitude = np.sqrt(sobel_x**2 + sobel_y**2)
 
-                # 勾配の強度を正規化
-                # gradient_magnitude = cv2.normalize(gradient_magnitude, None, 0, 255, cv2.NORM_MINMAX, cv2.CV_8U)
+                    # 勾配の強度を正規化
+                    # gradient_magnitude = cv2.normalize(gradient_magnitude, None, 0, 255, cv2.NORM_MINMAX, cv2.CV_8U)
 
-                # 勾配強度画像を保存
-                cv2.imwrite(f'Cell/gradient_magnitudes/gradient_magnitude{n}.png', gradient_magnitude)
+                    # 勾配強度画像を保存
+                    cv2.imwrite(f'Cell/gradient_magnitudes/gradient_magnitude{n}.png', gradient_magnitude)
 
-                ############################以下GLCM解析##################################
-                #この値をTrueにしてGLCM計算モードにする
-                GLCM = True
-                #細胞の領域を四角形で切り取り
-                x, y, w, h = cv2.boundingRect(pickle.loads(cell.contour))
-                image_GLCM = output_image[y:y+h, x:x+w]
-                cv2.imwrite(f"Cell/GLCM/{n}.png",image_GLCM)
+                    ############################以下GLCM解析##################################
+                    #この値をTrueにしてGLCM計算モードにする
+                    GLCM = True
+                    #細胞の領域を四角形で切り取り
+                    x, y, w, h = cv2.boundingRect(pickle.loads(cell.contour))
+                    image_GLCM = output_image[y:y+h, x:x+w]
+                    cv2.imwrite(f"Cell/GLCM/{n}.png",image_GLCM)
 
-                glcm = graycomatrix(image_GLCM, [1], [0], symmetric=True, normed=True)
+                    glcm = graycomatrix(image_GLCM, [1], [0], symmetric=True, normed=True)
 
-                # エネルギーを計算
-                energy = graycoprops(glcm, 'energy')
-                energies.append(energy)
+                    # エネルギーを計算
+                    energy = graycoprops(glcm, 'energy')
+                    energies.append(energy)
 
-                # コントラストを計算
-                contrast = graycoprops(glcm, 'contrast')
-                contrasts.append(contrast)
+                    # コントラストを計算
+                    contrast = graycoprops(glcm, 'contrast')
+                    contrasts.append(contrast)
 
-                # ダイスの類似性を計算
-                dice_similarity = graycoprops(glcm, 'dissimilarity')
-                dice_similarities.append(dice_similarity[0][0])
+                    # ダイスの類似性を計算
+                    dice_similarity = graycoprops(glcm, 'dissimilarity')
+                    dice_similarities.append(dice_similarity[0][0])
 
-                # 均質性を計算
-                homogeneity = graycoprops(glcm, 'homogeneity')
-                homogeneities.append(homogeneity)
+                    # 均質性を計算
+                    homogeneity = graycoprops(glcm, 'homogeneity')
+                    homogeneities.append(homogeneity)
 
-                # 相関を計算
-                correlation = graycoprops(glcm, 'correlation')
-                correlations.append(correlation)
+                    # 相関を計算
+                    correlation = graycoprops(glcm, 'correlation')
+                    correlations.append(correlation)
 
-                # ASMを計算
-                ASM = graycoprops(glcm, 'ASM')
-                ASMs.append(ASM)
+                    # ASMを計算
+                    ASM = graycoprops(glcm, 'ASM')
+                    ASMs.append(ASM)
 
-                # ソーベルフィルタを使用して輝度勾配を計算
-                gradient_x = cv2.Sobel(image_GLCM, cv2.CV_64F, 1, 0, ksize=3)
-                gradient_y = cv2.Sobel(image_GLCM, cv2.CV_64F, 0, 1, ksize=3)
+                    # ソーベルフィルタを使用して輝度勾配を計算
+                    gradient_x = cv2.Sobel(image_GLCM, cv2.CV_64F, 1, 0, ksize=3)
+                    gradient_y = cv2.Sobel(image_GLCM, cv2.CV_64F, 0, 1, ksize=3)
 
-                # 輝度勾配の絶対値を計算
-                gradient_magnitude = np.sqrt(gradient_x**2 + gradient_y**2)
+                    # 輝度勾配の絶対値を計算
+                    gradient_magnitude = np.sqrt(gradient_x**2 + gradient_y**2)
 
-                # 輝度勾配の滑らかさを計算（標準偏差を使用）
-                smoothness = np.std(gradient_magnitude)
-                smoothnesses.append(smoothness)
-                """
-                ドキュメント
-                https://scikit-image.org/docs/stable/api/skimage.feature.html#skimage.feature.graycoprops
-                props{‘contrast’, ‘dissimilarity’, ‘homogeneity’, ‘energy’, ‘correlation’, ‘ASM’},
-                """
-                #########################################################################
+                    # 輝度勾配の滑らかさを計算（標準偏差を使用）
+                    smoothness = np.std(gradient_magnitude)
+                    smoothnesses.append(smoothness)
+                    """
+                    ドキュメント
+                    https://scikit-image.org/docs/stable/api/skimage.feature.html#skimage.feature.graycoprops
+                    props{‘contrast’, ‘dissimilarity’, ‘homogeneity’, ‘energy’, ‘correlation’, ‘ASM’},
+                    """
+                    #########################################################################
                 
 
                 if True:
-                    for i in range(image_size):
-                        for j in range(image_size):
-                            if cv2.pointPolygonTest(pickle.loads(cell.contour), (i,j), False)>=0:
-                                coords_inside_cell_1.append([i,j])
-                                points_inside_cell_1.append(output_image[j][i])
+                    if not single_layer_mode:
+                        for i in range(image_size):
+                            for j in range(image_size):
+                                if cv2.pointPolygonTest(pickle.loads(cell.contour), (i,j), False)>=0:
+                                    coords_inside_cell_1.append([i,j])
+                                    points_inside_cell_1.append(output_image[j][i])
+                    if single_layer_mode:
+                        for i in range(image_size):
+                            for j in range(image_size):
+                                if cv2.pointPolygonTest(pickle.loads(cell.contour), (i,j), False)>=0:
+                                    coords_inside_cell_1.append([i,j])
                     if dual_layer_mode:
                         for i in range(image_size):
                             for j in range(image_size):
@@ -282,10 +288,11 @@ def data_analysis(db_name:str = "test.db", image_size:int = 100,out_name:str ="c
                     fig = plt.figure(figsize=[6,6])
                     cmap = plt.get_cmap('inferno')
                     x = np.linspace(0,100,1000)
-                    max_points = max(points_inside_cell_1)
-                    plt.scatter(u1,u2,c =[i/max_points for i in points_inside_cell_1],s = 10,cmap=cmap )
-                    plt.scatter(u1_contour,u2_contour,s = 10,color = "lime" )
-                    plt.grid()
+                    if not single_layer_mode:
+                        max_points = max(points_inside_cell_1)
+                        plt.scatter(u1,u2,c =[i/max_points for i in points_inside_cell_1],s = 10,cmap=cmap )
+                        plt.scatter(u1_contour,u2_contour,s = 10,color = "lime" )
+                        plt.grid()
 
                     W = np.array([[i**4,i**3,i**2,i,1] for i in [i[1] for i in U]])
                     f = np.array([i[0] for i in U])
@@ -311,46 +318,46 @@ def data_analysis(db_name:str = "test.db", image_size:int = 100,out_name:str ="c
                     plt.xlim(min_u1-10,max_u1+10)
                     plt.ylim(u2_c-40,u2_c+40)
 
-                    normalized_points = [i/max_points for i in points_inside_cell_1]
+                    # normalized_points = [i/max_points for i in points_inside_cell_1]
 
                     #######################################################統計データ#######################################################
-                    med = sorted(normalized_points)[len(normalized_points)//2]
-                    med_raw = sorted(points_inside_cell_1)[len(points_inside_cell_1)//2]
-                    meds.append(med)
-                    means.append(sum(normalized_points)/len(normalized_points))
-                    vars.append(np.var(normalized_points))
-                    max_intensities.append(max_points)
-                    max_int_minus_med.append(max_points-med_raw)
-                    mean_fluo_raw_intensities.append(sum(points_inside_cell_1)/len(points_inside_cell_1))
-                    if dual_layer_mode:
-                        mean_fluo_raw_intensities_2.append(sum(points_inside_cell_2)/len(points_inside_cell_2))
+                    # med = sorted(normalized_points)[len(normalized_points)//2]
+                    # med_raw = sorted(points_inside_cell_1)[len(points_inside_cell_1)//2]
+                    # meds.append(med)
+                    # means.append(sum(normalized_points)/len(normalized_points))
+                    # vars.append(np.var(normalized_points))
+                    # max_intensities.append(max_points)
+                    # max_int_minus_med.append(max_points-med_raw)
+                    # mean_fluo_raw_intensities.append(sum(points_inside_cell_1)/len(points_inside_cell_1))
+                    # if dual_layer_mode:
+                    #     mean_fluo_raw_intensities_2.append(sum(points_inside_cell_2)/len(points_inside_cell_2))
                     #######################################################統計データ#######################################################
-                    plt.text(u1_c,u2_c+25,s=f"Mean:{round(sum(normalized_points)/len(normalized_points),3)}\nMed:{round(sorted(normalized_points)[len(normalized_points)//2],3)}",color = "red",ha="center",va="top")
-                    if med < 0.7:
-                        plt.scatter(u1_c,u2_c-30,s = 150,color = "red",zorder = 100)
-                        agg_tracker += 1
-                        agg_bool.append(1)
-                    else:
-                        agg_bool.append(0)
-                    fig.savefig(f"Cell/replot/{n}.png")
-                    plt.close()
+                    # plt.text(u1_c,u2_c+25,s=f"Mean:{round(sum(normalized_points)/len(normalized_points),3)}\nMed:{round(sorted(normalized_points)[len(normalized_points)//2],3)}",color = "red",ha="center",va="top")
+                    # if med < 0.7:
+                    #     plt.scatter(u1_c,u2_c-30,s = 150,color = "red",zorder = 100)
+                    #     agg_tracker += 1
+                    #     agg_bool.append(1)
+                    # else:
+                    #     agg_bool.append(0)
+                    # fig.savefig(f"Cell/replot/{n}.png")
+                    # plt.close()
 
                     #######################################################ヒストグラム解析#######################################################
                     """
                     正規化した細胞内輝度によるヒストグラムの描画
                     """
-                    fig_histo = plt.figure(figsize=[6,6])
-                    plt.hist(normalized_points,bins=100)
-                    plt.xlim(0,1)
-                    plt.ylim(0,100)
-                    plt.grid()
-                    fig_histo.savefig(f"Cell/histo/{n}.png")
-                    plt.close()
-                    data = [i/255 for i in points_inside_cell_1]
-                    skewness = skew(data)
-                    kurtosis_ = kurtosis(data)
-                    skewnesses.append(skewness)
-                    kurtosises.append(kurtosis_)
+                    # fig_histo = plt.figure(figsize=[6,6])
+                    # plt.hist(normalized_points,bins=100)
+                    # plt.xlim(0,1)
+                    # plt.ylim(0,100)
+                    # plt.grid()
+                    # fig_histo.savefig(f"Cell/histo/{n}.png")
+                    # plt.close()
+                    # data = [i/255 for i in points_inside_cell_1]
+                    # skewness = skew(data)
+                    # kurtosis_ = kurtosis(data)
+                    # skewnesses.append(skewness)
+                    # kurtosises.append(kurtosis_)
 
                     #######################################################ヒストグラム解析#######################################################
     total_rows = int(np.sqrt(n))
@@ -366,12 +373,12 @@ def data_analysis(db_name:str = "test.db", image_size:int = 100,out_name:str ="c
     # with open(f"{out_name}_agg_formation_rate.txt",mode="w") as fpout:
     #     fpout.write(f"out_name,num_agg_detected,num_total_cells,agg_form_rate\n")
     #     fpout.write(f"{out_name},{agg_tracker},{n},{agg_tracker/n}\n")
-    with open(f"{out_name}_meds_means_vars.txt",mode="w") as fpout:
-        for i in range(len(meds)):
-            fpout.write(f"{meds[i]},{means[i]},{vars[i]}\n")
-    with open(f"{out_name}_fluo_2_mean_fluo_intensities.txt",mode="w") as fpout:
-        for i in range(len(mean_fluo_raw_intensities_2)):
-            fpout.write(f"{mean_fluo_raw_intensities_2[i]}\n")
+    # with open(f"{out_name}_meds_means_vars.txt",mode="w") as fpout:
+    #     for i in range(len(meds)):
+    #         fpout.write(f"{meds[i]},{means[i]},{vars[i]}\n")
+    # with open(f"{out_name}_fluo_2_mean_fluo_intensities.txt",mode="w") as fpout:
+    #     for i in range(len(mean_fluo_raw_intensities_2)):
+    #         fpout.write(f"{mean_fluo_raw_intensities_2[i]}\n")
 
     # with open(f"{out_name}_max_int_minus_med.txt",mode="w") as fpout:
     #     for i in range(len(meds)):
