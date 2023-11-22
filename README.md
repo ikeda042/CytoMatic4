@@ -66,10 +66,15 @@ To implement an algorithm for calculating the direction of cell elongation.
 
 Method: 
 
-In this section, I consider the elongation direction determination algorithm with regard to the cell with contour shown in Figure 1 below. 
-
+In this section, I consider the elongation direction determination algorithm with regard to the cell with contour shown in Fig.1 below. 
+Scale bar is 20% of image size (200x200 pixel, 0.0625 µm/pixel)
 ![Start-up window](images_readme/5.png)  
-*fig. 1 caption for figrue 1*
+<p align="center">
+Fig.1  <i>E.coli</i> cell with its contour (PH Left, Fluo-GFP Center, Fluo-mCherry Right)
+</p>
+
+
+
 
 
 
