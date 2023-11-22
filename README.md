@@ -92,19 +92,31 @@ $$\Sigma =
 
 where $$\mathbf{X_1} = (x_1\:\cdots x_n)$$, $$\mathbf{X_2} = (y_1\:\cdots y_n)$$.
 
-Let's define the projection matrix for linear transformation from ℝ2 to ℝ as:
+Let's define the projection matrix for linear transformation $\mathbb{R}^2 \to \mathbb{R}$  as:
 
 $$\mathbf{w} = \begin{pmatrix}w_1&w_2\end{pmatrix}^\mathrm{T}$$
 
+Now the variance of the projected points to $\mathbb{R}$ is written as:
+$$s^2 = \mathbf{w}^\mathrm{T}\Sigma \mathbf{w}$$
+
+Assume that maximizing this variance corresponds to the cell's major axis, i.e., the direction of elongation, we consider the maximization problem of the above equation.
+
+To prevent divergence of variance, the norm of the projection matrix is fixed at 1. Thus, solve the following constrained maximization problem to find the projection axis:
+
+$$\argmax (\mathbf{w}^\mathrm{T}\Sigma \mathbf{w}), \|\mathbf{w}\| = 1$$
 
 
+Using Lagrange multipliers:
+$$\cal{L}(\mathbf{w},\lambda) = \mathbf{w}^\mathrm{T}\Sigma \mathbf{w} - \lambda(\mathbf{w}^\mathrm{T}\mathbf{w}-1)$$
+
+At maximum variance:
+$$\frac{\partial\cal{L}}{\partial{\mathbf{w}}} = 2\Sigma\mathbf{w}-2\lambda\mathbf{w} = 0$$
 
 
+Hence, 
+$$ \Sigma\mathbf{w}=\lambda\mathbf{w} $$
 
-
-
-
-
+Select the eigenvector corresponding to the eigenvalue where λ1 > λ2 as the direction of cell elongnation.
 
 
 
