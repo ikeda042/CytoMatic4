@@ -38,7 +38,7 @@ python imagek4.py
 
 ## License
 
-[MIT License](LICENSE.md)
+[OpenCV License](https://github.com/opencv/opencv/blob/master/LICENSE)
 
 ## Contributors
 
