@@ -144,7 +144,9 @@ To implement an algorithm for replacing the basis of 2-dimentional space of the 
 
 Let 
 
-$$ \mathbf{Q}  = (v_1 \:\:v_2)$$
+$$ \mathbf{Q}  = \begin{pmatrix}
+    v_1&v_2
+\end{pmatrix}$$
 
 $$\mathbf{\Lambda} = \begin{pmatrix}
     \lambda_1& 0 \\
@@ -160,6 +162,7 @@ $$\Sigma =
  Cov[\mathbf{X_1},\mathbf{X_2}]& V[\mathbf{X_2}] \end{pmatrix} = \mathbf{Q}\mathbf{\Lambda}\mathbf{Q}^\mathrm{T}$$
 
 Hence, arbitrary coordinates in the new basis of the eigenbectors can be written as:
+
 $$\begin{pmatrix}
     u_1&u_2
 \end{pmatrix} = \mathbf{Q}^\mathrm{T}\begin{pmatrix}
