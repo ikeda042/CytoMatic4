@@ -15,19 +15,29 @@ def main(
         param2:int,
         img_size:int,
         mode: Literal["all","data_analysis","delete_all"] = "all",
-        layer_mode: Literal["dual","single"] = "dual",
+        layer_mode: Literal["dual","single","normal"] = "dual",
         ):
-    
     delete_all()
+
+    dual_layer_mode = False
+    single_layer_mode = False
     if layer_mode == "dual":
         dual_layer_mode = True
         single_layer_mode = False
     if layer_mode == "single":
         dual_layer_mode = False
         single_layer_mode = True
-
+    
     if mode == "all":
-        if file_name.split(".")[1] == "nd2":
+        if file_name.split(".")[-1] == "nd2":
+            print("""###############################################
+                  \n##################################################################
+                  \n##################################################################
+                  \n##################################################################
+                  \n##################################################################
+                  \n##################################################################
+                  \n##################################################################
+                  """)
             extract_nd2(file_name)
             file_name = file_name.split(".")[0] + ".tif"
         image_process(input_filename=file_name, param1=param1, param2=param2,image_size=img_size,fluo_dual_layer_mode=dual_layer_mode,single_layer_mode=single_layer_mode)
@@ -70,5 +80,3 @@ img_size = 500
 mode: Literal["all","data_analysis","delete_all"] = "all"
 layer_mode: Literal["dual","single"] = "dual"
 #####################################################
-if __name__ == "__main__":
-    main(file_name, param1, param2, img_size, mode, layer_mode)
