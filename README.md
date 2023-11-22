@@ -77,7 +77,11 @@ Fig.1  <i>E.coli</i> cell with its contour (PH Left, Fluo-GFP Center, Fluo-mCher
 
 Consider each contour coordinate as a set of points in a two-dimensional space:
 
-$$\mathbf{X} = \left(\begin{matrix}x_1&\cdots&x_n \\ y_1&\cdots&y_n \end{matrix}\right)^\mathrm{T}\in \mathbb{R}^{n\times 2}$$
+$$\mathbf{X} = 
+\left(\begin{matrix}
+x_1&\cdots&x_n \\
+y_1&\cdots&y_n 
+\end{matrix}\right)^\mathrm{T}\in \mathbb{R}^{n\times 2}$$
 
 The covariance matrix for $\mathbf{X}$ is:
 
