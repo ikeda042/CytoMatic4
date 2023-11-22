@@ -90,7 +90,7 @@ $$\Sigma =
  \\ 
  Cov[\mathbf{X_1},\mathbf{X_2}]& V[\mathbf{X_2}] \end{pmatrix}$$
 
-where $$\mathbf{X_1} = (x_1\:\cdots x_n)$$, $$\mathbf{X_2} = (y_1\:\cdots y_n)$$.
+where $\mathbf{X_1} = (x_1\:\cdots x_n)$, $\mathbf{X_2} = (y_1\:\cdots y_n)$.
 
 Let's define the projection matrix for linear transformation $\mathbb{R}^2 \to \mathbb{R}$  as:
 
@@ -114,6 +114,7 @@ $$\frac{\partial\cal{L}}{\partial{\mathbf{w}}} = 2\Sigma\mathbf{w}-2\lambda\math
 
 
 Hence, 
+
 $$ \Sigma\mathbf{w}=\lambda\mathbf{w} $$
 
 Select the eigenvector corresponding to the eigenvalue where λ1 > λ2 as the direction of cell elongnation.
