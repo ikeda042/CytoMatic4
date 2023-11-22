@@ -135,6 +135,41 @@ Fig.2  <i>E.coli</i> cell with its contour (PH Left, Replotted contour with the 
 </p>
 
 
+### Base conversion Algorithm
+**Objective:**
+
+To implement an algorithm for replacing the basis of 2-dimentional space of the cell with the basis of the eigenspace(2-dimentional).
+
+**Method:** 
+
+Let 
+
+$$ \mathbf{Q}  = (v_1 \:\:v_2)$$
+
+$$\mathbf{\Lambda} = \begin{pmatrix}
+    \lambda_1& 0 \\
+    0&\lambda_2
+\end{pmatrix}\:\:(\lambda_1 > \lambda_2)$$
+
+, then the spectral factorisation of Cov matrix of the contour coordinates can be writtern as:
+
+$$\Sigma =
+ \begin{pmatrix} V[\mathbf{X_1}]&Cov[\mathbf{X_1},\mathbf{X_2}]
+ \\ 
+ Cov[\mathbf{X_1},\mathbf{X_2}]& V[\mathbf{X_2}] \end{pmatrix} = \mathbf{Q}\mathbf{\Lambda}\mathbf{Q}^\mathrm{T}$$
+
+Hence, arbitrary coordinates in the new basis of the eigenbectors can be written as:
+$$\begin{pmatrix}
+    u_1&u_2
+\end{pmatrix} = \mathbf{Q}^\mathrm{T}\begin{pmatrix}
+    x_1&y_1
+\end{pmatrix}$$
+
+
+
+
+
+
 
 
 
