@@ -9,23 +9,27 @@ from sqlalchemy.orm import sessionmaker
 from typing import Literal
 from nd2extract import extract_nd2
 
-#Parameters to specify
-#####################################################
-file_name = "data.tif"
-param1 = 84
-param2 = 255
-img_size = 300
-mode: Literal["all","data_analysis","delete_all"] = "delete_all"
-dual_layer_mode = True
-single_layer_mode = False
-nd2_extract = True
-nd2_filename = "sk328cip120min.nd2"
-#####################################################
-delete_all()
-if __name__ == "__main__":
+def main(
+        file_name:str,
+        param1:int,
+        param2:int,
+        img_size:int,
+        mode: Literal["all","data_analysis","delete_all"] = "all",
+        layer_mode: Literal["dual","single"] = "dual",
+        ):
+    
+    delete_all()
+    if layer_mode == "dual":
+        dual_layer_mode = True
+        single_layer_mode = False
+    if layer_mode == "single":
+        dual_layer_mode = False
+        single_layer_mode = True
+
     if mode == "all":
-        if nd2_extract:
-            extract_nd2(nd2_filename)
+        if file_name.split(".")[1] == "nd2":
+            extract_nd2(file_name)
+            file_name = file_name.split(".")[0] + ".tif"
         image_process(input_filename=file_name, param1=param1, param2=param2,image_size=img_size,fluo_dual_layer_mode=dual_layer_mode,single_layer_mode=single_layer_mode)
         app()
         conn = sqlite3.connect('image_labels.db')
@@ -56,3 +60,15 @@ if __name__ == "__main__":
     else:
         data_analysis(db_name=f"{file_name.split('.')[0]}.db", image_size=img_size,out_name = file_name.split(".")[0],dual_layer_mode=dual_layer_mode)
 
+
+#Parameters to specify
+#####################################################
+file_name = "sk328cip0min.nd2"
+param1 = 130
+param2 = 255
+img_size = 500
+mode: Literal["all","data_analysis","delete_all"] = "all"
+layer_mode: Literal["dual","single"] = "dual"
+#####################################################
+if __name__ == "__main__":
+    main(file_name, param1, param2, img_size, mode, layer_mode)
