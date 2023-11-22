@@ -85,7 +85,10 @@ y_1&\cdots&y_n
 
 The covariance matrix for $\mathbf{X}$ is:
 
-$$\Sigma = \begin{pmatrix} V[\mathbf{X_1}]&Cov[\mathbf{X_1},\mathbf{X_2}] \\ Cov[\mathbf{X_1},\mathbf{X_2}]& V[\mathbf{X_2}] \end{pmatrix}$$
+$$\Sigma =
+ \begin{pmatrix} V[\mathbf{X_1}]&Cov[\mathbf{X_1},\mathbf{X_2}]
+ \\ 
+ Cov[\mathbf{X_1},\mathbf{X_2}]& V[\mathbf{X_2}] \end{pmatrix}$$
 
 where $$\mathbf{X_1} = (x_1\:\cdots x_n)$$, $$\mathbf{X_2} = (y_1\:\cdots y_n)$$.
 
