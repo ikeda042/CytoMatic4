@@ -2,11 +2,17 @@
 
 Single-cell level image processing software.
 
-## Installation
-Copy imageK4.exe to the preferred directory.
+
 
 ## Usage
-1. Double click imageK4.exe to run scripts.
+1. Go to the directory. 
+
+```bach
+cd ImageK4.0
+python imagek4.py
+
+```
+
 ![Start-up window](images_readme/1.png)
 2. Click "Select File" to choose file. (file ext must be .nd2/.tif)
 3. Input parameters. 
@@ -15,7 +21,7 @@ Copy imageK4.exe to the preferred directory.
     * Image Size : int -> Size for square for each cell.
     * Mode -> "all" for general analysis including cell extraction, "Data Analysis" for only data analysis using existing database(.db), "Delete All" for clear unused files.
     * Layer Mode -> Dual (PH,Fluo1,Fluo2), Single(PH), Normal(PH,Fluo1)
-
+4. Click "Run" to start the program.
 
 ## File Structure
 
