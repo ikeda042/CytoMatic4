@@ -75,7 +75,7 @@ if __name__ == "__main__":
         img_size = int(fp.readline().rstrip("\n"))
         mode = fp.readline().rstrip("\n")
         layer_mode = fp.readline().rstrip("\n")
-    main(file_name.split("/")[-1], param1, param2, img_size, mode, layer_mode)
+    main(file_name, param1, param2, img_size, mode, layer_mode)
     try:
         os.remove("param_data.txt")
     except:
