@@ -1,6 +1,6 @@
 # ImageK4.0
 
-Single-cell level image processing software.
+A single-cell level image processing software.
 
 
 
