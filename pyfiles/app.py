@@ -27,7 +27,7 @@ class ImageLabelApp:
         ''')
         self.conn.commit()
 
-        self.image_ids = sorted([i.split(".")[0] for i in os.listdir("TempData/app_data")], key=custom_sort_key) 
+        self.image_ids = sorted([i.split(".")[0] for i in os.listdir("./TempData/app_data")], key=custom_sort_key) 
         self.current_index = 0
 
         self.label_var = tk.StringVar()
@@ -35,7 +35,7 @@ class ImageLabelApp:
 
         label_frame = ttk.LabelFrame(self.root, text="Select Label")
         label_frame.pack(padx=10, pady=10, fill="x")
-
+        
         labels = ["N/A", "0", "1", "2", "3", "4", "5", "6", "7", "8"]
         for label in labels:
             ttk.Radiobutton(label_frame, text=label, variable=self.label_var, value=label).pack(side="left", padx=5)
@@ -62,7 +62,7 @@ class ImageLabelApp:
     def load_image(self):
         image_id = self.image_ids[self.current_index]
         self.image_id = image_id
-        image_path = f"TempData/app_data/{image_id}.png"
+        image_path = f"./TempData/app_data/{image_id}.png"
         img = Image.open(image_path)
 
         aspect_ratio = img.width / img.height
