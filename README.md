@@ -58,8 +58,43 @@ Each cell(row) has values listed below.
 - `initialize.py`: Initial setup for image processing.
 - `unify_images.py`: Combines multiple images into a single output.
 
-## License
+## Algorithms
+### Cell Elongation Direction Determination Algorithm
+Objective: 
 
+To implement an algorithm for calculating the direction of cell elongation.
+
+Method: 
+
+In this section, I consider the elongation direction determination algorithm with regard to the cell with contour shown in Figure 1 below. 
+
+![Start-up window](images_readme/5.png)  
+*fig. 1 caption for figrue 1*
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## License
 [OpenCV License](https://github.com/opencv/opencv/blob/master/LICENSE)
 
 ## Contributors
