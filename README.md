@@ -103,7 +103,7 @@ Assume that maximizing this variance corresponds to the cell's major axis, i.e.,
 
 To prevent divergence of variance, the norm of the projection matrix is fixed at 1. Thus, solve the following constrained maximization problem to find the projection axis:
 
-$$\argmax (\mathbf{w}^\mathrm{T}\Sigma \mathbf{w}), \|\mathbf{w}\| = 1$$
+$$\arg \max (\mathbf{w}^\mathrm{T}\Sigma \mathbf{w}), \|\mathbf{w}\| = 1$$
 
 
 Using Lagrange multipliers:
