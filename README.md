@@ -1,11 +1,4 @@
 # ImageK4.0
-<script type="text/x-mathjax-config">MathJax.Hub.Config({tex2jax:{inlineMath:[['\$','\$'],['\\(','\\)']],processEscapes:true},CommonHTML: {matchFontHeight:false}});</script>
-<script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
-
-A single-cell level image processing software.
-
-
-
 ## Usage
 1. Go to the directory <b>OR</b> run imageK4.exe
 
@@ -62,11 +55,11 @@ Each cell(row) has values listed below.
 
 ## Algorithms
 ### Cell Elongation Direction Determination Algorithm
-Objective: 
+**Objective:**
 
 To implement an algorithm for calculating the direction of cell elongation.
 
-Method: 
+**Method:** 
 
 In this section, I consider the elongation direction determination algorithm with regard to the cell with contour shown in Fig.1 below. 
 
@@ -84,7 +77,7 @@ Fig.1  <i>E.coli</i> cell with its contour (PH Left, Fluo-GFP Center, Fluo-mCher
 
 Consider each contour coordinate as a set of points in a two-dimensional space:
 
-$$\mathbf{X} = \begin{pmatrix}x_1&\cdots&x_n \\ y_1&\cdots&y_n \end{pmatrix}^\mathrm{T}\in \mathbb{R}^{n\times 2}$$
+$$\mathbf{X} = \left(\begin{matrix}x_1&\cdots&x_n \\ y_1&\cdots&y_n \end{matrix}\right)^\mathrm{T}\in \mathbb{R}^{n\times 2}$$
 
 The covariance matrix for $\mathbf{X}$ is:
 
