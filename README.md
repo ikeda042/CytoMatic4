@@ -11,6 +11,8 @@ Single-cell level image processing software.
 cd ImageK4.0
 python imagek4.py
 ```
+<b>OR</b>
+run imageK4.exe
 ![Start-up window](images_readme/1.png)
 
 2. Click "Select File" to choose file. (file ext must be .nd2/.tif)
