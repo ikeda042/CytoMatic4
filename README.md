@@ -10,9 +10,7 @@ Single-cell level image processing software.
 ```bach
 cd ImageK4.0
 python imagek4.py
-
 ```
-
 ![Start-up window](images_readme/1.png)
 2. Click "Select File" to choose file. (file ext must be .nd2/.tif)
 3. Input parameters. 
@@ -22,6 +20,11 @@ python imagek4.py
     * Mode -> "all" for general analysis including cell extraction, "Data Analysis" for only data analysis using existing database(.db), "Delete All" for clear unused files.
     * Layer Mode -> Dual (PH,Fluo1,Fluo2), Single(PH), Normal(PH,Fluo1)
 4. Click "Run" to start the program.
+5. Image labeling application window pops up when done with cell extraction.
+6. Choose arbitrary label for each and press "Submit" or simply press Return key. (Default value is set to N/A)
+![Start-up window](images_readme/2.png)
+7. Close the window when reached the last cell, then database will be automatically created.
+
 
 ## File Structure
 
