@@ -12,6 +12,7 @@ cd ImageK4.0
 python imagek4.py
 ```
 ![Start-up window](images_readme/1.png)
+
 2. Click "Select File" to choose file. (file ext must be .nd2/.tif)
 3. Input parameters. 
     * Parameter 1 : int [0-255] -> Lower th for Canny algorithm.
