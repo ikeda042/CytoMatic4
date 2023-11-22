@@ -149,7 +149,10 @@ $$ \mathbf{Q}  = (v_1 \:\:v_2)$$
 $$\mathbf{\Lambda} = \begin{pmatrix}
     \lambda_1& 0 \\
     0&\lambda_2
-\end{pmatrix}\:\:(\lambda_1 > \lambda_2)$$
+\end{pmatrix}
+\:
+\:
+(\lambda_1 > \lambda_2)$$
 
 , then the spectral factorisation of Cov matrix of the contour coordinates can be writtern as:
 
