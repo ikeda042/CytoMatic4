@@ -5,14 +5,12 @@ Single-cell level image processing software.
 
 
 ## Usage
-1. Go to the directory. 
+1. Go to the directory <b>OR</b> run imageK4.exe
 
 ```bach
 cd ImageK4.0
 python imagek4.py
 ```
-<b>OR</b>
-run imageK4.exe
 
 ![Start-up window](images_readme/1.png)
 
