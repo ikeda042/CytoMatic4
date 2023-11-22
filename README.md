@@ -82,17 +82,17 @@ Fig.1  <i>E.coli</i> cell with its contour (PH Left, Fluo-GFP Center, Fluo-mCher
 
 Consider each contour coordinate as a set of points in a two-dimensional space:
 
-$\mathbf{X} = \begin{pmatrix}x_1&\cdots&x_n \\ y_1&\cdots&y_n \end{pmatrix}^\mathrm{T}\in \mathbb{R}^{n\times 2}$
+$$\mathbf{X} = \begin{pmatrix}x_1&\cdots&x_n \\ y_1&\cdots&y_n \end{pmatrix}^\mathrm{T}\in \mathbb{R}^{n\times 2}$$
 
 The covariance matrix for $\mathbf{X}$ is:
 
-$\Sigma = \begin{pmatrix} V[\mathbf{X_1}]&Cov[\mathbf{X_1},\mathbf{X_2}] \\ Cov[\mathbf{X_1},\mathbf{X_2}]& V[\mathbf{X_2}] \end{pmatrix}$
+$$\Sigma = \begin{pmatrix} V[\mathbf{X_1}]&Cov[\mathbf{X_1},\mathbf{X_2}] \\ Cov[\mathbf{X_1},\mathbf{X_2}]& V[\mathbf{X_2}] \end{pmatrix}$$
 
 , where $\mathbf{X_1} = (x_1\:\cdots x_n)$, $\mathbf{X_2} = (y_1\:\cdots y_n)$ 
 
 Let's define the projection matrix for linear transformation from ℝ2 to ℝ as:
 
-$\mathbf{w} = \begin{pmatrix}w_1&w_2\end{pmatrix}^\mathrm{T}$
+$$\mathbf{w} = \begin{pmatrix}w_1&w_2\end{pmatrix}^\mathrm{T}$$
 
 
 
