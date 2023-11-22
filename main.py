@@ -31,7 +31,7 @@ def main(
     if mode == "all":
         if file_name.split(".")[-1] == "nd2":
             extract_nd2(file_name)
-            file_name = file_name.split(".")[0] + ".tif"
+            file_name = file_name.split('/')[-1].split(".")[0] + ".tif"
         image_process(input_filename=file_name, param1=param1, param2=param2,image_size=img_size,fluo_dual_layer_mode=dual_layer_mode,single_layer_mode=single_layer_mode)
         app()
         conn = sqlite3.connect('image_labels.db')

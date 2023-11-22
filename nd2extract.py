@@ -31,4 +31,4 @@ def extract_nd2(file_name:str):
         for i in range(n):
             for j in range(len(channels)):
                 all_images.append(Image.open(f'nd2totiff/image_{i}_channel_{j}.tif'))
-        all_images[0].save(f"{file_name.split('/')[-1].split('.')[0]}.tif", save_all=True, append_images=all_images[1:])
+        all_images[0].save(f"{file_name.split('.')[0]}.tif", save_all=True, append_images=all_images[1:])
