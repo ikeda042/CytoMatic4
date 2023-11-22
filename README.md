@@ -120,6 +120,19 @@ $$ \Sigma\mathbf{w}=\lambda\mathbf{w} $$
 Select the eigenvector corresponding to the eigenvalue where λ1 > λ2 as the direction of cell elongnation.
 
 
+**Result:**
+
+Fig. 2 shows the raw image of an <i>E.coli </i> cell and the long axis calculated with the algorithm.
+
+<div align="center">
+
+![Start-up window](images_readme/result_1.png)  
+
+</div>
+
+<p align="center">
+Fig.2  <i>E.coli</i> cell with its contour (PH Left, Replotted contour with the long axis Right)
+</p>
 
 
 
