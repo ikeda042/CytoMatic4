@@ -11,7 +11,7 @@ def imageK4():
         img_size = int(img_size_var.get())
         mode = mode_var.get()
         layer_mode = layer_mode_var.get()
-         
+        
         with open("param_data.txt",'w') as temp_file:
             temp_file.write(f'{file_name}\n')
             temp_file.write(f'{param1}\n')
