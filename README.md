@@ -250,9 +250,9 @@ $$\theta = (\mathbf{W}^\mathrm{T}\mathbf{W})^{-1}\mathbf{W}^\mathrm{T}\mathbf{f}
 where
 
 $$\mathbf{W} = \begin{pmatrix}
-    u_{1_1}^k&\cdots&1
-    \\ \vdots&\vdots&\vdots
-    \\  u_{1_n}^k&\cdots&1
+    u_{1_1}^k&\cdots&1 \\
+     \vdots&\vdots&\vdots \\
+     u_{1_n}^k&\cdots&1 
 \end{pmatrix} \in \mathbb{R}^{n\times k +1}$$
 
 $$\mathbf{f} = \begin{pmatrix}
