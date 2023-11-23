@@ -169,11 +169,14 @@ $$\begin{pmatrix}
     x_1&y_1
 \end{pmatrix}$$
 
+**Result:**
+
 Figure 3 shows contours in the new basis 
 
 $$\begin{pmatrix}
     u_1&u_2
-\end{pmatrix}$$
+\end{pmatrix}$$ 
+
 
 
 <div align="center">
@@ -181,7 +184,7 @@ $$\begin{pmatrix}
 ![Start-up window](images_readme/base_conv.png)  
 </div>
 <p align="center">
-Fig.3  Each coordinate of contours in the new basis. 
+Fig.3  Each coordinate of contours in the new basis (Right). 
 </p>
 
 
