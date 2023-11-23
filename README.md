@@ -99,7 +99,7 @@ $$\mathbf{w} = \begin{pmatrix}w_1&w_2\end{pmatrix}^\mathrm{T}$$
 Now the variance of the projected points to $\mathbb{R}$ is written as:
 $$s^2 = \mathbf{w}^\mathrm{T}\Sigma \mathbf{w}$$
 
-Assume that maximizing this variance corresponds to the cell's major axis, i.e., the direction of elongation, we consider the maximization problem of the above equation.
+Assume that maximizing this variance corresponds to the cell's major axis, i.e., the direction of elongation, I consider the maximization problem of the above equation.
 
 To prevent divergence of variance, the norm of the projection matrix is fixed at 1. Thus, solve the following constrained maximization problem to find the projection axis:
 
@@ -135,7 +135,7 @@ Fig.2  <i>E.coli</i> cell with its contour (PH Left, Replotted contour with the 
 </p>
 
 
-### Base conversion Algorithm
+### Basis conversion Algorithm
 **Objective:**
 
 To implement an algorithm for replacing the basis of 2-dimentional space of the cell with the basis of the eigenspace(2-dimentional).
@@ -171,7 +171,7 @@ $$\begin{pmatrix}
 
 **Result:**
 
-Figure 3 shows contours in the new basis 
+Figure 3 shows contour in the new basis 
 
 $$\begin{pmatrix}
     u_1&u_2
@@ -184,9 +184,42 @@ $$\begin{pmatrix}
 ![Start-up window](images_readme/base_conv.png)  
 </div>
 <p align="center">
-Fig.3  Each coordinate of contours in the new basis (Right). 
+Fig.3  Each coordinate of contour in the new basis (Right). 
 </p>
 
+
+### Cell length calculation Algorithm
+**Objective:**
+
+To implement an algorithm for calculating.
+
+**Method:** 
+
+<i>E.coli</i> expresses filamentous phenotype when exposured certain chemicals. (e.g. Ciprofloxacin)
+
+Figure 4 shows an example of a filamentous cell with Ciprofloxacin exposure. 
+
+<div align="center">
+
+![Start-up window](images_readme/fig4.png)  
+</div>
+<p align="center">
+Fig.4 A filamentous <i>E.coli</i> cell (PH Left, Fluo-GFP Center, Fluo-mCherry Right).
+</p>
+
+Thus, the center axis of the cell, not necessarily straight, is required to calculate the cell length. 
+
+Using the aforementioned basis conversion algorithm, first I converted the basis of the cell contour to its Cov matrix's eigenvectors' basis.
+
+Figure 5 shows the coordinates of the contour in the new basis. 
+
+<div align="center">
+
+![Start-up window](images_readme/fig5.png)  
+</div>
+<p align="center">
+Fig.5 The coordinates of the contour in the new basis (Raw image and contour Left, replotted contour in the new basis Right).
+</p>
 
 
 
