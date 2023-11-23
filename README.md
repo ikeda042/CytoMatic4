@@ -233,7 +233,7 @@ $$\mathbf{C} = \begin{pmatrix}
 then regression with arbitrary k-th degree polynomial can be expressed as:
 $$f\hat{(u_1)} = \theta^\mathrm{T} \mathbf{U}$$
 
-, where 
+where 
 
 $$\theta = \begin{pmatrix}
     \theta_0&\cdots&\theta_k
