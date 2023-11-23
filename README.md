@@ -154,7 +154,7 @@ $$\mathbf{\Lambda} = \begin{pmatrix}
 \end{pmatrix}
 (\lambda_1 > \lambda_2)$$
 
-, then the spectral factorisation of Cov matrix of the contour coordinates can be writtern as:
+, then the spectral factorization of Cov matrix of the contour coordinates can be writtern as:
 
 $$\Sigma =
  \begin{pmatrix} V[\mathbf{X_1}]&Cov[\mathbf{X_1},\mathbf{X_2}]
