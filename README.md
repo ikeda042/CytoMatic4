@@ -169,9 +169,7 @@ $$\begin{pmatrix}
     x_1&y_1
 \end{pmatrix}$$
 
-Figure 3 shows contours in the new basis $\begin{pmatrix}
-    u_1&u_2
-\end{pmatrix}$
+Figure 3 shows contours in the new basis $\begin{pmatrix}u_1&u_2\end{pmatrix}$
 
 <div align="center">
 
@@ -182,19 +180,6 @@ Figure 3 shows contours in the new basis $\begin{pmatrix}
 <p align="center">
 Fig.3  Each coordinate of contours in the new basis. 
 </p>
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
