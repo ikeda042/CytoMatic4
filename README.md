@@ -146,7 +146,7 @@ Let
 
 $$ \mathbf{Q}  = \begin{pmatrix}
     v_1&v_2
-\end{pmatrix}$$
+\end{pmatrix}\in \mathbb{R}^{2\times 2}$$
 
 $$\mathbf{\Lambda} = \begin{pmatrix}
     \lambda_1& 0 \\
