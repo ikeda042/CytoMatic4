@@ -170,9 +170,11 @@ $$\begin{pmatrix}
 \end{pmatrix}$$
 
 Figure 3 shows contours in the new basis 
-$\begin{pmatrix}
-u_1&u_2
-\end{pmatrix}$
+
+$$\begin{pmatrix}
+    u_1&u_2
+\end{pmatrix}$$
+
 
 <div align="center">
 
