@@ -2,25 +2,25 @@
 ## Usage
 1. Go to the directory and run imageK4.py <b>OR</b> run imageK4.exe
 
-```bach
+```bash
 cd ImageK4.0
 python imagek4.py
 ```
 
 ![Start-up window](images_readme/1.png)
 
-2. Click "Select File" to choose file. (file ext must be .nd2/.tif)
+2. Click "Select File" to choose a file. (file ext must be .nd2/.tif)
 3. Input parameters. 
-    * Parameter 1 : int [0-255] -> Lower th for Canny algorithm.
-    * Parameter 2 : int [Parameter 1-255] -> Higher th for Canny algorithm.
+    * Parameter 1 : int [0-255] -> Lower threshold for Canny algorithm.
+    * Parameter 2 : int [Parameter 1-255] -> Higher threshold  for Canny algorithm.
     * Image Size : int -> Size for square for each cell.
-    * Mode -> "all" for general analysis including cell extraction, "Data Analysis" for only data analysis using existing database(.db), "Delete All" for clear unused files.
+    * Mode -> "all" for general analysis including cell extraction, "Data Analysis" for only data analysis using existing database(.db), "Delete All" to clear unused files.
     * Layer Mode -> Dual (PH,Fluo1,Fluo2), Single(PH), Normal(PH,Fluo1)
 4. Click "Run" to start the program.
 5. Image labeling application window pops up when done with cell extraction.
 6. Choose arbitrary label for each and press "Submit" or simply press Return key. (Default value is set to N/A)
 ![Start-up window](images_readme/2.png)
-7. Close the window when reached the last cell, then database will be automatically created.
+1. Close the window when reached the last cell, then database will automatically be created.
 
 ## Database
 ### image_labels.db
@@ -28,7 +28,7 @@ Each cell ID has its manual_label from the application input.
 ![db column for image_labels.db](images_readme/3.png)
 ### filename.db
 ![db column for image_labels.db](images_readme/4.png)
-Each cell(row) has values listed below.
+Each row (representing a cell) has the following values:
 * id : int -> unique ID
 * cell_id : str -> cell id (Frame n Cell n)
 * label_experiment : str | Null -> experimental label (e.g. Series1 exposure30min)
@@ -36,8 +36,8 @@ Each cell(row) has values listed below.
 * perimeter : float -> perimeter 
 * area : float -> area 
 * image_ph: BLOB -> PH image in Square block (image size x image size)
-* iamge_flup1 : BLOB | Null -> Fluo 1 image
-* iamge_flup2 : BLOB | Null -> Fluo 2 image
+* image_flup1 : BLOB | Null -> Fluo 1 image
+* image_flup2 : BLOB | Null -> Fluo 2 image
 * contour: BLOB -> 2d array cell contour
 
 ## File Structure
@@ -107,6 +107,9 @@ $$arg \max (\mathbf{w}^\mathrm{T}\Sigma \mathbf{w}), \|\mathbf{w}\| = 1$$
 
 
 Using Lagrange multipliers:
+
+To solve this maximization problem under the given constraints, I employ the method of Lagrange multipliers. This technique introduces an auxiliary function, known as the Lagrange function, to find the extrema of a function subject to constraints. Below is the formulation of the Lagrange multipliers method as applied to the problem:
+
 $$\cal{L}(\mathbf{w},\lambda) = \mathbf{w}^\mathrm{T}\Sigma \mathbf{w} - \lambda(\mathbf{w}^\mathrm{T}\mathbf{w}-1)$$
 
 At maximum variance:
@@ -191,7 +194,7 @@ Fig.3  Each coordinate of contour in the new basis (Right).
 ### Cell length calculation Algorithm
 **Objective:**
 
-To implement an algorithm for calculating.
+To implement an algorithm for calculating the cell length with respect to the center axis of the cell.
 
 **Method:** 
 
@@ -263,7 +266,7 @@ Hence, I have obtained the parameters in theta for the center axix of the cell i
 
 Now using the axis, the arc length can be calculated as:
 
-$$\mathbf{L} = \int_\mathbf{R} \sqrt{1 + (\frac{d}{du_1}\theta^\mathrm{T}\mathbf{U})^2} du_1 $$
+$$\mathbf{L} = \int_{u_{1_1}}^{u_{1_2}} \sqrt{1 + (\frac{d}{du_1}\theta^\mathrm{T}\mathbf{U})^2} du_1 $$
 
 **Result:** 
 
