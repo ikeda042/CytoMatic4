@@ -1,6 +1,6 @@
 # ImageK4.0
 ## Usage
-1. Go to the directory <b>OR</b> run imageK4.exe
+1. Go to the directory and run imageK4.py <b>OR</b> run imageK4.exe
 
 ```bach
 cd ImageK4.0
