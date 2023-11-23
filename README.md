@@ -122,7 +122,7 @@ Select the eigenvector corresponding to the eigenvalue where λ1 > λ2 as the di
 
 **Result:**
 
-Fig. 2 shows the raw image of an <i>E.coli </i> cell and the long axis calculated with the algorithm.
+Figure 2 shows the raw image of an <i>E.coli </i> cell and the long axis calculated with the algorithm.
 
 <div align="center">
 
