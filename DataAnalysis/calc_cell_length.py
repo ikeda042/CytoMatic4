@@ -11,7 +11,8 @@ from numpy.linalg import eig, inv
 import os
 from tqdm import tqdm
 from combine_images import combine_images_function
-import sympy
+import scipy.integrate
+import sympy 
 
 Base = declarative_base()
 class Cell(Base):
@@ -120,26 +121,23 @@ def calculate_cell_length(db_name:str):
                 y = [theta[0]*i**4+theta[1]*i**3 + theta[2]*i**2+theta[3]*i + theta[4] for i in x]
 
                 #弧長積分
-                sympy.init_printing()
-                t = sympy.Symbol('t')
-                fx = sympy.sqrt((4*theta[0]*t**3+3*theta[1]*t**2 + 2*theta[2]*t**1+theta[3])**2 + 1)
-                integ = sympy.integrate(fx, (t, min_u1, max_u1))
-                cell_length = integ.evalf()
+                fx = lambda t: np.sqrt((4*theta[0]*t**3 + 3*theta[1]*t**2 + 2*theta[2]*t + theta[3])**2 + 1)
+                cell_length, _ = scipy.integrate.quad(fx, min_u1, max_u1)
+                print(cell_length,"Scipy")
                 cell_lengths_1.append([cell.cell_id,cell_length])
                 plt.plot(x,y,color = "blue",linewidth=1)
                 plt.scatter(min_u1,theta[0]*min_u1**4+theta[1]*min_u1**3 + theta[2]*min_u1**2+theta[3]*min_u1 + theta[4],s = 100,color = "red",zorder = 100,marker = "x")
                 plt.scatter(max_u1,theta[0]*max_u1**4+theta[1]*max_u1**3 + theta[2]*max_u1**2+theta[3]*max_u1 + theta[4],s = 100,color = "red",zorder = 100,marker = "x")
-                plt.xlim(min_u1-10,max_u1+10)
+                plt.xlim(min_u1-40,max_u1+40)
                 plt.ylim(u2_c-40,u2_c+40)
                 plt.scatter(u1_contour,u2_contour,s = 10,color = "lime" )
                 plt.grid()
                 plt.xlabel("u1")
                 plt.ylabel("u2")
+                plt.axis("equal")    
+                plt.text(0.5, 0.5, f"cell length = {cell_length}", size=10, ha="center", va="center",bbox=dict(boxstyle="round", ec=(1., 0.5, 0.5), fc=(1., 0.8, 0.8)))
                 fig.savefig(f"Cell/replot_1/{n_1}.png")
                 plt.close()
-                
-
-            
             elif cell.manual_label == 2:
                 n_2+= 1
                 image_ph = cv2.imdecode(np.frombuffer(cell.img_ph, dtype=np.uint8), cv2.IMREAD_COLOR)
@@ -198,11 +196,8 @@ def calculate_cell_length(db_name:str):
                 y = [theta[0]*i**4+theta[1]*i**3 + theta[2]*i**2+theta[3]*i + theta[4] for i in x]
 
                 #弧長積分
-                sympy.init_printing()
-                t = sympy.Symbol('t')
-                fx = sympy.sqrt((4*theta[0]*t**3+3*theta[1]*t**2 + 2*theta[2]*t**1+theta[3])**2 + 1)
-                integ = sympy.integrate(fx, (t, min_u1, max_u1))
-                cell_length = integ.evalf()
+                fx = lambda t: np.sqrt((4*theta[0]*t**3 + 3*theta[1]*t**2 + 2*theta[2]*t + theta[3])**2 + 1)
+                cell_length, _ = scipy.integrate.quad(fx, min_u1, max_u1)
                 cell_lengths_2.append([cell.cell_id,cell_length])
                 plt.plot(x,y,color = "blue",linewidth=1)
                 plt.scatter(min_u1,theta[0]*min_u1**4+theta[1]*min_u1**3 + theta[2]*min_u1**2+theta[3]*min_u1 + theta[4],s = 100,color = "red",zorder = 100,marker = "x")
