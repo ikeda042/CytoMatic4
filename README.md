@@ -53,6 +53,28 @@ Each row (representing a cell) has the following values:
 - `initialize.py`: Initial setup for image processing.
 - `unify_images.py`: Combines multiple images into a single output.
 
+## Output Files/Folders
+These folders are automatically created once the scripts start.
+### ./TempData
+**/app_data**
+
+All detected cells are labeled with a Cell ID (e.g., F1C4) and stored in this folder. The cells are in the square of "Image Size". Note that invalid cells (e.g., misdected cells) are also stored here.
+
+**Fluo1**
+
+The entire image of each frame for Fluo1 is included.
+
+**Fluo2**
+
+The entire image of each frame for Fluo2 is included.
+
+**PH**
+
+The entire image of each frame for PH is included.
+
+### ./ph_contours
+This folder contains the entire images of each PH frame with detected contours (in green) on the cells.
+
 ## Algorithms
 ### Cell Elongation Direction Determination Algorithm
 **Objective:**
