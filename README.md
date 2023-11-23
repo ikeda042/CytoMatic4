@@ -169,7 +169,7 @@ $$\begin{pmatrix}
     x_1&y_1
 \end{pmatrix}$$
 
-Figure 3 shows contours in the new basis $\begin{pmatrix}u_1&u_2\end{pmatrix}$
+Figure 3 shows contours in the new basis $ \begin{pmatrix}u_1&u_2\end{pmatrix} $
 
 <div align="center">
 
