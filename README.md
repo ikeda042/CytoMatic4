@@ -218,8 +218,29 @@ Figure 5 shows the coordinates of the contour in the new basis.
 ![Start-up window](images_readme/fig5.png)  
 </div>
 <p align="center">
-Fig.5 The coordinates of the contour in the new basis (Raw image and contour Left, replotted contour in the new basis Right).
+Fig.5 The coordinates of the contour in the new basis (PH Left, contour in the new basis Right).
 </p>
+
+I then applied least aquare method to the coordinates of the contour in the new basis.
+
+Let the contour in the new basis
+
+$$\mathbf{C} = \begin{pmatrix}
+    u_{1_1} &\cdots&\ u_{1_n} 
+    \\  u_{2_1} &\cdots&\ u_{2_n} 
+\end{pmatrix} \in \mathbb{R}^{2\times n}$$
+
+then regression with any k-th degree polynomial can be expressed as:
+$$f\hat{(u_1)} = \theta^\mathrm{T} \mathbf{U}$$
+
+, where 
+$$\theta = \begin{pmatrix}
+    \theta_0&\cdots&\theta_k
+\end{pmatrix}^\mathrm{T}\in \mathbb{R}^k$$
+
+$$\mathbf{U} = \begin{pmatrix}
+    u_1^k&\cdots u_1^0
+\end{pmatrix}^\mathrm{T}$$
 
 
 
