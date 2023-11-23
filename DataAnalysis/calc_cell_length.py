@@ -133,6 +133,8 @@ def calculate_cell_length(db_name:str):
                 plt.ylim(u2_c-40,u2_c+40)
                 plt.scatter(u1_contour,u2_contour,s = 10,color = "lime" )
                 plt.grid()
+                plt.xlabel("u1")
+                plt.ylabel("u2")
                 fig.savefig(f"Cell/replot_1/{n_1}.png")
                 plt.close()
                 
