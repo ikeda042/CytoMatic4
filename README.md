@@ -230,7 +230,7 @@ $$\mathbf{C} = \begin{pmatrix}
     u_{2_1} &\cdots&\ u_{2_n} 
 \end{pmatrix} \in \mathbb{R}^{2\times n}$$
 
-then regression with arbitrary k-th degree polynomial can be expressed as:
+then regression with arbitrary k-th degree polynomial (i.e. the center axis of the cell) can be expressed as:
 $$f\hat{(u_1)} = \theta^\mathrm{T} \mathbf{U}$$
 
 where 
@@ -258,6 +258,24 @@ $$\mathbf{W} = \begin{pmatrix}
 $$\mathbf{f} = \begin{pmatrix}
     u_{2_1}&\cdots&u_{2_n}
 \end{pmatrix}^\mathrm{T}$$
+
+Hence, I have obtained the parameters in theta for the center axix of the cell in the new basis. (fig. 6)
+
+Now using the axis, the arc length can be calculated as:
+
+$$\mathbf{L} = \int_\mathbf{R} \sqrt{1 + (\frac{d}{du_1}\theta^\mathrm{T}\mathbf{U})^2} du_1 $$
+
+**Result:** 
+
+Figure 6 shows the center axis of the cell in the new basis.
+
+<div align="center">
+
+![Start-up window](images_readme/fig6.png)  
+</div>
+<p align="center">
+Fig.6 The center axis of the contour in the new basis (PH Left, contour in the new basis with the center axis Right).
+</p>
 
 
 
