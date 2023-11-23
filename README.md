@@ -237,11 +237,29 @@ where
 
 $$\theta = \begin{pmatrix}
     \theta_0&\cdots&\theta_k
-\end{pmatrix}^\mathrm{T}\in \mathbb{R}^k$$
+\end{pmatrix}^\mathrm{T}\in \mathbb{R}^{k+1}$$
 
 $$\mathbf{U} = \begin{pmatrix}
     u_1^k&\cdots u_1^0
 \end{pmatrix}^\mathrm{T}$$
+
+the parameters in theta can be determined by normal equation:
+
+$$\theta = (\mathbf{W}^\mathrm{T}\mathbf{W})^{-1}\mathbf{W}^\mathrm{T}\mathbf{f}$$
+
+where
+
+$$\mathbf{W} = \begin{pmatrix}
+    u_{1_1}^k&\cdots&1
+    \\ \vdots&\vdots&\vdots
+    \\  u_{1_n}^k&\cdots&1
+\end{pmatrix} \in \mathbb{R}^{n\times k +1}$$
+
+$$\mathbf{f} = \begin{pmatrix}
+    u_{2_1}&\cdots&u_{2_n}
+\end{pmatrix}^\mathrm{T}$$
+
+
 
 
 
