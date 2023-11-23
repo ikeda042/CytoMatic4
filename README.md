@@ -75,7 +75,7 @@ Scale bar is 20% of image size (200x200 pixel, 0.0625 µm/pixel)
 Fig.1  <i>E.coli</i> cell with its contour (PH Left, Fluo-GFP Center, Fluo-mCherry Right)
 </p>
 
-Consider each contour coordinate as a set of points in a two-dimensional space:
+Consider each contour coordinate as a set of vectors in a two-dimensional space:
 
 $$\mathbf{X} = 
 \left(\begin{matrix}
