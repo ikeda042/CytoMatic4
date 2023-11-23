@@ -177,9 +177,7 @@ $$\begin{pmatrix}
 
 
 <div align="center">
-
 ![Start-up window](images_readme/base_conv.png)  
-
 </div>
 
 <p align="center">
