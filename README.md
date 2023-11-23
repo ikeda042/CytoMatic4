@@ -227,7 +227,8 @@ Let the contour in the new basis
 
 $$\mathbf{C} = \begin{pmatrix}
     u_{1_1} &\cdots&\ u_{1_n} 
-    \\  u_{2_1} &\cdots&\ u_{2_n} 
+    \\ 
+    u_{2_1} &\cdots&\ u_{2_n} 
 \end{pmatrix} \in \mathbb{R}^{2\times n}$$
 
 then regression with any k-th degree polynomial can be expressed as:
