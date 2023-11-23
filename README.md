@@ -177,9 +177,9 @@ $$\begin{pmatrix}
 
 
 <div align="center">
+
 ![Start-up window](images_readme/base_conv.png)  
 </div>
-
 <p align="center">
 Fig.3  Each coordinate of contours in the new basis. 
 </p>
