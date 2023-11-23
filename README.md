@@ -230,10 +230,11 @@ $$\mathbf{C} = \begin{pmatrix}
     u_{2_1} &\cdots&\ u_{2_n} 
 \end{pmatrix} \in \mathbb{R}^{2\times n}$$
 
-then regression with any k-th degree polynomial can be expressed as:
+then regression with arbitrary k-th degree polynomial can be expressed as:
 $$f\hat{(u_1)} = \theta^\mathrm{T} \mathbf{U}$$
 
 , where 
+
 $$\theta = \begin{pmatrix}
     \theta_0&\cdots&\theta_k
 \end{pmatrix}^\mathrm{T}\in \mathbb{R}^k$$
