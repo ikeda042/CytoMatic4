@@ -226,8 +226,7 @@ I then applied least aquare method to the coordinates of the contour in the new 
 Let the contour in the new basis
 
 $$\mathbf{C} = \begin{pmatrix}
-    u_{1_1} &\cdots&\ u_{1_n} 
-    \\ 
+    u_{1_1} &\cdots&\ u_{1_n} \\ 
     u_{2_1} &\cdots&\ u_{2_n} 
 \end{pmatrix} \in \mathbb{R}^{2\times n}$$
 
