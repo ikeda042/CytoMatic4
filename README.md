@@ -1,5 +1,5 @@
 # ImageK4.0
-## Usage
+# Usage
 1. Go to the directory and run imageK4.py <b>OR</b> run imageK4.exe
 
 ```bash
@@ -22,11 +22,11 @@ python imagek4.py
 ![Start-up window](images_readme/2.png)
 1. Close the window when reached the last cell, then database will automatically be created.
 
-## Database
-### image_labels.db
+# Database
+## image_labels.db
 Each cell ID has its manual_label from the application input.
 ![db column for image_labels.db](images_readme/3.png)
-### filename.db
+## filename.db
 ![db column for image_labels.db](images_readme/4.png)
 Each row (representing a cell) has the following values:
 * id : int -> unique ID
@@ -40,7 +40,7 @@ Each row (representing a cell) has the following values:
 * image_flup2 : BLOB | Null -> Fluo 2 image
 * contour: BLOB -> 2d array cell contour
 
-## File Structure
+# File Structure
 
 - `imageK4.py`: Provides GUI and file selection features using tkinter.
 - `main.py`: Central functionalities including image processing and data analysis.
@@ -53,9 +53,9 @@ Each row (representing a cell) has the following values:
 - `initialize.py`: Initial setup for image processing.
 - `unify_images.py`: Combines multiple images into a single output.
 
-## Output Files/Folders
+# Output Files/Folders
 These folders are automatically created once the scripts start.
-### ./TempData
+## ./TempData
 **/app_data**
 
 All detected cells are labeled with a Cell ID (e.g., F1C4) and stored in this folder. The cells are in the square of "Image Size". Note that invalid cells (e.g., misdected cells) are also stored here.
@@ -72,16 +72,16 @@ The entire image of each frame for Fluo2 is included.
 
 The entire image of each frame for PH is included.
 
-### ./ph_contours
+## ./ph_contours
 This folder contains the entire images of each PH frame with detected contours (in green) on the cells.
 
-## Algorithms
-### Cell Elongation Direction Determination Algorithm
-**Objective:**
+# Algorithms
+## Cell Elongation Direction Determination Algorithm
+### Objective:
 
 To implement an algorithm for calculating the direction of cell elongation.
 
-**Method:** 
+### Method: 
 
 In this section, I consider the elongation direction determination algorithm with regard to the cell with contour shown in Fig.1 below. 
 
@@ -143,7 +143,7 @@ $$ \Sigma\mathbf{w}=\lambda\mathbf{w} $$
 Select the eigenvector corresponding to the eigenvalue where λ1 > λ2 as the direction of cell elongation.
 
 
-**Result:**
+### Result:
 
 Figure 2 shows the raw image of an <i>E.coli </i> cell and the long axis calculated with the algorithm.
 
@@ -158,12 +158,12 @@ Fig.2  <i>E.coli</i> cell with its contour (PH Left, Replotted contour with the 
 </p>
 
 
-### Basis conversion Algorithm
-**Objective:**
+## Basis conversion Algorithm
+### Objective:
 
 To implement an algorithm for replacing the basis of 2-dimentional space of the cell with the basis of the eigenspace(2-dimentional).
 
-**Method:** 
+### Method:
 
 Let 
 
@@ -192,7 +192,8 @@ $$\begin{pmatrix}
     x_1&y_1
 \end{pmatrix}$$
 
-**Result:**
+
+### Result:
 
 Figure 3 shows contour in the new basis 
 
@@ -211,12 +212,12 @@ Fig.3  Each coordinate of contour in the new basis (Right).
 </p>
 
 
-### Cell length calculation Algorithm
-**Objective:**
+## Cell length calculation Algorithm
+### Objective:
 
 To implement an algorithm for calculating the cell length with respect to the center axis of the cell.
 
-**Method:** 
+### Method:
 
 <i>E.coli</i> expresses filamentous phenotype when exposured certain chemicals. (e.g. Ciprofloxacin)
 
@@ -288,8 +289,28 @@ Now using the axis, the arc length can be calculated as:
 
 $$\mathbf{L} = \int_{u_{1_1}}^{u_{1_2}} \sqrt{1 + (\frac{d}{du_1}\theta^\mathrm{T}\mathbf{U})^2} du_1 $$
 
+**The length is preserved in both bases.**
 
-**Result:** 
+I rewrite this as:
+
+$$\mathbf{U} = \mathbf{Q}^\mathbf{T} \mathbf{X}$$
+
+The inner product of any vectors in the new basis $\in \mathbb{R}^2$ is 
+
+$$ \|\mathbf{U}\|^2 = \mathbf{U}^\mathrm{T}\mathbf{U} = (\mathbf{Q}^\mathrm{T}\mathbf{X})^\mathrm{T}\mathbf{Q}^\mathbf{T}\mathbf{X} = \mathbf{X}^\mathrm{T}\mathbf{Q}\mathbf{Q}^\mathrm{T}\mathbf{X} \in \mathbb{R}$$
+
+Since $\mathbf{Q}$ is an orthogonal matrix, 
+
+$$\|\mathbf{U}\|^2 = \mathbf{X}^\mathrm{T}\mathbf{I}\:\mathbf{X}$$
+
+Thus, 
+
+$$\|U\|^2 = \|X\|^2$$
+
+Hence <u>the length is preserved in both bases.</u> 
+
+
+### Result:
 
 Figure 6 shows the center axis of the cell in the new basis.
 
@@ -303,16 +324,16 @@ Fig.6 The center axis of the contour in the new basis (PH Left, contour in the n
 
 
 
-## Data analysis
+# Data analysis
 
 
 
 
 
-## License
+# License
 [OpenCV License](https://github.com/opencv/opencv/blob/master/LICENSE)
 
-## Contributors
+# Contributors
 
 - ikeda042
 
