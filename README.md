@@ -455,5 +455,5 @@ The fluorescence information is normalized 0 to 1, then plotted with a colormap 
 
 # Contributors
 
-- ikeda042
+- ikeda042 (Yunosuke Ikeda) b182587@hiroshima-u.ac.jp
 
