@@ -312,7 +312,7 @@ Hence <u>the length is preserved in both bases.</u>
 
 ### Result:
 
-Figure 6 shows the center axis of the cell in the new basis.
+Figure 6 shows the center axis of the cell in the new basis (4-th polynominal).
 
 <div align="center">
 
