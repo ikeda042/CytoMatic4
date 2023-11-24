@@ -121,7 +121,7 @@ $$\mathbf{w} = \begin{pmatrix}w_1&w_2\end{pmatrix}^\mathrm{T}$$
 Now the variance of the projected points to $\mathbb{R}$ is written as:
 $$s^2 = \mathbf{w}^\mathrm{T}\Sigma \mathbf{w}$$
 
-Assume that maximizing this variance corresponds to the cell's major axis, i.e., the direction of elongation, I consider the maximization problem of the above equation.
+Assume that maximizing this variance corresponds to the cell's major axis, i.e., the direction of elongation, we consider the maximization problem of the above equation.
 
 To prevent divergence of variance, the norm of the projection matrix is fixed at 1. Thus, solve the following constrained maximization problem to find the projection axis:
 
