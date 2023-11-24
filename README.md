@@ -260,7 +260,7 @@ $$f\hat{(u_1)} = \theta^\mathrm{T} \mathbf{U}$$
 where 
 
 $$\theta = \begin{pmatrix}
-    \theta_0&\cdots&\theta_k
+    \theta_k&\cdots&\theta_0
 \end{pmatrix}^\mathrm{T}\in \mathbb{R}^{k+1}$$
 
 $$\mathbf{U} = \begin{pmatrix}
