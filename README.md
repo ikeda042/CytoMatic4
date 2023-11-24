@@ -83,7 +83,7 @@ To implement an algorithm for calculating the direction of cell elongation.
 
 ### Method: 
 
-In this section, I consider the elongation direction determination algorithm with regard to the cell with contour shown in Fig.1 below. 
+In this section, we consider the elongation direction determination algorithm with regard to the cell with contour shown in Fig.1 below. 
 
 Scale bar is 20% of image size (200x200 pixel, 0.0625 µm/pixel)
 
@@ -128,7 +128,7 @@ To prevent divergence of variance, the norm of the projection matrix is fixed at
 $$arg \max (\mathbf{w}^\mathrm{T}\Sigma \mathbf{w}), \|\mathbf{w}\| = 1$$
 
 
-To solve this maximization problem under the given constraints, I employ the method of Lagrange multipliers. This technique introduces an auxiliary function, known as the Lagrange function, to find the extrema of a function subject to constraints. Below is the formulation of the Lagrange multipliers method as applied to the problem:
+To solve this maximization problem under the given constraints, we employ the method of Lagrange multipliers. This technique introduces an auxiliary function, known as the Lagrange function, to find the extrema of a function subject to constraints. Below is the formulation of the Lagrange multipliers method as applied to the problem:
 
 $$\cal{L}(\mathbf{w},\lambda) = \mathbf{w}^\mathrm{T}\Sigma \mathbf{w} - \lambda(\mathbf{w}^\mathrm{T}\mathbf{w}-1)$$
 
@@ -233,7 +233,7 @@ Fig.4 A filamentous <i>E.coli</i> cell (PH Left, Fluo-GFP Center, Fluo-mCherry R
 
 Thus, the center axis of the cell, not necessarily straight, is required to calculate the cell length. 
 
-Using the aforementioned basis conversion algorithm, first I converted the basis of the cell contour to its Cov matrix's eigenvectors' basis.
+Using the aforementioned basis conversion algorithm, first we converted the basis of the cell contour to its Cov matrix's eigenvectors' basis.
 
 Figure 5 shows the coordinates of the contour in the new basis. 
 
@@ -245,7 +245,7 @@ Figure 5 shows the coordinates of the contour in the new basis.
 Fig.5 The coordinates of the contour in the new basis (PH Left, contour in the new basis Right).
 </p>
 
-I then applied least aquare method to the coordinates of the contour in the new basis.
+We then applied least aquare method to the coordinates of the contour in the new basis.
 
 Let the contour in the new basis
 
@@ -283,7 +283,7 @@ $$\mathbf{f} = \begin{pmatrix}
     u_{2_1}&\cdots&u_{2_n}
 \end{pmatrix}^\mathrm{T}$$
 
-Hence, I have obtained the parameters in theta for the center axix of the cell in the new basis. (fig. 6)
+Hence, we have obtained the parameters in theta for the center axix of the cell in the new basis. (fig. 6)
 
 Now using the axis, the arc length can be calculated as:
 
@@ -291,7 +291,7 @@ $$\mathbf{L} = \int_{u_{1_1}}^{u_{1_2}} \sqrt{1 + (\frac{d}{du_1}\theta^\mathrm{
 
 **The length is preserved in both bases.**
 
-I rewrite this as:
+We rewrite this as:
 
 $$\mathbf{U} = \mathbf{Q}^\mathbf{T} \mathbf{X}$$
 
