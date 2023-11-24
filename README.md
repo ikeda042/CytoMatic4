@@ -305,7 +305,7 @@ $$\mathbf{Q}^\mathrm{T}\mathbf{Q} = \mathbf{Q}\mathbf{Q}^\mathrm{T} = \mathbf{I}
 
 Thus, 
 
-$$\|U\|^2 = \|X\|^2$$
+$$\|\mathbf{U}\|^2 = \|\mathbf{X}\|^2$$
 
 Hence <u>the length is preserved in both bases.</u> 
 
