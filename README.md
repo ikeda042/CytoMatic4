@@ -326,6 +326,107 @@ Fig.6 The center axis of the contour in the new basis (PH Left, contour in the n
 
 # Data analysis
 
+The following *E.coli* cell in figure 7 is one of the output cells in the directory **"Cell/ph/"**.
+
+<div align="center">
+
+![Start-up window](images_readme/fig7.png)  
+</div>
+
+<p align="center">
+Fig.7 A ph image of an <i>E.coli</i> cell.
+</p>
+
+## Output Folders/Files
+
+### Cell/ph/
+
+In this directory, the raw image(ph) of each cell with its contour(green) in the arbitrary set square is stored. 
+
+The center of the cell is set to the center of the square.
+
+### Cell/fluo1/
+In this directory, the image(fluo1-channel) of each cell in the in the arbitrary set square is stored.
+
+The center of the cell is set to the center of the square.
+
+Figure 8 shows the fluo1 image of fig.7
+
+<div align="center">
+
+![Start-up window](images_readme/fig8.png)  
+</div>
+
+<p align="center">
+Fig.8 A fluo1 image of the <i>E.coli</i> cell in fig.7.
+</p>
+
+### Cell/fluo1_incide_cell_only/
+
+In this directory, only the cells(fluo1-channel) surrounded by the contour(red in fig.8) are stored.
+
+The center of the cell is set to the center of the square.
+
+Figure 9 shows areas inside the contour(red, fig.8).
+
+<div align="center">
+
+![Start-up window](images_readme/fig9.png)  
+</div>
+
+<p align="center">
+Fig.9 Areas surrounded by the contour(red, fig.8).
+</p>
+
+
+### Cell/gradient_magnitudes/
+
+In this directory, each image has the gradient information of the fluorescence intensities inside the cell calculated by the Sobel operator, plotted on the coordinates of the original cell pixels.
+
+The center of the cell is set to the center of the square.
+
+Figure 10 shows the plotted gradient information.
+
+<div align="center">
+
+![Start-up window](images_readme/fig10.png)  
+</div>
+
+<p align="center">
+Fig.10 Calculated gradient at each pixel inside the cell.
+</p>
+
+### Cell/histo/
+In this directory, histogram of the fluorescence intensities in 256 levels from 0 to 255 for each cell is stored. 
+
+Figure 11 shows the histogram for the fluorescence information in fig.9.
+
+<div align="center">
+
+![Start-up window](images_readme/fig11.png)  
+</div>
+
+<p align="center">
+Fig.11 Calculated gradient at each pixel inside the cell.
+</p>
+
+In this figure, the frequency at Fluo. intensity 255 is significantly different from the others, meaning that the fluorescence information is saturated.
+
+### Cell/histo_cumulative/
+In this figure, a plotted cummulative freqency from Fluo. intensity 0  to 255 for each cell is stored.
+
+Figure 12 shows the cumulative frequency plot for the cell.
+
+<div align="center">
+
+![Start-up window](images_readme/fig12.png)  
+</div>
+
+<p align="center">
+Fig.12 Cumulative frequency plot for the cell.
+</p>
+
+
 
 
 
