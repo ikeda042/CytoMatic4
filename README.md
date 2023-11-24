@@ -219,7 +219,7 @@ To implement an algorithm for calculating the cell length with respect to the ce
 
 ### Method:
 
-<i>E.coli</i> expresses filamentous phenotype when exposured certain chemicals. (e.g. Ciprofloxacin)
+<i>E.coli</i> expresses filamentous phenotype when exposed to certain chemicals. (e.g. Ciprofloxacin)
 
 Figure 4 shows an example of a filamentous cell with Ciprofloxacin exposure. 
 
