@@ -450,10 +450,6 @@ The fluorescence information is normalized 0 to 1, then plotted with a colormap 
 </div>
 
 
-
-
-
-
 # License
 [OpenCV License](https://github.com/opencv/opencv/blob/master/LICENSE)
 
