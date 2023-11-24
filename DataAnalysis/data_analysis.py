@@ -192,9 +192,9 @@ def data_analysis(db_name:str = "test.db", image_size:int = 100,out_name:str ="c
                     x = np.linspace(min_u1,max_u1,1000)
                     y = [theta[0]*i**4+theta[1]*i**3 + theta[2]*i**2+theta[3]*i + theta[4] for i in x]
 
-                    # cell_length = calc_arc_length(theta,min_u1,max_u1)
-                    # print(cell_lengths)
-                    # cell_lengths.append([cell.cell_id,cell_length])
+                    cell_length = calc_arc_length(theta,min_u1,max_u1)
+                    print(cell_lengths)
+                    cell_lengths.append([cell.cell_id,cell_length])
 
                     plt.plot(x,y,color = "blue",linewidth=1)
                     plt.scatter(min_u1,theta[0]*min_u1**4+theta[1]*min_u1**3 + theta[2]*min_u1**2+theta[3]*min_u1 + theta[4],s = 100,color = "red",zorder = 100,marker = "x")
@@ -219,13 +219,14 @@ def data_analysis(db_name:str = "test.db", image_size:int = 100,out_name:str ="c
                     if dual_layer_mode:
                         mean_fluo_raw_intensities_2.append(sum(points_inside_cell_2)/len(points_inside_cell_2))
                     #######################################################統計データ#######################################################
-                    plt.text(u1_c,u2_c+25,s=f"Mean:{round(sum(normalized_points)/len(normalized_points),3)}\nMed:{round(sorted(normalized_points)[len(normalized_points)//2],3)}",color = "red",ha="center",va="top")
-                    if med < 0.7:
-                        plt.scatter(u1_c,u2_c-30,s = 150,color = "red",zorder = 100)
-                        agg_tracker += 1
-                        agg_bool.append(1)
-                    else:
-                        agg_bool.append(0)
+                    plt.text(u1_c,u2_c+25,s=f"Mean:{round(sum(normalized_points)/len(normalized_points),3)}\nMed:{round(sorted(normalized_points)[len(normalized_points)//2],3)}\nCell length(μm):{round(cell_length*0.0625,2)}",color = "red",ha="center",va="top")
+                    
+                    # if med < 0.7:
+                    #     plt.scatter(u1_c,u2_c-30,s = 150,color = "red",zorder = 100)
+                    #     agg_tracker += 1
+                    #     agg_bool.append(1)
+                    # else:
+                    #     agg_bool.append(0)
                     fig.savefig(f"Cell/replot/{n}.png")
                     plt.close()
 
@@ -234,17 +235,18 @@ def data_analysis(db_name:str = "test.db", image_size:int = 100,out_name:str ="c
                     正規化した細胞内輝度によるヒストグラムの描画
                     """
                     fig_histo = plt.figure(figsize=[6,6])
-                    plt.hist(normalized_points,bins=100)
-                    plt.xlim(0,1)
-                    plt.ylim(0,100)
+                    plt.hist(points_inside_cell_1,bins=100)
+                    plt.xlim(0,255)
+                    plt.xlabel("Fluo. intensity")
+                    plt.ylabel("Frequency")
                     plt.grid()
                     fig_histo.savefig(f"Cell/histo/{n}.png")
                     plt.close()
-                    data = [i/255 for i in points_inside_cell_1]
-                    skewness = skew(data)
-                    kurtosis_ = kurtosis(data)
-                    skewnesses.append(skewness)
-                    kurtosises.append(kurtosis_)
+                    # data = [i/255 for i in points_inside_cell_1]
+                    # skewness = skew(data)
+                    # kurtosis_ = kurtosis(data)
+                    # skewnesses.append(skewness)
+                    # kurtosises.append(kurtosis_)
 
                     #######################################################ヒストグラム解析（累積頻度）#######################################################
 
