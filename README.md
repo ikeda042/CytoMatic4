@@ -291,7 +291,7 @@ $$\mathbf{L} = \int_{u_{1_1}}^{u_{1_2}} \sqrt{1 + (\frac{d}{du_1}\theta^\mathrm{
 
 **The length is preserved in both bases.**
 
-We rewrite this as:
+We rewrite the basis conversion process as:
 
 $$\mathbf{U} = \mathbf{Q}^\mathbf{T} \mathbf{X}$$
 
