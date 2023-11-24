@@ -413,7 +413,7 @@ Fig.11 Calculated gradient at each pixel inside the cell.
 In this figure, the frequency at Fluo. intensity 255 is significantly different from the others, meaning that the fluorescence information is saturated.
 
 ### Cell/histo_cumulative/
-In this figure, a plotted cummulative freqency from Fluo. intensity 0  to 255 for each cell is stored.
+In this directory, a plotted cummulative freqency from Fluo. intensity 0  to 255 for each cell is stored.
 
 Figure 12 shows the cumulative frequency plot for the cell.
 
@@ -425,6 +425,29 @@ Figure 12 shows the cumulative frequency plot for the cell.
 <p align="center">
 Fig.12 Cumulative frequency plot for the cell.
 </p>
+
+### Cell/replot/
+
+In this directory, the fluorescence information in each cell normalized between 0 and 1, is stored.
+Note that the for the coordinates are in the new basis U.
+
+Figure 13 shows the cumulative frequency plot for the cell.
+
+<div align="center">
+
+![Start-up window](images_readme/fig13.png)  
+</div>
+
+<p align="center">
+Fig.13 Re-plotted fluo. information for the cell. 
+</p>
+
+The fluorescence information is normalized 0 to 1, then plotted with a colormap "inferno" as follows.
+
+<div align="center">
+
+![Start-up window](images_readme/colorbar.png)  
+</div>
 
 
 
