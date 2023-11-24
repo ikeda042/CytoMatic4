@@ -12,7 +12,7 @@ import os
 from tqdm import tqdm
 from combine_images import combine_images_function
 import scipy.integrate
-import sympy 
+from components import create_dirs
 
 Base = declarative_base()
 class Cell(Base):
@@ -122,7 +122,7 @@ def calculate_cell_length(db_name:str):
 
                 #弧長積分
                 fx = lambda t: np.sqrt((4*theta[0]*t**3 + 3*theta[1]*t**2 + 2*theta[2]*t + theta[3])**2 + 1)
-                cell_length, _ = scipy.integrate.quad(fx, min_u1, max_u1)
+                cell_length, _ = scipy.integrate.quad(fx, min_u1, max_u1,epsabs=1e-2)
                 print(cell_length,"Scipy")
                 cell_lengths_1.append([cell.cell_id,cell_length])
                 plt.plot(x,y,color = "blue",linewidth=1)
@@ -204,10 +204,11 @@ def calculate_cell_length(db_name:str):
                 plt.scatter(max_u1,theta[0]*max_u1**4+theta[1]*max_u1**3 + theta[2]*max_u1**2+theta[3]*max_u1 + theta[4],s = 100,color = "red",zorder = 100,marker = "x")
                 plt.xlim(min_u1-10,max_u1+10)
                 plt.ylim(u2_c-40,u2_c+40)
-                plt.scatter(u1_contour,u2_contour,s = 10,color = "lime" )
+                plt.scatter(u1_contour,u2_contour,s = 10,color = "lime")
                 plt.grid()
                 fig.savefig(f"Cell/replot_2/{n_2}.png")
                 plt.close()
+                
         ##n1の画像をまとめる
         total_rows = int(np.sqrt(n_1))
         total_cols = total_rows + 1
@@ -256,7 +257,7 @@ def calculate_cell_length(db_name:str):
         # まとめた画像を保存
         cv2.imwrite(f'{filename}_replot_2.png', result_image)
         plt.close()
-
+        
         with open(f"{ db_name.split('.')[0]}_cell_lengths_1.txt","w") as f:
             for i in cell_lengths_1:
                 f.write(f"{i[0]},{i[1]}\n")
@@ -268,12 +269,7 @@ def calculate_cell_length(db_name:str):
 
 
     
-           
-
-
-
-
-
+        
 def list_files(directory):
     return os.listdir(directory)
 

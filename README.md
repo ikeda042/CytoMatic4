@@ -140,7 +140,7 @@ Hence,
 
 $$ \Sigma\mathbf{w}=\lambda\mathbf{w} $$
 
-Select the eigenvector corresponding to the eigenvalue where λ1 > λ2 as the direction of cell elongnation.
+Select the eigenvector corresponding to the eigenvalue where λ1 > λ2 as the direction of cell elongation.
 
 
 **Result:**
@@ -288,6 +288,7 @@ Now using the axis, the arc length can be calculated as:
 
 $$\mathbf{L} = \int_{u_{1_1}}^{u_{1_2}} \sqrt{1 + (\frac{d}{du_1}\theta^\mathrm{T}\mathbf{U})^2} du_1 $$
 
+
 **Result:** 
 
 Figure 6 shows the center axis of the cell in the new basis.
@@ -301,6 +302,8 @@ Fig.6 The center axis of the contour in the new basis (PH Left, contour in the n
 </p>
 
 
+
+## Data analysis
 
 
 
