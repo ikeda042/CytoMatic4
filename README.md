@@ -301,7 +301,7 @@ $$ \|\mathbf{U}\|^2 = \mathbf{U}^\mathrm{T}\mathbf{U} = (\mathbf{Q}^\mathrm{T}\m
 
 Since $\mathbf{Q}$ is an orthogonal matrix, 
 
-$$\|\mathbf{U}\|^2 = \mathbf{X}^\mathrm{T}\mathbf{I}\mathbf{X}$$
+$$\mathbf{Q}^\mathrm{T}\mathbf{Q} = \mathbf{Q}\mathbf{Q}^\mathrm{T} = \mathbf{I}$$
 
 Thus, 
 
