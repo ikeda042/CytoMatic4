@@ -15,6 +15,8 @@ from tqdm import tqdm
 from skimage.feature import graycomatrix, graycoprops
 from scipy.stats import kurtosis, skew
 from .components import create_dirs, calc_gradient, basis_conversion, calc_arc_length
+
+
 Base = declarative_base()
 class Cell(Base):
     __tablename__ = 'cells'
@@ -30,7 +32,38 @@ class Cell(Base):
     contour = Column(BLOB)
     center_x = Column(FLOAT)
     center_y = Column(FLOAT)
+
+#######################################################
+# 資料作成用関数
+def unify_images_ndarray2(image1, image2, image3, output_name):
+    combined_width = image1.shape[1] + image2.shape[1] + image3.shape[1]
+    combined_height = max(image1.shape[0], image2.shape[0], image3.shape[0])
     
+    canvas = np.zeros((combined_height, combined_width, 3), dtype=np.uint8)
+
+    # Image 1
+    canvas[:image1.shape[0], :image1.shape[1]] = image1
+
+    # Image 2
+    offset_x_image2 = image1.shape[1]
+    canvas[:image2.shape[0], offset_x_image2:offset_x_image2+image2.shape[1]] = image2
+
+    # Image 3
+    offset_x_image3 = offset_x_image2 + image2.shape[1]
+    canvas[:image3.shape[0], offset_x_image3:offset_x_image3+image3.shape[1]] = image3
+
+    cv2.imwrite(f"{output_name}.png", cv2.cvtColor(canvas, cv2.COLOR_BGR2RGB))
+
+
+def unify_images_ndarray(image1, image2, output_name):
+    combined_width = image1.shape[1] + image2.shape[1]
+    combined_height = max(image1.shape[0], image2.shape[0])
+    
+    canvas = np.zeros((combined_height, combined_width, 3), dtype=np.uint8)
+    canvas[:image1.shape[0], :image1.shape[1], :] = image1
+    canvas[:image2.shape[0], image1.shape[1]:, :] = image2
+    cv2.imwrite(f"{output_name}.png", cv2.cvtColor(canvas, cv2.COLOR_BGR2RGB))
+
 
 def data_analysis(db_name:str = "test.db", image_size:int = 100,out_name:str ="cell",dual_layer_mode:bool = True,single_layer_mode:bool = False):
     ##############################################################
@@ -69,7 +102,7 @@ def data_analysis(db_name:str = "test.db", image_size:int = 100,out_name:str ="c
     cumulative_frequencys = []
     ##############################################################
     
-    create_dirs(["Cell","Cell/ph","Cell/fluo1","Cell/fluo2","Cell/histo","Cell/histo_cumulative","Cell/replot","Cell/replot_map","Cell/fluo1_incide_cell_only","Cell/fluo2_incide_cell_only","Cell/gradient_magnitudes","Cell/GLCM"])
+    create_dirs(["Cell","Cell/ph","Cell/fluo1","Cell/fluo2","Cell/histo","Cell/histo_cumulative","Cell/replot","Cell/replot_map","Cell/fluo1_incide_cell_only","Cell/fluo2_incide_cell_only","Cell/gradient_magnitudes","Cell/GLCM","Cell/unified_cells"])
 
     engine = create_engine(f'sqlite:///{db_name}', echo=False)
     Base.metadata.create_all(engine)
@@ -97,6 +130,7 @@ def data_analysis(db_name:str = "test.db", image_size:int = 100,out_name:str ="c
                 thickness = 1 
                 cv2.putText(image_ph, f"{cell.cell_id}", position, font, font_scale, font_color, thickness)
                 cv2.imwrite(f"Cell/ph/{n}.png",image_ph_copy)
+                
 
 
                 cell_contour = [list(i[0]) for i in pickle.loads(cell.contour)]
@@ -268,6 +302,41 @@ def data_analysis(db_name:str = "test.db", image_size:int = 100,out_name:str ="c
                     fig_histo_cumulative.savefig(f"Cell/histo_cumulative/{n}.png")
                     plt.close()
 
+
+
+                ##########資料作成用(Cell/unified_cells）##########
+                
+                cell_length_text = f"L={round(cell_length*0.0625,2)}(um)"
+                position = (0, 31)
+                font = cv2.FONT_HERSHEY_SIMPLEX
+                font_scale = 0.5
+                font_color = (255, 255, 255)
+                thickness = 1
+                cv2.putText(image_ph, f"{cell_length_text}", position, font, font_scale, font_color, thickness)
+                pixel_per_micro_meter = 0.0625
+                image_size = image_ph.shape[0]
+                scale_bar_length = int(image_size*0.2)
+                scale_bar_thickness = int(2*(image_size/100))
+                scale_bar_mergins = int(10*(image_size/100))
+                scale_bar_color = (255,255,255)
+                cv2.rectangle(image_ph,(image_size-scale_bar_mergins-scale_bar_length,image_size-scale_bar_mergins),(image_size-scale_bar_mergins,image_size-scale_bar_mergins-scale_bar_thickness),scale_bar_color,-1)
+                #want to put a text right below the scale bar, and the text should be centered and the style should be the same as the text that I've put on the image.
+                position = (image_size-scale_bar_mergins-scale_bar_length, image_size-scale_bar_mergins+scale_bar_thickness+10)
+                font = cv2.FONT_HERSHEY_SIMPLEX
+                font_scale = 0.5
+                font_color = (255, 255, 255)
+                thickness = 1
+                cv2.putText(image_ph, f"{round(scale_bar_length*pixel_per_micro_meter,2)} um", position, font, font_scale, font_color, thickness)
+
+                if single_layer_mode:
+                    cv2.imwrite(f"Cell/unified_cells/{n}.png",image_ph)
+                if not single_layer_mode:
+                    if not dual_layer_mode:
+                        unify_images_ndarray(image1=image_ph, image2=fluo_out1 ,output_name=f"Cell/unified_cells/{n}")
+                if dual_layer_mode:
+                    cv2.rectangle(image_fluo2,(image_size-scale_bar_mergins-scale_bar_length,image_size-scale_bar_mergins),(image_size-scale_bar_mergins,image_size-scale_bar_mergins-scale_bar_thickness),scale_bar_color,-1)
+                    unify_images_ndarray2(image1=image_ph, image2=fluo_out1, image3=fluo_out2 ,output_name=f"Cell/unified_cells/{n}")
+                
     total_rows = int(np.sqrt(n))
     total_cols = total_rows + 1
     num_images = n
