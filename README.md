@@ -410,7 +410,7 @@ Figure 11 shows the histogram for the fluorescence information in fig.9.
 Fig.11 Calculated gradient at each pixel inside the cell.
 </p>
 
-In this figure, the frequency at Fluo. intensity 255 is significantly different from the others, meaning that the fluorescence information is saturated.
+In this figure, the frequency at Fluo. intensity 255 is significantly different from the others. It means that the fluorescence information is saturated.
 
 ### Cell/histo_cumulative/
 In this directory, a plotted cummulative freqency from Fluo. intensity 0  to 255 for each cell is stored.
