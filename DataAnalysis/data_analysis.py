@@ -276,11 +276,11 @@ def data_analysis(db_name:str = "test.db", image_size:int = 100,out_name:str ="c
                     plt.grid()
                     fig_histo.savefig(f"Cell/histo/{n}.png")
                     plt.close()
-                    # data = [i/255 for i in points_inside_cell_1]
-                    # skewness = skew(data)
-                    # kurtosis_ = kurtosis(data)
-                    # skewnesses.append(skewness)
-                    # kurtosises.append(kurtosis_)
+                    data = [i/255 for i in points_inside_cell_1]
+                    skewness = skew(data)
+                    kurtosis_ = kurtosis(data)
+                    skewnesses.append(skewness)
+                    kurtosises.append(kurtosis_)
 
                     #######################################################ヒストグラム解析（累積頻度）#######################################################
 
@@ -405,9 +405,9 @@ def data_analysis(db_name:str = "test.db", image_size:int = 100,out_name:str ="c
     #     for i in range(len(smoothnesses)):
     #         fpout.write(f"{smoothnesses[i]}\n")
 
-    # with open(f"{out_name}_skewnesses.txt",mode="w") as fpout:
-    #     for i in range(len(skewnesses)):
-    #         fpout.write(f"{skewnesses[i]}\n")
+    with open(f"{out_name}_skewnesses.txt",mode="w") as fpout:
+        for i in range(len(skewnesses)):
+            fpout.write(f"{skewnesses[i]}\n")
 
     # with open(f"{out_name}_kurtosises.txt",mode="w") as fpout:
     #     for i in range(len(kurtosises)):
