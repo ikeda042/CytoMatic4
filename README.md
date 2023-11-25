@@ -455,5 +455,5 @@ The fluorescence information is normalized 0 to 1, then plotted with a colormap 
 
 # Contributors
 
+- Hiroshima University Laboratory of Metabolic Engineering (https://metab.hiroshima-u.ac.jp/ja/home-j/)
 - ikeda042 (Yunosuke Ikeda) b182587@hiroshima-u.ac.jp
-
