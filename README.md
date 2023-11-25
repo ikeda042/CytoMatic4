@@ -456,7 +456,6 @@ Note that <u>"all" mode automatically includes this process.</u> so that you can
 
 In this section, we use "test_database.db" to demonstrate.
 
-The output files can be modified in data_analysis.py as needed.
 
 You can also run the scripts with the following commands to achieve the same results:
 
