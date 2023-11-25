@@ -449,11 +449,63 @@ The fluorescence information is normalized 0 to 1, then plotted with a colormap 
 ![Start-up window](images_readme/colorbar.png)  
 </div>
 
+# Quick Overview of the cells
+After running the scripts in "data_analysis" mode, several .png files will be generated in the same directory as "imageK4.py". In this section, we use "test_database.db" to demonstrate.
+The output files can be modified in data_analysis.py as needed.
+
+You can also run the scripts with the following commands to achieve the same results:
+
+```bash
+cd imageK4.0
+python3 demo.py
+```
+## PH
+Displays all raw cells with their contours (in green) in a single image.
+
+<div align="center">
+
+![Start-up window](images_readme/demo1.png)  
+</div>
+
+
+## Fluo
+Shows all raw fluorescent cells with their contours (in red) in a single image.
+<div align="center">
+
+![Start-up window](images_readme/demo2.png)  
+</div>
+
+## Replot 
+Shows all the replot figures in a single image.
+<div align="center">
+
+![Start-up window](images_readme/demo3.png)  
+
+</div>
+
+## Histo
+Shows all the histogram figures in a single image.
+
+<div align="center">
+
+![Start-up window](images_readme/demo4.png)  
+
+</div>
+
+## Histo Cumulative
+Shows all the cumulative histogram figures in a single image.
+
+<div align="center">
+
+![Start-up window](images_readme/demo5.png)  
+
+</div>
+
+
+
 
 # License
 [OpenCV License](https://github.com/opencv/opencv/blob/master/LICENSE)
 
 # Contributors
-
-- Hiroshima University Laboratory of Metabolic Engineering (https://metab.hiroshima-u.ac.jp/ja/home-j/)
 - ikeda042 (Yunosuke Ikeda) b182587@hiroshima-u.ac.jp
