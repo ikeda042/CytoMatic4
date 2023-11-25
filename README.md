@@ -341,7 +341,7 @@ Fig.7 A ph image of an <i>E.coli</i> cell.
 
 ### Cell/ph/
 
-In this directory, the raw image(ph) of each cell with its contour(green) in the arbitrary set square is stored. 
+In this directory, the raw image(ph) of each cell with its contour(green) in the arbitrary set square is stored.  (e.g. fig.7)
 
 The center of the cell is set to the center of the square.
 
