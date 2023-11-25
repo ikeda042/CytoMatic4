@@ -450,7 +450,9 @@ The fluorescence information is normalized 0 to 1, then plotted with a colormap 
 </div>
 
 # Quick Overview of the cells
-After running the scripts in "data_analysis" mode, several .png files will be generated in the same directory as "imageK4.py". Note that "all" mode automatically includes this process.
+After running the scripts in "data_analysis" mode, several .png files will be generated in the same directory as "imageK4.py".
+
+Note that <u>"all" mode automatically includes this process.</u>
 
 In this section, we use "test_database.db" to demonstrate.
 
