@@ -29,16 +29,16 @@ Each cell ID has its manual_label from the application input.
 ## filename.db
 ![db column for image_labels.db](images_readme/4.png)
 Each row (representing a cell) has the following values:
-* id : int -> unique ID
-* cell_id : str -> cell id (Frame n Cell n)
-* label_experiment : str | Null -> experimental label (e.g. Series1 exposure30min)
-* manual_label : str | Null -> label data from image_labels.db with respect to cell ID 
-* perimeter : float -> perimeter 
-* area : float -> area 
-* image_ph: BLOB -> PH image in Square block (image size x image size)
-* image_flup1 : BLOB | Null -> Fluo 1 image
-* image_flup2 : BLOB | Null -> Fluo 2 image
-* contour: BLOB -> 2d array cell contour
+* id : int : unique ID
+* cell_id : str : cell id (Frame n Cell n)
+* label_experiment : str | Null : experimental label (e.g. Series1 exposure30min)
+* manual_label : str | Null : label data from image_labels.db with respect to cell ID 
+* perimeter : float : perimeter 
+* area : float : area 
+* image_ph: BLOB : PH image in Square block (image size x image size)
+* image_flup1 : BLOB | Null : Fluo 1 image
+* image_flup2 : BLOB | Null : Fluo 2 image
+* contour: BLOB : 2d array cell contour
 
 # File Structure
 
