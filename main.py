@@ -18,7 +18,6 @@ def main(
         layer_mode: Literal["dual","single","normal"] = "dual",
         ):
     delete_all()
-
     dual_layer_mode = False
     single_layer_mode = False
     if layer_mode == "dual":
@@ -51,8 +50,7 @@ def main(
                 stmt = update(Cell).where(Cell.cell_id == cell[1]).values(manual_label = cell[2])
                 session.execute(stmt)
                 session.commit()
-        # data_analysis(db_name=f"{file_name.split('.')[0]}.db", image_size=img_size,out_name = file_name.split(".")[0],dual_layer_mode=dual_layer_mode,single_layer_mode=True)
-        
+        data_analysis(db_name=f"{file_name.split('.')[0]}.db", image_size=img_size,out_name = file_name.split(".")[0],dual_layer_mode=dual_layer_mode)
     elif mode == "data_analysis":
         data_analysis(db_name=f"{file_name.split('.')[0]}.db", image_size=img_size,out_name = file_name.split(".")[0],dual_layer_mode=dual_layer_mode)
     # elif mode == "delete_all":
@@ -61,13 +59,16 @@ def main(
         delete_all()
     else:
         data_analysis(db_name=f"{file_name.split('.')[0]}.db", image_size=img_size,out_name = file_name.split(".")[0],dual_layer_mode=dual_layer_mode)
+
 #Parameters to specify
 #####################################################
-file_name = "sk328cip0min.nd2"
+file_name = "sk328tri30min.db"
 param1 = 130
 param2 = 255
 img_size = 500
-mode: Literal["all","data_analysis","delete_all"] = "all"
-layer_mode: Literal["dual","single"] = "dual"
+mode: Literal["all","data_analysis","delete_all"] = "data_analysis"
+layer_mode: Literal["dual","single","normal"] = "normal"
 #####################################################
-# main(file_name, param1, param2, img_size, mode, layer_mode)
+# import os
+# for file_name  in [i for i in os.listdir() if i.split(".")[-1] == "db"]:
+#     main(file_name, param1, param2, img_size, mode, layer_mode)
