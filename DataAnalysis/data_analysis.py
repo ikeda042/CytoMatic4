@@ -364,9 +364,9 @@ def data_analysis(db_name:str = "test.db", image_size:int = 100,out_name:str ="c
     # with open(f"{out_name}_agg_formation_rate.txt",mode="w") as fpout:
     #     fpout.write(f"out_name,num_agg_detected,num_total_cells,agg_form_rate\n")
     #     fpout.write(f"{out_name},{agg_tracker},{n},{agg_tracker/n}\n")
-    # with open(f"{out_name}_meds_means_vars.txt",mode="w") as fpout:
-    #     for i in range(len(meds)):
-    #         fpout.write(f"{meds[i]},{means[i]},{vars[i]}\n")
+    with open(f"{out_name}_meds_means_vars.txt",mode="w") as fpout:
+        for i in range(len(meds)):
+            fpout.write(f"{meds[i]},{means[i]},{vars[i]}\n")
     # with open(f"{out_name}_fluo_2_mean_fluo_intensities.txt",mode="w") as fpout:
     #     for i in range(len(mean_fluo_raw_intensities_2)):
     #         fpout.write(f"{mean_fluo_raw_intensities_2[i]}\n")
