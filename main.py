@@ -18,14 +18,15 @@ def main(
         layer_mode: Literal["dual","single","normal"] = "dual",
         ):
     delete_all()
-    dual_layer_mode = False
-    single_layer_mode = False
     if layer_mode == "dual":
         dual_layer_mode = True
         single_layer_mode = False
-    if layer_mode == "single":
+    elif layer_mode == "single":
         dual_layer_mode = False
         single_layer_mode = True
+    else:
+        dual_layer_mode = False
+        single_layer_mode = False
     
     if mode == "all":
         if file_name.split(".")[-1] == "nd2":
@@ -50,15 +51,15 @@ def main(
                 stmt = update(Cell).where(Cell.cell_id == cell[1]).values(manual_label = cell[2])
                 session.execute(stmt)
                 session.commit()
-        data_analysis(db_name=f"{file_name.split('.')[0]}.db", image_size=img_size,out_name = file_name.split(".")[0],dual_layer_mode=dual_layer_mode)
+        data_analysis(db_name=f"{file_name.split('.')[0]}.db", image_size=img_size,out_name = file_name.split(".")[0],single_layer_mode=single_layer_mode, dual_layer_mode=dual_layer_mode)
     elif mode == "data_analysis":
-        data_analysis(db_name=f"{file_name.split('.')[0]}.db", image_size=img_size,out_name = file_name.split(".")[0],dual_layer_mode=dual_layer_mode)
+        data_analysis(db_name=f"{file_name.split('.')[0]}.db", image_size=img_size,out_name = file_name.split(".")[0],single_layer_mode=single_layer_mode,dual_layer_mode=dual_layer_mode)
     # elif mode == "delete_all":
     #     delete_all(input_filename=file_name)
     elif mode == "delete_all":
         delete_all()
     else:
-        data_analysis(db_name=f"{file_name.split('.')[0]}.db", image_size=img_size,out_name = file_name.split(".")[0],dual_layer_mode=dual_layer_mode)
+        data_analysis(db_name=f"{file_name.split('.')[0]}.db", image_size=img_size,out_name = file_name.split(".")[0],single_layer_mode=single_layer_mode, dual_layer_mode=dual_layer_mode)
 
 #Parameters to specify
 #####################################################

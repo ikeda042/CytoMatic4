@@ -108,9 +108,8 @@ def image_process(input_filename: str = "data.tif",
                     print(center_x,center_y)
                     if fluo_dual_layer_mode:
                         cell = Cell(cell_id=cell_id, label_experiment="", perimeter=perimeter, area=area, img_ph=image_ph_data, img_fluo1=image_fluo1_data, img_fluo2 =image_fluo2_data ,contour=contour, center_x=center_x, center_y=center_y)
-                    if single_layer_mode:
+                    elif single_layer_mode:
                         cell = Cell(cell_id=cell_id, label_experiment="", perimeter=perimeter, area=area, img_ph=image_ph_data, contour=contour, center_x=center_x, center_y=center_y)
-
                     else:
                         cell = Cell(cell_id=cell_id, label_experiment="", perimeter=perimeter, area=area, img_ph=image_ph_data, img_fluo1=image_fluo1_data, contour=contour, center_x=center_x, center_y=center_y)
                     if session.query(Cell).filter_by(cell_id = cell_id).first() is None:

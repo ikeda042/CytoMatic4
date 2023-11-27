@@ -158,15 +158,15 @@ def data_analysis(db_name:str = "test.db", image_size:int = 100,out_name:str ="c
                     cv2.drawContours(fluo_out2,pickle.loads(cell.contour),-1,(0,0,255),1)
                     cv2.imwrite(f"Cell/fluo2/{n}.png",fluo_out2)
 
-                    output_image =  np.zeros((image_size,image_size),dtype=np.uint8)
+                    output_image2 =  np.zeros((image_size,image_size),dtype=np.uint8)
                     # cv2.drawContours(output_image, [pickle.loads(cell.contour)], 0, 255, thickness=cv2.FILLED)
 
                     for i in range(image_size):
                         for j in range(image_size):
                             if cv2.pointPolygonTest(pickle.loads(cell.contour), (j,i), False)>=0:
-                                output_image[i][j] = image_fluo2[i][j]
+                                output_image2[i][j] = image_fluo2[i][j]
                                 
-                    cv2.imwrite(f"Cell/fluo2_incide_cell_only/{n}.png",output_image)
+                    cv2.imwrite(f"Cell/fluo2_incide_cell_only/{n}.png",output_image2)
 
 
                 if not single_layer_mode:
