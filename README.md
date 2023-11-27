@@ -58,7 +58,7 @@ These folders are automatically created once the scripts start.
 ## ./TempData
 **/app_data**
 
-All detected cells are labeled with a Cell ID (e.g., F1C4) and stored in this folder. The cells are in the square of "Image Size". Note that invalid cells (e.g., misdected cells) are also stored here.
+All detected cells are labeled with a Cell ID (e.g., F1C4) and stored in this folder. The cells are in the square of "Image Size". Note that invalid cells (e.g., misditected cells) are also stored here.
 
 **Fluo1**
 
