@@ -283,7 +283,7 @@ $$\mathbf{f} = \begin{pmatrix}
     u_{2_1}&\cdots&u_{2_n}
 \end{pmatrix}^\mathrm{T}$$
 
-Hence, we have obtained the parameters in theta for the center axix of the cell in the new basis. (fig. 6)
+Hence, we have obtained the parameters in theta for the center axis of the cell in the new basis. (fig. 6)
 
 Now using the axis, the arc length can be calculated as:
 
