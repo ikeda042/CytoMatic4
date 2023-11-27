@@ -7,7 +7,7 @@ import cv2
 def combine_images_function(total_rows, total_cols, image_size, num_images, filename, single_layer_mode, dual_layer_mode):
     # まとめる画像のサイズを計算
     result_image = np.zeros((total_rows * image_size, total_cols * image_size, 3), dtype=np.uint8)
-
+    num_images += 1
     # 画像をまとめる処理 Replot のフォルダから
     for i in range(total_rows):
         for j in range(total_cols):

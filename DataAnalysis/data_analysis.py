@@ -337,8 +337,8 @@ def data_analysis(db_name:str = "test.db", image_size:int = 100,out_name:str ="c
                     cv2.rectangle(image_fluo2,(image_size-scale_bar_mergins-scale_bar_length,image_size-scale_bar_mergins),(image_size-scale_bar_mergins,image_size-scale_bar_mergins-scale_bar_thickness),scale_bar_color,-1)
                     unify_images_ndarray2(image1=image_ph, image2=fluo_out1, image3=fluo_out2 ,output_name=f"Cell/unified_cells/{n}")
                 
-    total_rows = int(np.sqrt(n))
-    total_cols = total_rows + 1
+    total_rows = int(np.sqrt(n))+ 1
+    total_cols = n//total_rows + 1
     num_images = n
     filename = db_name[:-3]
     combine_images_function(total_rows, total_cols, image_size, num_images, out_name,single_layer_mode, dual_layer_mode)
