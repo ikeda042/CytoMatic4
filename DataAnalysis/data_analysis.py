@@ -254,9 +254,9 @@ def data_analysis(db_name:str = "test.db", image_size:int = 100,out_name:str ="c
                     x = np.linspace(min_u1,max_u1,1000)
                     y = [theta[0]*i**4+theta[1]*i**3 + theta[2]*i**2+theta[3]*i + theta[4] for i in x]
 
-                    cell_length = calc_arc_length(theta,min_u1,max_u1)
-                    print(cell_lengths)
-                    cell_lengths.append([cell.cell_id,cell_length])
+                    # cell_length = calc_arc_length(theta,min_u1,max_u1)
+                    # print(cell_lengths)
+                    cell_lengths.append([0])
 
                     plt.plot(x,y,color = "blue",linewidth=1)
                     plt.scatter(min_u1,theta[0]*min_u1**4+theta[1]*min_u1**3 + theta[2]*min_u1**2+theta[3]*min_u1 + theta[4],s = 100,color = "red",zorder = 100,marker = "x")
