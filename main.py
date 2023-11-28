@@ -29,7 +29,6 @@ def main(
         single_layer_mode = False
     
     if mode == "all":
-        file_name = f'{"".join(file_name.split(".")[0:-1])}.{file_name.split(".")[-1]}'
         if file_name.split(".")[-1] == "nd2":
             extract_nd2(file_name)
             file_name = file_name.split('/')[-1].split(".")[0] + ".tif"
@@ -44,7 +43,6 @@ def main(
         cells = cursor.fetchall()
         for cell in cells:
             print(cell)
-
         engine = create_engine(f'sqlite:///{file_name.split(".")[0]}.db', echo=True)
         Base.metadata.create_all(engine)
         Session = sessionmaker(bind=engine)
@@ -61,7 +59,7 @@ def main(
     elif mode == "delete_all":
         delete_all()
     else:
-        data_analysis(db_name=f"{file_name.split('.')[0]}.db", image_size=img_size,out_name = file_name.split(".")[0],single_layer_mode=single_layer_mode, dual_layer_mode=dual_layer_mode)
+        data_analysis(db_name=f"{file_name.split('.')[0]}.db", image_size=img_size,out_name = file_name.split(".")[0],dual_layer_mode=dual_layer_mode)
 
 #Parameters to specify
 #####################################################
