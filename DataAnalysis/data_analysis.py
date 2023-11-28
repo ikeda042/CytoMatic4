@@ -10,7 +10,7 @@ from sqlalchemy import update
 from numpy.linalg import eig, inv
 import os
 from .combine_images import combine_images_function
-import sympy
+from scipy.integrate import quad
 from tqdm import tqdm
 from skimage.feature import graycomatrix, graycoprops
 from scipy.stats import kurtosis, skew
@@ -64,6 +64,34 @@ def unify_images_ndarray(image1, image2, output_name):
     canvas[:image2.shape[0], image1.shape[1]:, :] = image2
     cv2.imwrite(f"{output_name}.png", cv2.cvtColor(canvas, cv2.COLOR_BGR2RGB))
 
+def polynomial_regression(U, k, min_u1, max_u1, u2_c,u1_contour,u2_contour) -> float:
+    plt.scatter(u1_contour,u2_contour,s = 5,color = "lime" )
+    W = np.array([[i**j for j in range(k, -1, -1)] for i in [i[1] for i in U]])
+    f = np.array([i[0] for i in U])
+    theta = inv(W.T @ W) @ W.T @ f
+
+    x = np.linspace(min_u1, max_u1, 1000)
+    y_pred = sum([theta[j] * x**(k-j) for j in range(k+1)])
+
+    def arc_length_integrand(u1):
+        dydu1 = sum([theta[j] * (k-j) * u1**(k-j-1) for j in range(k+1)])
+        return np.sqrt(1 + dydu1**2)
+    length, _ = quad(arc_length_integrand, min_u1, max_u1)
+    # plt.plot(x, y_pred, color="blue", linewidth=1)
+    # plt.scatter(min_u1, sum([theta[j] * min_u1**(k-j) for j in range(k+1)]), s=100, color="red", zorder=100, marker="x")
+    # plt.scatter(max_u1, sum([theta[j] * max_u1**(k-j) for j in range(k+1)]), s=100, color="red", zorder=100, marker="x")
+    # plt.xlim(min_u1 - 40, max_u1 + 40)
+    # plt.ylim(u2_c - 40, u2_c + 40)
+    # plt.xlabel("u1")
+    # plt.ylabel("u2")
+    # plt.title(f"Polynomial Regression with k={k}")
+    # plt.axis("equal")
+    # plt.grid()
+    # #plt text of length
+    # plt.text(min_u1+50, u2_c+25, f"L={round(length*0.0625,2)}(um)", color="red", ha="center", va="top")
+    # plt.savefig(f"poly_reg_k{k}.png")
+    # plt.close()
+    return length
 
 def data_analysis(db_name:str = "test.db", image_size:int = 100,out_name:str ="cell",dual_layer_mode:bool = True,single_layer_mode:bool = False):
     ##############################################################
@@ -238,6 +266,23 @@ def data_analysis(db_name:str = "test.db", image_size:int = 100,out_name:str ="c
                     plt.xlabel("u1")
                     plt.ylabel("u2")
                     plt.axis("equal")
+
+                    """
+                    多項式回帰のKを検討（試験的）
+                    """
+                    # plt.close()
+                    # r2s = []
+                    # a, b = 4, 20
+                    # if n == 1:
+                    #     for i in range(a,b):
+                    #         r2_i = polynomial_regression(U, i, min_u1, max_u1, u2_c,u1_contour,u2_contour)
+                    #         r2s.append(r2_i)
+                    #     fig_testK = plt.figure(figsize=[6,6])
+                    #     plt.plot([i for i in range(a,b)],r2s)
+                    #     plt.xlabel("K")
+                    #     plt.ylabel("R2")
+                    #     plt.grid()
+                    #     fig_testK.savefig(f"testK.png")
 
                     normalized_points = [i/max_points for i in points_inside_cell_1]
 
