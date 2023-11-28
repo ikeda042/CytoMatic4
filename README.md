@@ -4,7 +4,7 @@
 
 ```bash
 cd ImageK4.0
-python imagek4.py
+python3 imagek4.py
 ```
 
 ![Start-up window](images_readme/1.png)
