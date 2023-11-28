@@ -255,8 +255,7 @@ def data_analysis(db_name:str = "test.db", image_size:int = 100,out_name:str ="c
                     x = np.linspace(min_u1,max_u1,1000)
                     y = [theta[0]*i**4+theta[1]*i**3 + theta[2]*i**2+theta[3]*i + theta[4] for i in x]
 
-                    # cell_length = calc_arc_length(theta,min_u1,max_u1)
-                    cell_length = 0
+                    cell_length = calc_arc_length(theta,min_u1,max_u1)
                     print(cell_lengths)
                     cell_lengths.append([cell.cell_id,cell_length])
 
