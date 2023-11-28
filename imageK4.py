@@ -13,13 +13,14 @@ def imageK4():
         layer_mode = layer_mode_var.get()
         
         with open("param_data.txt",'w') as temp_file:
-            temp_file.write(f'{"".join(file_name.split(".")[0:-1])}.{file_name.split(".")[-1]}\n')
+            temp_file.write(f'{file_name}\n')
             temp_file.write(f'{param1}\n')
             temp_file.write(f'{param2}\n')
             temp_file.write(f'{img_size}\n')
             temp_file.write(f'{mode}\n')
             temp_file.write(f'{layer_mode}\n')
         root.destroy()
+        
 
     # GUIウィンドウの初期化
     root = tk.Tk()
