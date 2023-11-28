@@ -29,6 +29,7 @@ def main(
         single_layer_mode = False
     
     if mode == "all":
+        file_name = f'{"".join(file_name.split(".")[0:-1])}.{file_name.split(".")[-1]}'
         if file_name.split(".")[-1] == "nd2":
             extract_nd2(file_name)
             file_name = file_name.split('/')[-1].split(".")[0] + ".tif"
@@ -43,6 +44,7 @@ def main(
         cells = cursor.fetchall()
         for cell in cells:
             print(cell)
+
         engine = create_engine(f'sqlite:///{file_name.split(".")[0]}.db', echo=True)
         Base.metadata.create_all(engine)
         Session = sessionmaker(bind=engine)
