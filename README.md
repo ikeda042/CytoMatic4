@@ -348,7 +348,7 @@ Figure 6-2 demonstrates fit curves (the center axis) for K-values ranging from 5
 Fig.6-2: Fit curves for the center axis with varying K-values (5 to 10).
 </p>
 
-As shown in Fig. 6-2, K = 7 appears to be the optimal value. 
+As shown in Fig. 6-2, K = 8 appears to be the optimal value. 
 
 However, it's important to note that the differences in calculated arc lengths across various K-values fall within the subpixel range.
 
