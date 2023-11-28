@@ -150,6 +150,7 @@ def data_analysis(db_name:str = "test.db", image_size:int = 100,out_name:str ="c
                 """
                 image_ph = cv2.imdecode(np.frombuffer(cell.img_ph, dtype=np.uint8), cv2.IMREAD_COLOR)
                 image_ph_copy = image_ph.copy()
+                image_size = image_ph.shape[0]
                 cv2.drawContours(image_ph_copy,pickle.loads(cell.contour),-1,(0,255,0),1)
                 position = (0, 15)  
                 font = cv2.FONT_HERSHEY_SIMPLEX

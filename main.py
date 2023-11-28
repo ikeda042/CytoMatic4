@@ -8,13 +8,14 @@ from sqlalchemy import create_engine, update
 from sqlalchemy.orm import sessionmaker
 from typing import Literal
 from nd2extract import extract_nd2
+import os 
 
 def main(
         file_name:str,
         param1:int,
         param2:int,
         img_size:int,
-        mode: Literal["all","data_analysis","delete_all"] = "all",
+        mode: Literal["all","data_analysis","data_analysis","delete_all"] = "all",
         layer_mode: Literal["dual","single","normal"] = "dual",
         ):
     delete_all()
@@ -58,8 +59,9 @@ def main(
     #     delete_all(input_filename=file_name)
     elif mode == "delete_all":
         delete_all()
-    else:
-        data_analysis(db_name=f"{file_name.split('.')[0]}.db", image_size=img_size,out_name = file_name.split(".")[0],dual_layer_mode=dual_layer_mode)
+    elif mode == "data_analysis_all":
+        for file_name in [i for i in os.listdir() if i.split(".")[-1] == "db" and i not in ["image_labels.db","test_database.db"]]:
+            data_analysis(db_name=f"{file_name.split('.')[0]}.db", image_size=500,out_name = file_name.split(".")[0],dual_layer_mode=dual_layer_mode)
 
 #Parameters to specify
 #####################################################

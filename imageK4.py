@@ -51,6 +51,7 @@ def imageK4():
     tk.Label(root, text="Mode").pack()
     tk.Radiobutton(root, text="All", variable=mode_var, value="all").pack()
     tk.Radiobutton(root, text="Data Analysis", variable=mode_var, value="data_analysis").pack()
+    tk.Radiobutton(root, text="Data Analysis(all db)", variable=mode_var, value="data_analysis_all").pack()
     tk.Radiobutton(root, text="Delete All", variable=mode_var, value="delete_all").pack()
 
     layer_mode_var = tk.StringVar(value="dual")
