@@ -1,7 +1,5 @@
 # CytoMatic4
-CytoMatic4 is an open-cv based image processing program for automationg the extracton of cell images from a large number of images.(i.e. multiple nd2 files)
-This program is python based and uses tkinter for the GUI, thus it is cross-platform. (Mostly tested on Windows 10 and MacOS Sonoma 14.0)
-
+CytoMatic4 is an OpenCV-based image processing program designed for automating the extraction of cell images from a large number of images (e.g., multiple nd2 files). This program is Python-based and utilizes Tkinter for its GUI, making it cross-platform. It has been primarily tested on Windows 10 and MacOS Sonoma 14.0.
 # Usage
 1. Go to the directory and run cytomatic4.py <b>OR</b> run cytomatic4.exe
 
