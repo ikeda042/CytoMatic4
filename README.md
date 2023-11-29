@@ -554,7 +554,8 @@ Shows all the cumulative histogram figures in a single image.
 
 
 # Connecting to the database
-You can connect to the database with the following code.
+You can connect to the database with the following scripts.
+
 
 ```python
 from sqlalchemy import create_engine
