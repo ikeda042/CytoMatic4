@@ -4,6 +4,12 @@ CytoMatic4 is an OpenCV-based image processing program designed for automating t
 It has been primarily tested on Windows 10 and MacOS Sonoma 14.0.
 
 # Installation 
+1. Install python3.8 or higher on your computer.
+2. Clone this repository to your computer. (e.g., on visual studio code)
+3. Install the required packages with the following commmand.
+```bash
+pip install -r requirements.txt
+```
 
 # Usage
 1. Go to the directory and run cytomatic4.py <b>OR</b> run cytomatic4.exe
