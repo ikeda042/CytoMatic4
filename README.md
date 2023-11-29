@@ -24,7 +24,7 @@ cd CytoMatic4
 python3 cytomatic4.py
 ```
 
-![Start-up window](images_readme/1.png)
+![Start-up window](images_readme/cytomatic4.png)
 
 2. Click "Select File" to choose a file. (file ext must be .nd2/.tif)
 3. Input parameters. 
