@@ -27,7 +27,7 @@ def imageK4():
     root.geometry("400x500")
     # ウィンドウサイズの固定
     root.resizable(False, False)
-    root.title("ImageK4.0")
+    root.title("CytoMatic4")
 
     # ファイル選択
     file_name_var = tk.StringVar()

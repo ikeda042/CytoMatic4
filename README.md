@@ -1,10 +1,10 @@
 # CytoMatic4
 # Usage
-1. Go to the directory and run imageK4.py <b>OR</b> run imageK4.exe
+1. Go to the directory and run cytomatic4.py <b>OR</b> run cytomatic4.exe
 
 ```bash
-cd ImageK4.0
-python3 imagek4.py
+cd CytoMatic4
+python3 cytomatic4.py
 ```
 
 ![Start-up window](images_readme/1.png)
@@ -42,7 +42,7 @@ Each row (representing a cell) has the following values:
 
 # File Structure
 
-- `imageK4.py`: Provides GUI and file selection features using tkinter.
+- `cytomatic4.py`: Provides GUI and file selection features using tkinter.
 - `main.py`: Central functionalities including image processing and data analysis.
 - `nd2extract.py`: Data extraction from ND2 files.
 - `app.py`: GUI part of the application using tkinter and SQLite.
@@ -482,7 +482,7 @@ The fluorescence information is normalized 0 to 1, then plotted with a colormap 
 </div>
 
 # Quick Overview of the cells
-After running the scripts in "data_analysis" mode, several .png files will be generated in the same directory as "imageK4.py".
+After running the scripts in "data_analysis" mode, several .png files will be generated in the same directory as "cytomatic4.py".
 
 Note that <u>"all" mode automatically includes this process.</u> so that you can directly check the results after running the processes.
 
@@ -492,7 +492,7 @@ In this section, we use "test_database.db" to demonstrate.
 You can also run the scripts with the following commands to achieve the same results:
 
 ```bash
-cd imageK4.0
+cd CytoMatic4
 python3 demo.py
 ```
 ## PH
