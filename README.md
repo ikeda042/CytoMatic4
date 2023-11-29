@@ -367,7 +367,6 @@ However, it's important to note that the differences in calculated arc lengths a
 Consequently, choosing K = 4 might remain a viable compromise in any case.
 
 
-
 # Data analysis
 
 The following *E.coli* cell in figure 7 is one of the output cells in the directory **"Cell/ph/"**.
