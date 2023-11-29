@@ -369,6 +369,9 @@ Consequently, choosing K = 4 might remain a viable compromise in any case.
 
 # Data analysis
 
+For data analysis, you are welcome to use your original scripts. (We provide how to connect to the database (i.e., *.db) in the different section.) However, you can also utilize the default scripts provided to review the cells you have labeled with the application.
+
+
 The following *E.coli* cell in figure 7 is one of the output cells in the directory **"Cell/ph/"**.
 
 <div align="center">
