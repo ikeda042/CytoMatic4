@@ -8,7 +8,10 @@ It has been primarily tested on Windows 10 and MacOS Sonoma 14.0.
 # Installation 
 1. Install python3.8 or higher on your computer.
 2. Clone this repository to your computer. (e.g., on visual studio code)
-3. Install the required packages with the following commmand in the root directory of the repository.
+```bash
+https://github.com/ikeda042/CytoMatic4.git
+```
+1. Install the required packages with the following commmand in the root directory of the repository.
 ```bash
 pip install -r requirements.txt
 ```
