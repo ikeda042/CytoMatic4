@@ -596,5 +596,5 @@ with Session() as session:
 [OpenCV License](https://github.com/opencv/opencv/blob/master/LICENSE)
 
 # Contributors
-- Yunosuke Ikeda b182587@hiroshima-u.ac.jp/ikeda042@umn.edu (Lead Developer)
+- Yunosuke Ikeda b182587@hiroshima-u.ac.jp (Lead Developer)
 - Haruya Tsurusako e3131901@foreign.kitakyu-u.ac.jp (Cell Rotation algorithms by  circumscribed quadrangle.)
