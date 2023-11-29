@@ -1,4 +1,4 @@
-# ImageK4.0
+# CytoMatic4
 # Usage
 1. Go to the directory and run imageK4.py <b>OR</b> run imageK4.exe
 
