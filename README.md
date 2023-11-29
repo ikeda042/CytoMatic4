@@ -17,7 +17,7 @@ pip install -r requirements.txt
 ```
 
 # Usage
-1. Go to the directory and run cytomatic4.py <b>OR</b> run cytomatic4.exe
+1. Go to the directory and run cytomatic4.py
 
 ```bash
 cd CytoMatic4
