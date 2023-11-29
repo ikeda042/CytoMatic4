@@ -1,0 +1,12 @@
+numpy
+matplotlib
+scipy
+nd2reader
+opencv-python
+scikit-image
+scikit-learn
+pandas
+tifffile
+sqlalchemy
+pillow
+tqdm
