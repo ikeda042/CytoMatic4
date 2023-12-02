@@ -16,6 +16,46 @@ from skimage.feature import graycomatrix, graycoprops
 from scipy.stats import kurtosis, skew
 from .components import create_dirs, calc_gradient, basis_conversion, calc_arc_length
 from mpl_toolkits.mplot3d import Axes3D
+from sympy import symbols, diff, sqrt
+from sympy import solve, Eq
+from scipy.optimize import minimize
+
+def find_minimum_distance_and_point(a, b, c, d, e, x_Q, y_Q):
+    # シンボルの定義
+    x = symbols('x')
+
+    # 4次式 f(x) の定義
+    f_x = a*x**4 + b*x**3 + c*x**2 + d*x + e
+
+    # 点Qから関数上の点までの距離 D の定義
+    D = sqrt((x - x_Q)**2 + (f_x - y_Q)**2)
+
+    # 距離 D を x に関して微分
+    D_diff = diff(D, x)
+
+    # 微分式を 0 と置いた方程式
+    equation = Eq(D_diff, 0)
+
+    # 微分式の方程式を解く
+    solutions = solve(equation, x)
+
+    # 実数解のみを取り出し、距離 D の値を計算する
+    real_solutions = [sol.evalf() for sol in solutions if sol.is_real]
+
+    # 最小値を見つけるための関数
+    def objective_function(x_val):
+        return sqrt((x_val - x_Q)**2 + (a*x_val**4 + b*x_val**3 + c*x_val**2 + d*x_val + e - y_Q)**2)
+
+    # 最短距離とその時の関数上の点を見つける
+    min_distance = None
+    min_point = None
+    for sol in real_solutions:
+        distance = objective_function(sol)
+        if min_distance is None or distance < min_distance:
+            min_distance = distance
+            min_point = (sol, a*sol**4 + b*sol**3 + c*sol**2 + d*sol + e)
+
+    return min_distance, min_point
 
 Base = declarative_base()
 class Cell(Base):
@@ -130,7 +170,7 @@ def data_analysis(db_name:str = "test.db", image_size:int = 100,out_name:str ="c
     cumulative_frequencys = []
     ##############################################################
     
-    create_dirs(["Cell","Cell/ph","Cell/fluo1","Cell/fluo2","Cell/histo","Cell/histo_cumulative","Cell/replot","Cell/replot_map","Cell/fluo1_incide_cell_only","Cell/fluo2_incide_cell_only","Cell/gradient_magnitudes","Cell/GLCM","Cell/unified_cells","Cell/3dplot"])
+    create_dirs(["Cell","Cell/ph","Cell/fluo1","Cell/fluo2","Cell/histo","Cell/histo_cumulative","Cell/replot","Cell/replot_map","Cell/fluo1_incide_cell_only","Cell/fluo2_incide_cell_only","Cell/gradient_magnitudes","Cell/GLCM","Cell/unified_cells","Cell/3dplot","Cell/min_points"])
 
     engine = create_engine(f'sqlite:///{db_name}', echo=False)
     Base.metadata.create_all(engine)
@@ -358,8 +398,15 @@ def data_analysis(db_name:str = "test.db", image_size:int = 100,out_name:str ="c
                     plt.colorbar(img)
                     fig_3d.savefig(f"Cell/3dplot/{n}.png")
                     plt.close()
-
-
+                    #######################################################Min distant point
+                    fig_min_point = plt.figure(figsize=[6,6])
+                    for i,j in zip(u1,u2):
+                        min_distance, min_point = find_minimum_distance_and_point(theta[0],theta[1],theta[2],theta[3],theta[4],i,j)
+                        print(min_distance)
+                        print(min_point)
+                        plt.scatter(min_point[0],min_point[1],s = 10,color = "lime" )
+                    fig_min_point.savefig(f"Cell/min_points/{n}.png")
+                    plt.close()
 
 
                 ##########資料作成用(Cell/unified_cells）##########
