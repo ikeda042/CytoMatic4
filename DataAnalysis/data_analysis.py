@@ -15,7 +15,7 @@ from tqdm import tqdm
 from skimage.feature import graycomatrix, graycoprops
 from scipy.stats import kurtosis, skew
 from .components import create_dirs, calc_gradient, basis_conversion, calc_arc_length
-
+from mpl_toolkits.mplot3d import Axes3D
 
 Base = declarative_base()
 class Cell(Base):
@@ -130,7 +130,7 @@ def data_analysis(db_name:str = "test.db", image_size:int = 100,out_name:str ="c
     cumulative_frequencys = []
     ##############################################################
     
-    create_dirs(["Cell","Cell/ph","Cell/fluo1","Cell/fluo2","Cell/histo","Cell/histo_cumulative","Cell/replot","Cell/replot_map","Cell/fluo1_incide_cell_only","Cell/fluo2_incide_cell_only","Cell/gradient_magnitudes","Cell/GLCM","Cell/unified_cells"])
+    create_dirs(["Cell","Cell/ph","Cell/fluo1","Cell/fluo2","Cell/histo","Cell/histo_cumulative","Cell/replot","Cell/replot_map","Cell/fluo1_incide_cell_only","Cell/fluo2_incide_cell_only","Cell/gradient_magnitudes","Cell/GLCM","Cell/unified_cells","Cell/3dplot"])
 
     engine = create_engine(f'sqlite:///{db_name}', echo=False)
     Base.metadata.create_all(engine)
@@ -347,6 +347,18 @@ def data_analysis(db_name:str = "test.db", image_size:int = 100,out_name:str ="c
                     plt.grid(True)
                     fig_histo_cumulative.savefig(f"Cell/histo_cumulative/{n}.png")
                     plt.close()
+
+                    #######################################################3dプロット
+                    fig_3d = plt.figure(figsize=[6,6])
+                    ax = fig_3d.add_subplot(111, projection='3d')
+                    # Scatter plot using the coordinates and the brightness as color
+                    img = ax.scatter([i[0] for i in coords_inside_cell_1],[i[1] for i in coords_inside_cell_1], points_inside_cell_1, c=points_inside_cell_1, cmap='inferno',s = 10,marker="o")
+
+                    # Adding color bar to represent brightness
+                    plt.colorbar(img)
+                    fig_3d.savefig(f"Cell/3dplot/{n}.png")
+                    plt.close()
+
 
 
 
