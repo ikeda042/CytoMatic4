@@ -21,12 +21,46 @@ def combine_images_function(total_rows, total_cols, image_size, num_images, file
                 # まとめる画像に配置
                 result_image[i * image_size: (i + 1) * image_size,
                             j * image_size: (j + 1) * image_size] = img
-
     plt.axis('off')
     # まとめた画像を保存
     cv2.imwrite(f'{filename}_replot.png', result_image)
     plt.close()
 
+    # 画像をまとめる処理 projected のフォルダから
+    for i in range(total_rows):
+        for j in range(total_cols):
+            image_index = i * total_cols + j  # 画像のインデックス
+            if image_index <num_images:
+                image_path = f'Cell/projected_points/{image_index}.png'  # 画像のパスを適切に設定
+                print(image_path)
+                # 画像を読み込んでリサイズ
+                img = cv2.imread(image_path)
+                img = cv2.resize(img, (image_size, image_size))
+                # まとめる画像に配置
+                result_image[i * image_size: (i + 1) * image_size,
+                            j * image_size: (j + 1) * image_size] = img
+    plt.axis('off')
+    # まとめた画像を保存
+    cv2.imwrite(f'{filename}_projected_points.png', result_image)
+    plt.close()
+
+    # 画像をまとめる処理 peak_patg のフォルダから
+    for i in range(total_rows):
+        for j in range(total_cols):
+            image_index = i * total_cols + j  # 画像のインデックス
+            if image_index <num_images:
+                image_path = f'Cell/peak_path/{image_index}.png'  # 画像のパスを適切に設定
+                print(image_path)
+                # 画像を読み込んでリサイズ
+                img = cv2.imread(image_path)
+                img = cv2.resize(img, (image_size, image_size))
+                # まとめる画像に配置
+                result_image[i * image_size: (i + 1) * image_size,
+                            j * image_size: (j + 1) * image_size] = img
+    plt.axis('off')
+    # まとめた画像を保存
+    cv2.imwrite(f'{filename}_peak_paths.png', result_image)
+    plt.close()
 
     # 画像をまとめる処理 Histoのフォルダから
     for i in range(total_rows):
@@ -144,7 +178,5 @@ def combine_images_function(total_rows, total_cols, image_size, num_images, file
                             j * image_size: (j + 1) * image_size] = img
     plt.axis('off')
     cv2.imwrite(f'{filename}_histo_cumulative.png', result_image)
-
-
 
 

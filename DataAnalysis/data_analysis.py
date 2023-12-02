@@ -16,44 +16,27 @@ from skimage.feature import graycomatrix, graycoprops
 from scipy.stats import kurtosis, skew
 from .components import create_dirs, calc_gradient, basis_conversion, calc_arc_length
 from mpl_toolkits.mplot3d import Axes3D
-from sympy import symbols, diff, sqrt
-from sympy import solve, Eq
+
 from scipy.optimize import minimize
+import numpy as np
 
 def find_minimum_distance_and_point(a, b, c, d, e, x_Q, y_Q):
-    # シンボルの定義
-    x = symbols('x')
-
     # 4次式 f(x) の定義
-    f_x = a*x**4 + b*x**3 + c*x**2 + d*x + e
+    def f_x(x):
+        return a*x**4 + b*x**3 + c*x**2 + d*x + e
 
     # 点Qから関数上の点までの距離 D の定義
-    D = sqrt((x - x_Q)**2 + (f_x - y_Q)**2)
+    def distance(x):
+        return np.sqrt((x - x_Q)**2 + (f_x(x) - y_Q)**2)
 
-    # 距離 D を x に関して微分
-    D_diff = diff(D, x)
+    # scipyのminimize関数を使用して最短距離を見つける
+    # 初期値は0とし、精度は低く設定して計算速度を向上させる
+    result = minimize(distance, 0, method='Nelder-Mead', options={'xatol': 1e-4, 'fatol': 1e-4})
 
-    # 微分式を 0 と置いた方程式
-    equation = Eq(D_diff, 0)
-
-    # 微分式の方程式を解く
-    solutions = solve(equation, x)
-
-    # 実数解のみを取り出し、距離 D の値を計算する
-    real_solutions = [sol.evalf() for sol in solutions if sol.is_real]
-
-    # 最小値を見つけるための関数
-    def objective_function(x_val):
-        return sqrt((x_val - x_Q)**2 + (a*x_val**4 + b*x_val**3 + c*x_val**2 + d*x_val + e - y_Q)**2)
-
-    # 最短距離とその時の関数上の点を見つける
-    min_distance = None
-    min_point = None
-    for sol in real_solutions:
-        distance = objective_function(sol)
-        if min_distance is None or distance < min_distance:
-            min_distance = distance
-            min_point = (sol, a*sol**4 + b*sol**3 + c*sol**2 + d*sol + e)
+    # 最短距離とその時の関数上の点
+    x_min = result.x[0]
+    min_distance = distance(x_min)
+    min_point = (x_min, f_x(x_min))
 
     return min_distance, min_point
 
@@ -168,9 +151,15 @@ def data_analysis(db_name:str = "test.db", image_size:int = 100,out_name:str ="c
     ヒストグラム解析パラメータ
     """
     cumulative_frequencys = []
+
+    """
+    投影データ
+    """
+    projected_points_xs = []
+    projected_points_ys = []
     ##############################################################
     
-    create_dirs(["Cell","Cell/ph","Cell/fluo1","Cell/fluo2","Cell/histo","Cell/histo_cumulative","Cell/replot","Cell/replot_map","Cell/fluo1_incide_cell_only","Cell/fluo2_incide_cell_only","Cell/gradient_magnitudes","Cell/GLCM","Cell/unified_cells","Cell/3dplot","Cell/min_points"])
+    create_dirs(["Cell","Cell/ph","Cell/fluo1","Cell/fluo2","Cell/histo","Cell/histo_cumulative","Cell/replot","Cell/replot_map","Cell/fluo1_incide_cell_only","Cell/fluo2_incide_cell_only","Cell/gradient_magnitudes","Cell/GLCM","Cell/unified_cells","Cell/3dplot","Cell/projected_points","Cell/peak_path"])
 
     engine = create_engine(f'sqlite:///{db_name}', echo=False)
     Base.metadata.create_all(engine)
@@ -400,14 +389,49 @@ def data_analysis(db_name:str = "test.db", image_size:int = 100,out_name:str ="c
                     plt.close()
                     #######################################################Min distant point
                     fig_min_point = plt.figure(figsize=[6,6])
+                    raw_points = []
                     for i,j in zip(u1,u2):
                         min_distance, min_point = find_minimum_distance_and_point(theta[0],theta[1],theta[2],theta[3],theta[4],i,j)
                         print(min_distance)
                         print(min_point)
-                        plt.scatter(min_point[0],min_point[1],s = 10,color = "lime" )
-                    fig_min_point.savefig(f"Cell/min_points/{n}.png")
-                    plt.close()
+                        raw_points.append(min_point)
+                        # plt.scatter(min_point[0],min_point[1],s = 10,color = "lime" )
+                    projected_points = [[0,raw_points[0][1]]]
 
+                    for i in range(len(raw_points)-1):
+                        length = calc_arc_length(theta,raw_points[i][0],raw_points[i+1][0])
+                        projected_points.append([projected_points[i][0]+length,raw_points[i+1][1]])
+                    temp_y = [points_inside_cell_1[i] for i in range(len(projected_points))]
+                    print([round(i[0],2) for i in projected_points],temp_y)
+                    plt.scatter([i[0] for i in projected_points],temp_y,c = temp_y ,s = 8,cmap="inferno",marker="x")
+                    projected_points_xs.append([i[0] for i in projected_points])
+                    projected_points_ys.append(temp_y)
+                    fig_min_point.savefig(f"Cell/projected_points/{n}.png")
+                    plt.close()
+                ##########ピークに沿ったpathの探索アルゴリズム##########
+                data_points = np.array([[i[0],j] for i,j in zip(projected_points,temp_y)])
+                start_point = data_points[data_points[:, 0] == data_points[:, 0].min()][0]
+                end_point = data_points[data_points[:, 0] == data_points[:, 0].max()][0]
+                path = [start_point]
+                split_num = 20
+                DElTA_L = (end_point[0]-start_point[0])/split_num
+                while True:
+                    current_x = path[-1][0]
+                    points_in_range = data_points[(data_points[:, 0] > current_x) & (data_points[:, 0] <= current_x + DElTA_L)]
+                    if len(points_in_range) == 0:
+                        break 
+                    next_point = points_in_range[points_in_range[:, 1] == points_in_range[:, 1].max()][0]
+                    path.append(next_point)
+                fig_path = plt.figure(figsize=(6, 6))
+                path = np.array(path)
+                plt.scatter(data_points[:, 0], data_points[:, 1], label='Data Points',s = 20,color = "lime",marker="x")
+                plt.plot(path[:, 0], path[:, 1], color='#FD00FD', label='Path',)
+                plt.scatter(path[:, 0], path[:, 1], color='#FD00FD',s = 10)
+                plt.xlabel('X')
+                plt.ylabel('Y')
+                plt.title('Path Finder Algorithm')
+                plt.legend()
+                fig_path.savefig(f"Cell/peak_path/{n}.png")
 
                 ##########資料作成用(Cell/unified_cells）##########
                 
@@ -513,6 +537,14 @@ def data_analysis(db_name:str = "test.db", image_size:int = 100,out_name:str ="c
     with open(f"{out_name}_skewnesses.txt",mode="w") as fpout:
         for i in range(len(skewnesses)):
             fpout.write(f"{skewnesses[i]}\n")
+    with open(f"{out_name}_projected_points_xs.txt",mode="w") as fpout:
+        for i in range(len(projected_points_xs)):
+            fpout.write(f"{','.join([str(float(i)) for i in projected_points_xs[i]])}\n")
+    with open(f"{out_name}_projected_points_ys.txt",mode="w") as fpout:
+        for i in range(len(projected_points_ys)):
+            fpout.write(f"{','.join([str(float(i)) for i in projected_points_ys[i]])}\n")
+    
+
 
     # with open(f"{out_name}_kurtosises.txt",mode="w") as fpout:
     #     for i in range(len(kurtosises)):
