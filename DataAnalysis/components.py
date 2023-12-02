@@ -5,8 +5,6 @@ from numpy.linalg import eig
 import matplotlib.pyplot as plt
 import scipy 
 
-
-
 def create_dirs(dirs:list[str]) -> None:
     for i in dirs:
         if not os.path.exists(i):
