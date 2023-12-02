@@ -1,5 +1,9 @@
-!*
+*
 !combine_images.py
 !data_analysis.py
 !.gitignore
 !utils
+!peak_paths_plot.py
+!calc_cell_length.py
+!components.py
+!cumulative_plot_analysis.py
