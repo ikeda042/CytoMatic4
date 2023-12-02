@@ -157,6 +157,7 @@ def data_analysis(db_name:str = "test.db", image_size:int = 100,out_name:str ="c
     """
     projected_points_xs = []
     projected_points_ys = []
+    peak_points:list[list[float]] = []
     ##############################################################
     
     create_dirs(["Cell","Cell/ph","Cell/fluo1","Cell/fluo2","Cell/histo","Cell/histo_cumulative","Cell/replot","Cell/replot_map","Cell/fluo1_incide_cell_only","Cell/fluo2_incide_cell_only","Cell/gradient_magnitudes","Cell/GLCM","Cell/unified_cells","Cell/3dplot","Cell/projected_points","Cell/peak_path"])
@@ -410,20 +411,42 @@ def data_analysis(db_name:str = "test.db", image_size:int = 100,out_name:str ="c
                     plt.close()
                 ##########ピークに沿ったpathの探索アルゴリズム##########
                 data_points = np.array([[i[0],j] for i,j in zip(projected_points,temp_y)])
-                start_point = data_points[data_points[:, 0] == data_points[:, 0].min()][0]
-                end_point = data_points[data_points[:, 0] == data_points[:, 0].max()][0]
-                path = [start_point]
-                split_num = 20
-                DElTA_L = (end_point[0]-start_point[0])/split_num
-                while True:
-                    current_x = path[-1][0]
-                    points_in_range = data_points[(data_points[:, 0] > current_x) & (data_points[:, 0] <= current_x + DElTA_L)]
-                    if len(points_in_range) == 0:
-                        break 
-                    next_point = points_in_range[points_in_range[:, 1] == points_in_range[:, 1].max()][0]
-                    path.append(next_point)
+                
+                # start_point = data_points[data_points[:, 0] == data_points[:, 0].min()][0]
+                # end_point = data_points[data_points[:, 0] == data_points[:, 0].max()][0]
+                # path = [start_point]
+                # split_num = 20
+                # DElTA_L = (end_point[0]-start_point[0])/split_num
+                # while True:
+                #     current_x = path[-1][0]
+                #     points_in_range = data_points[(data_points[:, 0] > current_x) & (data_points[:, 0] <= current_x + DElTA_L)]
+                #     if len(points_in_range) == 0:
+                #         break 
+                #     next_point = points_in_range[points_in_range[:, 1] == points_in_range[:, 1].max()][0]
+                #     path.append(next_point)
+
                 fig_path = plt.figure(figsize=(6, 6))
+                split_num = 55
+                delta_L = (np.max(x) - np.min(x)) / split_num
+                x = data_points[:, 0]
+                y = data_points[:, 1]
+                path = []
+                for i in range(split_num):
+                    min_x_i = np.min(x) + i * delta_L
+                    max_x_i = min_x_i + delta_L
+                    
+                    indices = (x >= min_x_i) & (x < max_x_i)
+                    x_in_range = x[indices]
+                    y_in_range = y[indices]
+
+                    if len(y_in_range) > 0 :
+                        max_y = np.max(y_in_range)
+                        max_y_index = np.argmax(y_in_range)
+                        sampled_point = [x_in_range[max_y_index], max_y]
+                        path.append(sampled_point)
+                peak_points.append(path)
                 path = np.array(path)
+                print(path)
                 plt.scatter(data_points[:, 0], data_points[:, 1], label='Data Points',s = 20,color = "lime",marker="x")
                 plt.plot(path[:, 0], path[:, 1], color='#FD00FD', label='Path',)
                 plt.scatter(path[:, 0], path[:, 1], color='#FD00FD',s = 10)
@@ -432,6 +455,7 @@ def data_analysis(db_name:str = "test.db", image_size:int = 100,out_name:str ="c
                 plt.title('Path Finder Algorithm')
                 plt.legend()
                 fig_path.savefig(f"Cell/peak_path/{n}.png")
+                plt.close()
 
                 ##########資料作成用(Cell/unified_cells）##########
                 
@@ -483,9 +507,10 @@ def data_analysis(db_name:str = "test.db", image_size:int = 100,out_name:str ="c
     plt.ylim(0, 1.05)
     plt.grid(True)
     fig_histo_cumulative_inOne.savefig(f"{filename}_cumulative_frequency_one.png")
-    with open(f"{filename}_cumulative_frequency_one.txt",mode="w") as fpout:
-        for i in cumulative_frequencys:
-                fpout.write(f"{','.join([str(float(i)) for i in i])}\n")
+    plt.close()
+    # with open(f"{filename}_cumulative_frequency_one.txt",mode="w") as fpout:
+    #     for i in cumulative_frequencys:
+    #             fpout.write(f"{','.join([str(float(i)) for i in i])}\n")
     # with open(f"{out_name}_cell_lengths.txt",mode="w") as fpout:
     #     for i in cell_lengths:
     #         fpout.write(f"{i[0]},{i[1]}\n")
@@ -493,9 +518,10 @@ def data_analysis(db_name:str = "test.db", image_size:int = 100,out_name:str ="c
     # with open(f"{out_name}_agg_formation_rate.txt",mode="w") as fpout:
     #     fpout.write(f"out_name,num_agg_detected,num_total_cells,agg_form_rate\n")
     #     fpout.write(f"{out_name},{agg_tracker},{n},{agg_tracker/n}\n")
-    with open(f"{out_name}_meds_means_vars.txt",mode="w") as fpout:
-        for i in range(len(meds)):
-            fpout.write(f"{meds[i]},{means[i]},{vars[i]}\n")
+    # with open(f"{out_name}_meds_means_vars.txt",mode="w") as fpout:
+    #     for i in range(len(meds)):
+    #         fpout.write(f"{meds[i]},{means[i]},{vars[i]}\n")
+
     # with open(f"{out_name}_fluo_2_mean_fluo_intensities.txt",mode="w") as fpout:
     #     for i in range(len(mean_fluo_raw_intensities_2)):
     #         fpout.write(f"{mean_fluo_raw_intensities_2[i]}\n")
@@ -534,21 +560,30 @@ def data_analysis(db_name:str = "test.db", image_size:int = 100,out_name:str ="c
     #     for i in range(len(smoothnesses)):
     #         fpout.write(f"{smoothnesses[i]}\n")
 
-    with open(f"{out_name}_skewnesses.txt",mode="w") as fpout:
-        for i in range(len(skewnesses)):
-            fpout.write(f"{skewnesses[i]}\n")
-    with open(f"{out_name}_projected_points_xs.txt",mode="w") as fpout:
-        for i in range(len(projected_points_xs)):
-            fpout.write(f"{','.join([str(float(i)) for i in projected_points_xs[i]])}\n")
-    with open(f"{out_name}_projected_points_ys.txt",mode="w") as fpout:
-        for i in range(len(projected_points_ys)):
-            fpout.write(f"{','.join([str(float(i)) for i in projected_points_ys[i]])}\n")
+    # with open(f"{out_name}_skewnesses.txt",mode="w") as fpout:
+    #     for i in range(len(skewnesses)):
+    #         fpout.write(f"{skewnesses[i]}\n")
+
+    # with open(f"{out_name}_projected_points_xs.txt",mode="w") as fpout:
+    #     for i in range(len(projected_points_xs)):
+    #         fpout.write(f"{','.join([str(float(i)) for i in projected_points_xs[i]])}\n")
+
+    # with open(f"{out_name}_projected_points_ys.txt",mode="w") as fpout:
+    #     for i in range(len(projected_points_ys)):
+    #         fpout.write(f"{','.join([str(float(i)) for i in projected_points_ys[i]])}\n")
     
-
-
     # with open(f"{out_name}_kurtosises.txt",mode="w") as fpout:
     #     for i in range(len(kurtosises)):
     #         fpout.write(f"{kurtosises[i]}\n")
+
+    with open(f"{out_name}_peak_points_xs.txt",mode="w") as fpout:
+        for i in range(len(peak_points)):
+            fpout.write(f"{','.join([str(float(i)) for i in [i[0] for i in peak_points[i]]])}\n")
+    
+    with open(f"{out_name}_peak_points_ys.txt",mode="w") as fpout:
+        for i in range(len(peak_points)):
+            fpout.write(f"{','.join([str(float(i)) for i in [i[1] for i in peak_points[i]]])}\n")
+
     
     
 
