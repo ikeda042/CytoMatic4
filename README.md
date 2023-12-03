@@ -442,7 +442,7 @@ Utilizing the determined number of segments $n$, we develop an algorithm designe
 
 The algorithm proceeds as follows:
         
-&nbsp;&nbsp;&nbsp;&nbsp;
+> Func $\to$ void<br>
 > for $i$ $\in$ $n$:<br>
 > &nbsp;&nbsp;&nbsp;&nbsp;Define segment boundaries: $L_{\text{i}}$, $L_{\text{i+1}}$<br>
 > &nbsp;&nbsp;&nbsp;&nbsp;Initialize: $\text{maxValue} \leftarrow -\infty$, $\text{maxVector} \leftarrow \text{NULL}$<br>
