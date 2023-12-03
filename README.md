@@ -425,7 +425,7 @@ It should be noted that the vectors in $\mathbf{U}^\star$ can be interpreted as 
 
 Define the set of projected vectors $\mathbf{P}^\star$ such that each vector in this set consists of the optimal parameter value $u_{1_i}^\star$ and the corresponding fluorescence intensity, denoted by $G(p_i,q_i)$, at the pixel $(p_i,q_i)$. 
 
-$$\mathbf{P}^\star = \{ (u_{1_i}^\star,G(p_i,q_i))^\mathrm{T} : u_{1_i}^\star \in u_1 \}$$
+$$\mathbf{P}^\star = \lbrace (u_{1_i}^\star,G(p_i,q_i))^\mathrm{T} : u_{1_i}^\star \in u_1 \rbrace$$
 
 
 **Peak Path Finder Algorithm**
