@@ -456,6 +456,7 @@ The algorithm proceeds as follows:
 > &nbsp;&nbsp;&nbsp;&nbsp;Add $\text{maxVector}$ to the result set
 
 
+
 ### Result:
 We applied the aforementioned algorithm for the cell shown in figure 7-2.
 
