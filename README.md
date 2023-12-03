@@ -444,18 +444,17 @@ The algorithm proceeds as follows:
         
 > $f\to \phi$<br>
 > for $i$ $\in$ $n$:<br>
-> &nbsp;&nbsp;&nbsp;&nbsp;Define segment boundaries: $L_{\text{i}}$, $L_{\text{i+1}}$<br>
+> &nbsp;&nbsp;&nbsp;&nbsp;Define segment boundaries: $L_i$, $L_{i+1}$<br>
 > &nbsp;&nbsp;&nbsp;&nbsp;Initialize: <br>
-> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$\text{maxValue} \leftarrow -\infty$<br>
->  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$\text{maxVector} \leftarrow \text{void}$<br>
-> &nbsp;&nbsp;&nbsp;&nbsp;for $\mathbf{v} \in \mathbf{P}^\star$ within$[L_{\text{i}}, L_{\text{i+1}})$:<br>
-> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if $G(p_i, q_i)$ of $\mathbf{v}$ > $\text{maxValue}$:<br>
-> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$\text{maxValue} \leftarrow G(p_i, q_i)$ of $\mathbf{v}$<br>
-> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$\text{maxVector} \leftarrow \mathbf{v}$<br>
-> if $\text{maxVector} \neq \text{NULL}$:<br>
-> &nbsp;&nbsp;&nbsp;&nbsp;Add $\text{maxVector}$ to the result set
-
-
+> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;maxValue 
+> $\leftarrow -\infty$<br>
+>  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;maxVector $\leftarrow$ void<br>
+> &nbsp;&nbsp;&nbsp;&nbsp;for $\mathbf{v} \in \mathbf{P}^\star$ within$[L_i, L_{i+1})$:<br>
+> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if $G(p_i, q_i)$ of $\mathbf{v}$ > maxValue:<br>
+> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;maxValue $\leftarrow G(p_i, q_i)$ of $\mathbf{v}$<br>
+> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;maxVector $\leftarrow \mathbf{v}$<br>
+> if maxVector $\neq$ void:<br>
+> &nbsp;&nbsp;&nbsp;&nbsp;Add maxVector to the result set
 
 ### Result:
 We applied the aforementioned algorithm for the cell shown in figure 7-2.
