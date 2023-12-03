@@ -400,6 +400,41 @@ $(p_i,q_i)$, is calculated using the distance formula:
 $$D = \sqrt{(u_1-p_i)^2+(f\hat{(u_1)} - q_i)^2}$$
 
 By minimizing the distance,we ensure that the line connecting the point on the curve and $(p_i,q_i)$ is orthogonal to the curve.
+書きかけ
+
+### Result:
+We applied the aforementioned algorithm for the cell shown in figure 7-2.
+
+<div align="center">
+
+![Start-up window](images_readme/curved_cell_18.png)  
+</div>
+<p align="center">
+Fig.7-2: An image of a "curved" <i>E.coli</i> cell.
+</p>
+
+Figure 7-3 depicts the result of projection onto the curve.
+
+<div align="center">
+
+![Start-up window](images_readme/projected_points_18.png)  
+</div>
+<p align="center">
+Fig.7-3: An image of a "curved" <i>E.coli</i> cell.
+</p>
+
+
+
+
+Figure 7-3 describes the result of the peak-path finder algorithm.
+
+<div align="center">
+
+![Start-up window](images_readme/peak_path_18.png)  
+</div>
+<p align="center">
+Fig.7-4: An image of a "curved" <i>E.coli</i> cell.
+</p>
 
 
 # Data analysis
