@@ -90,11 +90,12 @@ samples = ys_1_normalized+ys_2_normalized+ys_3_normalized+ys_4_normalized+ys_5_n
 concatenated_samples = np.column_stack(samples)
 
 plt.figure(figsize=(10, 6)) 
-plt.imshow(concatenated_samples, aspect='auto', cmap='viridis')
+plt.imshow(concatenated_samples, aspect='auto', cmap='inferno')
 plt.xlabel('Sample Number')
 cbar = plt.colorbar()
 cbar.set_label('Normalized fluo. intensity', rotation=270, labelpad=15)
 
-plt.ylabel('Index')
+plt.ylabel('Split index')
 plt.savefig("heatmap.png", dpi=300)
 plt.close()
+
