@@ -442,10 +442,12 @@ Utilizing the determined number of segments $n$, we develop an algorithm designe
 
 The algorithm proceeds as follows:
         
-> Func $\to$ void<br>
+> $f\to \phi$<br>
 > for $i$ $\in$ $n$:<br>
 > &nbsp;&nbsp;&nbsp;&nbsp;Define segment boundaries: $L_{\text{i}}$, $L_{\text{i+1}}$<br>
-> &nbsp;&nbsp;&nbsp;&nbsp;Initialize: $\text{maxValue} \leftarrow -\infty$, $\text{maxVector} \leftarrow \text{NULL}$<br>
+> &nbsp;&nbsp;&nbsp;&nbsp;Initialize: <br>
+> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$\text{maxValue} \leftarrow -\infty$<br>
+>  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$\text{maxVector} \leftarrow \text{void}$<br>
 > &nbsp;&nbsp;&nbsp;&nbsp;for $\mathbf{v} \in \mathbf{P}^\star$ within$[L_{\text{i}}, L_{\text{i+1}})$:<br>
 > &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if $G(p_i, q_i)$ of $\mathbf{v}$ > $\text{maxValue}$:<br>
 > &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$\text{maxValue} \leftarrow G(p_i, q_i)$ of $\mathbf{v}$<br>
