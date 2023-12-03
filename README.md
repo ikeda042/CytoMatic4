@@ -371,6 +371,36 @@ However, it's important to note that the differences in calculated arc lengths a
 
 Consequently, choosing K = 4 might remain a viable compromise in any case.
 
+## Quantification of Localization of Fluorescence
+### Objective:
+
+To accurately quantify the localization of fluorescence within cells.
+
+### Method:
+
+Quantifying the localization of fluorescence is straightforward in cells with a "straight" morphology(fig. 7-1). 
+
+<div align="center">
+
+![Start-up window](images_readme/fig_straight_cell.png)  
+</div>
+<p align="center">
+Fig.7-1: An image of an <i>E.coli</i> cell with a straight morphology.
+</p>
+
+However, challenges arise with "curved" cells(fig. 7-2). To address this, we capitalize on our pre-established equation representing the cellular curve (specifically, a quadratic function). This equation allows for the precise calculation of the distance between the curve and individual pixels, which is crucial for our quantification approach.
+
+The process begins by calculating the distance between the cellular curve and each pixel. This is achieved using the following formula:
+
+An arbitrary point on the curve is described as:
+$$(u_1,\theta^\mathrm{T}\mathbf{U}) $$
+The minimal distance between this curve and each pixel, denoted as 
+$(p_i,q_i)$, is calculated using the distance formula:
+
+$$D = \sqrt{(u_1-p_i)^2+(f\hat{(u_1)} - q_i)^2}$$
+
+By minimizing the distance,we ensure that the line connecting the point on the curve and $(p_i,q_i)$ is orthogonal to the curve.
+
 
 # Data analysis
 
