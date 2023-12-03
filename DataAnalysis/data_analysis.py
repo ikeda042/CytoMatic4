@@ -409,53 +409,53 @@ def data_analysis(db_name:str = "test.db", image_size:int = 100,out_name:str ="c
                     projected_points_ys.append(temp_y)
                     fig_min_point.savefig(f"Cell/projected_points/{n}.png")
                     plt.close()
-                ##########ピークに沿ったpathの探索アルゴリズム##########
-                data_points = np.array([[i[0],j] for i,j in zip(projected_points,temp_y)])
-                
-                # start_point = data_points[data_points[:, 0] == data_points[:, 0].min()][0]
-                # end_point = data_points[data_points[:, 0] == data_points[:, 0].max()][0]
-                # path = [start_point]
-                # split_num = 20
-                # DElTA_L = (end_point[0]-start_point[0])/split_num
-                # while True:
-                #     current_x = path[-1][0]
-                #     points_in_range = data_points[(data_points[:, 0] > current_x) & (data_points[:, 0] <= current_x + DElTA_L)]
-                #     if len(points_in_range) == 0:
-                #         break 
-                #     next_point = points_in_range[points_in_range[:, 1] == points_in_range[:, 1].max()][0]
-                #     path.append(next_point)
-
-                fig_path = plt.figure(figsize=(6, 6))
-                split_num = 55
-                delta_L = (np.max(x) - np.min(x)) / split_num
-                x = data_points[:, 0]
-                y = data_points[:, 1]
-                path = []
-                for i in range(split_num):
-                    min_x_i = np.min(x) + i * delta_L
-                    max_x_i = min_x_i + delta_L
+                    ##########ピークに沿ったpathの探索アルゴリズム##########
+                    data_points = np.array([[i[0],j] for i,j in zip(projected_points,temp_y)])
                     
-                    indices = (x >= min_x_i) & (x < max_x_i)
-                    x_in_range = x[indices]
-                    y_in_range = y[indices]
+                    # start_point = data_points[data_points[:, 0] == data_points[:, 0].min()][0]
+                    # end_point = data_points[data_points[:, 0] == data_points[:, 0].max()][0]
+                    # path = [start_point]
+                    # split_num = 20
+                    # DElTA_L = (end_point[0]-start_point[0])/split_num
+                    # while True:
+                    #     current_x = path[-1][0]
+                    #     points_in_range = data_points[(data_points[:, 0] > current_x) & (data_points[:, 0] <= current_x + DElTA_L)]
+                    #     if len(points_in_range) == 0:
+                    #         break 
+                    #     next_point = points_in_range[points_in_range[:, 1] == points_in_range[:, 1].max()][0]
+                    #     path.append(next_point)
 
-                    if len(y_in_range) > 0 :
-                        max_y = np.max(y_in_range)
-                        max_y_index = np.argmax(y_in_range)
-                        sampled_point = [x_in_range[max_y_index], max_y]
-                        path.append(sampled_point)
-                peak_points.append(path)
-                path = np.array(path)
-                print(path)
-                plt.scatter(data_points[:, 0], data_points[:, 1], label='Data Points',s = 20,color = "lime",marker="x")
-                plt.plot(path[:, 0], path[:, 1], color='#FD00FD', label='Path',)
-                plt.scatter(path[:, 0], path[:, 1], color='#FD00FD',s = 10)
-                plt.xlabel('X')
-                plt.ylabel('Y')
-                plt.title('Path Finder Algorithm')
-                plt.legend()
-                fig_path.savefig(f"Cell/peak_path/{n}.png")
-                plt.close()
+                    fig_path = plt.figure(figsize=(6, 6))
+                    split_num = 55
+                    delta_L = (np.max(x) - np.min(x)) / split_num
+                    x = data_points[:, 0]
+                    y = data_points[:, 1]
+                    path = []
+                    for i in range(split_num):
+                        min_x_i = np.min(x) + i * delta_L
+                        max_x_i = min_x_i + delta_L
+                        
+                        indices = (x >= min_x_i) & (x < max_x_i)
+                        x_in_range = x[indices]
+                        y_in_range = y[indices]
+
+                        if len(y_in_range) > 0 :
+                            max_y = np.max(y_in_range)
+                            max_y_index = np.argmax(y_in_range)
+                            sampled_point = [x_in_range[max_y_index], max_y]
+                            path.append(sampled_point)
+                    peak_points.append(path)
+                    path = np.array(path)
+                    print(path)
+                    plt.scatter(data_points[:, 0], data_points[:, 1], label='Data Points',s = 20,color = "lime",marker="x")
+                    plt.plot(path[:, 0], path[:, 1], color='#FD00FD', label='Path',)
+                    plt.scatter(path[:, 0], path[:, 1], color='#FD00FD',s = 10)
+                    plt.xlabel('X')
+                    plt.ylabel('Y')
+                    plt.title('Path Finder Algorithm')
+                    plt.legend()
+                    fig_path.savefig(f"Cell/peak_path/{n}.png")
+                    plt.close()
 
                 ##########資料作成用(Cell/unified_cells）##########
                 

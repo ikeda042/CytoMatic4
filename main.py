@@ -61,7 +61,7 @@ def main(
         delete_all()
     elif mode == "data_analysis_all":
         for file_name in [i for i in os.listdir() if i.split(".")[-1] == "db" and i not in ["image_labels.db","test_database.db"]]:
-            data_analysis(db_name=f"{file_name.split('.')[0]}.db", image_size=500,out_name = file_name.split(".")[0],dual_layer_mode=dual_layer_mode)
+            data_analysis(db_name=f"{file_name.split('.')[0]}.db", image_size=600,out_name = file_name.split(".")[0],dual_layer_mode=dual_layer_mode)
 
 #Parameters to specify
 #####################################################
