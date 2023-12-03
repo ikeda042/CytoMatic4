@@ -416,7 +416,7 @@ $$\frac{d}{du_1}D_i = 0$$
 for each pixel  $(p_i,q_i)$. 
 
 Define the set of solution vectors as 
-$$\mathbf{U}^\star = \{ (u_{1_i}^\star,f\hat{(u_{1_i}^\star)})^\mathrm{T} : u_{1_i}^\star \in u_1 \}$$
+$$\mathbf{U}^\star = \lbrace (u_{1_i}^\star,f\hat{(u_{1_i}^\star)})^\mathrm{T} : u_{1_i}^\star \in u_1 \rbrace$$
 
 , where $f\hat{(u_{1_i}^\star)}$ denotes the correspoinding function value.
 
