@@ -438,8 +438,20 @@ Initially, we establish a procedure to partition the curve into several segments
 
 $$\sum_{i=0}^n \Delta L_i = \int_{u_{1_1}}^{u_{1_2}} \sqrt{1 + (\frac{d}{du_1}\theta^\mathrm{T}\mathbf{U})^2} du_1$$
 
-Utilizing the previously determined number of segments $n$, we develop an algorithm designed to identify, within each segment $\Delta L_i$, a vector from the set $\mathbf{P}^\star$ that exhibits the maximum value of the function $G(p_i,q_i)$.
+Utilizing the determined number of segments $n$, we develop an algorithm designed to identify, within each segment $\Delta L_i$, a vector from the set $\mathbf{P}^\star$ that exhibits the maximum value of the function $G(p_i,q_i)$. 
 
+The algorithm proceeds as follows:
+        
+&nbsp;&nbsp;&nbsp;&nbsp;
+> for $i$ $\in$ $n$:<br>
+> &nbsp;&nbsp;&nbsp;&nbsp;Define segment boundaries: $L_{\text{i}}$, $L_{\text{i+1}}$<br>
+> &nbsp;&nbsp;&nbsp;&nbsp;Initialize: $\text{maxValue} \leftarrow -\infty$, $\text{maxVector} \leftarrow \text{NULL}$<br>
+> &nbsp;&nbsp;&nbsp;&nbsp;for $\mathbf{v} \in \mathbf{P}^\star$ within$[L_{\text{i}}, L_{\text{i+1}})$:<br>
+> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if $G(p_i, q_i)$ of $\mathbf{v}$ > $\text{maxValue}$:<br>
+> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$\text{maxValue} \leftarrow G(p_i, q_i)$ of $\mathbf{v}$<br>
+> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$\text{maxVector} \leftarrow \mathbf{v}$<br>
+> if $\text{maxVector} \neq \text{NULL}$:<br>
+> &nbsp;&nbsp;&nbsp;&nbsp;Add $\text{maxVector}$ to the result set
 
 
 ### Result:
