@@ -169,7 +169,7 @@ def data_analysis(db_name:str = "test.db", image_size:int = 100,out_name:str ="c
         cells = session.query(Cell).all()
        
         for cell in tqdm(cells):
-            if  cell.manual_label != "N/A" and cell.manual_label!= None:
+            if  cell.manual_label != "N/A" and cell.manual_label!= None :
                 print("###############################################")
                 print(cell.cell_id)
                 print("###############################################")
@@ -407,6 +407,8 @@ def data_analysis(db_name:str = "test.db", image_size:int = 100,out_name:str ="c
                     plt.scatter([i[0] for i in projected_points],temp_y,c = temp_y ,s = 8,cmap="inferno",marker="x")
                     projected_points_xs.append([i[0] for i in projected_points])
                     projected_points_ys.append(temp_y)
+                    plt.xlabel("Distance from the start point (px)")
+                    plt.ylabel("Fluo. intensity")
                     fig_min_point.savefig(f"Cell/projected_points/{n}.png")
                     plt.close()
                     ##########ピークに沿ったpathの探索アルゴリズム##########
