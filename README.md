@@ -388,19 +388,42 @@ Quantifying the localization of fluorescence is straightforward in cells with a 
 Fig.7-1: An image of an <i>E.coli</i> cell with a straight morphology.
 </p>
 
-However, challenges arise with "curved" cells(fig. 7-2). To address this, we capitalize on our pre-established equation representing the cellular curve (specifically, a quadratic function). This equation allows for the precise calculation of the distance between the curve and individual pixels, which is crucial for our quantification approach.
+However, challenges arise with "curved" cells(fig. 7-2).
 
-The process begins by calculating the distance between the cellular curve and each pixel. This is achieved using the following formula:
+To address this, we capitalize on our pre-established equation representing the cellular curve (specifically, a quadratic function). 
+
+This equation allows for the precise calculation of the distance between the curve and individual pixels, which is crucial for our quantification approach.
+
+The process begins by calculating the distance between the cellular curve and each pixel. 
+
+This is achieved using the following formula:
 
 An arbitrary point on the curve is described as:
 $$(u_1,\theta^\mathrm{T}\mathbf{U}) $$
 The minimal distance between this curve and each pixel, denoted as 
 $(p_i,q_i)$, is calculated using the distance formula:
 
-$$D = \sqrt{(u_1-p_i)^2+(f\hat{(u_1)} - q_i)^2}$$
+$$D_i(u_1) = \sqrt{(u_1-p_i)^2+(f\hat{(u_1)} - q_i)^2}$$
 
-By minimizing the distance,we ensure that the line connecting the point on the curve and $(p_i,q_i)$ is orthogonal to the curve.
-書きかけ
+Minimizing $D_i$ with respect to $u_1$ ensures orthogonality between the curve and the line segment joining $(u_1,\theta^\mathrm{T}\mathbf{U})$ and $(p_i,q_i)$ 
+
+This orthogonality condition is satisfied when the derivative of $D_i$ with respect to $u_1$ is zero.
+
+The optimal value of $u_1$, denoted as $u_{1_i}^\star$, is obtained by solving 
+
+$$\frac{d}{du_1}D_i = 0$$
+
+for each pixel  $(p_i,q_i)$. 
+
+Define the set of solution vectors as 
+$$\mathbf{U}^\star = \{ (u_{1_i}^\star,f\hat{(u_{1_i}^\star)})^\mathrm{T} : u_{1_i}^\star \in u_1 \}$$
+
+, where $f\hat{(u_{1_i}^\star)}$ denotes the correspoinding function value.
+
+
+It should be noted that the vectors in $\mathbf{U}^\star$ can be interpreted as the projections of the pixels $(p_i,q_i)$ onto the curve.
+
+
 
 ### Result:
 We applied the aforementioned algorithm for the cell shown in figure 7-2.
@@ -413,14 +436,25 @@ We applied the aforementioned algorithm for the cell shown in figure 7-2.
 Fig.7-2: An image of a "curved" <i>E.coli</i> cell.
 </p>
 
-Figure 7-3 depicts the result of projection onto the curve.
+Figure 7-3 shows all the projected points on the center curve.
+
+<div align="center">
+
+![Start-up window](images_readme/projected_points.png)  
+</div>
+<p align="center">
+Fig.7-3: All the points(red) projected onto the center curve(blue).
+</p>
+
+
+Figure 7-4 depicts the result of projection onto the curve.
 
 <div align="center">
 
 ![Start-up window](images_readme/projected_points_18.png)  
 </div>
 <p align="center">
-Fig.7-3: An image of a "curved" <i>E.coli</i> cell.
+Fig.7-4: An image of a "curved" <i>E.coli</i> cell.
 </p>
 
 
