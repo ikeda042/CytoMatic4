@@ -485,7 +485,7 @@ Figure 7-4 depicts the result of projection onto the curve.
 ![Start-up window](images_readme/projected_points_18.png)  
 </div>
 <p align="center">
-Fig.7-4: An image of a "curved" <i>E.coli</i> cell.
+Fig.7-4: Projected points (red) onto the center curve.
 </p>
 
 
@@ -498,7 +498,7 @@ Figure 7-3 describes the result of the peak-path finder algorithm.
 ![Start-up window](images_readme/peak_path_18.png)  
 </div>
 <p align="center">
-Fig.7-4: An image of a "curved" <i>E.coli</i> cell.
+Fig.7-4: The estimated peak path by the algorithm.
 </p>
 
 
