@@ -28,7 +28,7 @@ def main(
     else:
         dual_layer_mode = False
         single_layer_mode = False
-    
+
     if mode == "all":
         if file_name.split(".")[-1] == "nd2":
             extract_nd2(file_name)
@@ -65,7 +65,7 @@ def main(
 
 #Parameters to specify
 #####################################################
-file_name = "sk328tri30min.db"
+file_name = "sk328cip120min.db"
 param1 = 130
 param2 = 255
 img_size = 500
@@ -73,5 +73,5 @@ mode: Literal["all","data_analysis","delete_all"] = "data_analysis"
 layer_mode: Literal["dual","single","normal"] = "normal"
 #####################################################
 # import os
-# for file_name  in [i for i in os.listdir() if i.split(".")[-1] == "db"]:
-#     main(file_name, param1, param2, img_size, mode, layer_mode)
+
+# main(file_name, param1, param2, img_size, mode, layer_mode)
