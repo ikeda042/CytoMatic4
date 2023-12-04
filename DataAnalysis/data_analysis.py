@@ -413,19 +413,6 @@ def data_analysis(db_name:str = "test.db", image_size:int = 100,out_name:str ="c
                     plt.close()
                     ##########ピークに沿ったpathの探索アルゴリズム##########
                     data_points = np.array([[i[0],j] for i,j in zip(projected_points,temp_y)])
-                    
-                    # start_point = data_points[data_points[:, 0] == data_points[:, 0].min()][0]
-                    # end_point = data_points[data_points[:, 0] == data_points[:, 0].max()][0]
-                    # path = [start_point]
-                    # split_num = 20
-                    # DElTA_L = (end_point[0]-start_point[0])/split_num
-                    # while True:
-                    #     current_x = path[-1][0]
-                    #     points_in_range = data_points[(data_points[:, 0] > current_x) & (data_points[:, 0] <= current_x + DElTA_L)]
-                    #     if len(points_in_range) == 0:
-                    #         break 
-                    #     next_point = points_in_range[points_in_range[:, 1] == points_in_range[:, 1].max()][0]
-                    #     path.append(next_point)
 
                     fig_path = plt.figure(figsize=(6, 6))
                     split_num = 55
