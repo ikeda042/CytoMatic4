@@ -674,6 +674,21 @@ Figure 8-10 depicts the estimated peak path for the cell in fig.8-1.
 Fig.8-10 The result of the peak path finder algorithm for the cell in fig.8-1. 
 </p>
 
+### Cell/3dplot/
+This directory contains the 3d plot for each cell. Z-axis represents the fluorescence intensity for each pixel incide the cell.
+
+Figure 8-11 shows the 3d plot of the cell in fig. 8-2.
+
+<div align="center">
+
+![Start-up window](images_readme/cell_results/3dplot.png)  
+</div>
+
+<p align="center">
+Fig.8-11 The 3d plot of the cell in fig. 8-2
+</p>
+
+
 
 # Quick Overview of the cells
 After running the scripts in "data_analysis" mode, several .png files will be generated in the same directory as "cytomatic4.py".
