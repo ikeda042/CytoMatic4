@@ -248,9 +248,6 @@ with open("temp_peak_analysis_gen/sk328gen120min_peak_points_ys.txt", "r") as f:
         i = (i - i.min()) / (i.max() - i.min())
         ys_5_normalized.append(i.tolist())
 
-
-
-
 class HeadmapVector:
     def __init__(self, heatmap_vector:np.ndarray, sample_num:int):
         self.heatmap_vector:np.ndarray = heatmap_vector
