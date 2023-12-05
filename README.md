@@ -659,6 +659,21 @@ Figure 8-9 shows the result of projection.
 Fig.8-9 The result of projection for the cell in fig.8-1. 
 </p>
 
+### Cell/peak_path/
+
+In this directory, the estimated peak path for each cell using the aforementioned algoritm is stored.
+
+Figure 8-10 depicts the estimated peak path for the cell in fig.8-1.
+
+<div align="center">
+
+![Start-up window](images_readme/cell_results/peak_path.png)  
+</div>
+
+<p align="center">
+Fig.8-10 The result of the peak path finder algorithm for the cell in fig.8-1. 
+</p>
+
 
 # Quick Overview of the cells
 After running the scripts in "data_analysis" mode, several .png files will be generated in the same directory as "cytomatic4.py".
