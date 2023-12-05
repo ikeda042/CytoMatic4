@@ -292,8 +292,8 @@ def data_analysis(db_name:str = "test.db", image_size:int = 100,out_name:str ="c
                     plt.plot(x,y,color = "blue",linewidth=1)
                     plt.scatter(min_u1,theta[0]*min_u1**4+theta[1]*min_u1**3 + theta[2]*min_u1**2+theta[3]*min_u1 + theta[4],s = 100,color = "red",zorder = 100,marker = "x")
                     plt.scatter(max_u1,theta[0]*max_u1**4+theta[1]*max_u1**3 + theta[2]*max_u1**2+theta[3]*max_u1 + theta[4],s = 100,color = "red",zorder = 100,marker = "x")
-                    plt.xlim(min_u1-40,max_u1+40)
-                    plt.ylim(u2_c-40,u2_c+40)
+                    plt.xlim(min_u1-80,max_u1+80)
+                    plt.ylim(u2_c-80,u2_c+80)
                     plt.xlabel("u1")
                     plt.ylabel("u2")
                     plt.axis("equal")
@@ -415,7 +415,7 @@ def data_analysis(db_name:str = "test.db", image_size:int = 100,out_name:str ="c
                     data_points = np.array([[i[0],j] for i,j in zip(projected_points,temp_y)])
 
                     fig_path = plt.figure(figsize=(6, 6))
-                    split_num = 55
+                    split_num = 40
                     delta_L = (np.max(x) - np.min(x)) / split_num
                     x = data_points[:, 0]
                     y = data_points[:, 1]
@@ -573,7 +573,7 @@ def data_analysis(db_name:str = "test.db", image_size:int = 100,out_name:str ="c
         for i in range(len(peak_points)):
             fpout.write(f"{','.join([str(float(i)) for i in [i[1] for i in peak_points[i]]])}\n")
 
-    
+    return n
     
 
 
