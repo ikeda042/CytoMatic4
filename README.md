@@ -508,22 +508,22 @@ For data analysis, you are welcome to use your original scripts. (We provide how
 
 However, you can also utilize the default scripts provided to review the cells you have labeled with the application.
 
-The following *E.coli* cell in figure 7 is one of the output cells in the directory **"Cell/ph/"**.
+The following *E.coli* cell in figure 8-1 is one of the output cells in the directory **"Cell/ph/"**.
 
 <div align="center">
 
-![Start-up window](images_readme/fig7.png)  
+![Start-up window](images_readme/cell_results/ph.png)  
 </div>
 
 <p align="center">
-Fig.7 A ph image of an <i>E.coli</i> cell.
+Fig.8-1 A ph image of an <i>E.coli</i> cell.
 </p>
 
 ## Output Folders/Files
 
 ### Cell/ph/
 
-In this directory, the raw image(ph) of each cell with its contour(green) in the arbitrary set square is stored.  (e.g. fig.7)
+In this directory, the raw image(ph) of each cell with its contour(green) in the arbitrary set square is stored.  (e.g. fig.8-1)
 
 The center of the cell is set to the center of the square.
 
@@ -532,32 +532,32 @@ In this directory, the image(fluo1-channel) of each cell in the in the arbitrary
 
 The center of the cell is set to the center of the square.
 
-Figure 8 shows the fluo1 image of fig.7
+Figure 8-2 shows the fluo1 image of fig.8-1
 
 <div align="center">
 
-![Start-up window](images_readme/fig8.png)  
+![Start-up window](images_readme/cell_results/fluo1.png)  
 </div>
 
 <p align="center">
-Fig.8 A fluo1 image of the <i>E.coli</i> cell in fig.7.
+Fig.8-2 A fluo1 image of the <i>E.coli</i> cell in fig.8-1.
 </p>
 
 ### Cell/fluo1_incide_cell_only/
 
-In this directory, only the cells(fluo1-channel) surrounded by the contour(red in fig.8) are stored.
+In this directory, only the cells(fluo1-channel) surrounded by the contour(red in fig.8-2) are stored.
 
 The center of the cell is set to the center of the square.
 
-Figure 9 shows areas inside the contour(red, fig.8).
+Figure 8-3 shows areas inside the contour(red, fig.8-2).
 
 <div align="center">
 
-![Start-up window](images_readme/fig9.png)  
+![Start-up window](images_readme/cell_results/incide_cell.png)  
 </div>
 
 <p align="center">
-Fig.9 Areas surrounded by the contour(red, fig.8).
+Fig.8-3 Areas surrounded by the contour(red, fig.8-2).
 </p>
 
 
@@ -567,45 +567,44 @@ In this directory, each image has the gradient information of the fluorescence i
 
 The center of the cell is set to the center of the square.
 
-Figure 10 shows the plotted gradient information.
+Figure 8-4 shows the plotted gradient information.
 
 <div align="center">
 
-![Start-up window](images_readme/fig10.png)  
+![Start-up window](images_readme/cell_results/gradient_magnitude0.png)  
 </div>
 
 <p align="center">
-Fig.10 Calculated gradient at each pixel inside the cell.
+Fig.8-4 Calculated gradient at each pixel inside the cell.
 </p>
 
 ### Cell/histo/
 In this directory, histogram of the fluorescence intensities in 256 levels from 0 to 255 for each cell is stored. 
 
-Figure 11 shows the histogram for the fluorescence information in fig.9.
+Figure 8-5 shows the histogram for the fluorescence information in fig.8-3.
 
 <div align="center">
 
-![Start-up window](images_readme/fig11.png)  
+![Start-up window](images_readme/cell_results/histo.png)  
 </div>
 
 <p align="center">
-Fig.11 Calculated gradient at each pixel inside the cell.
+Fig.8-5 Calculated gradient at each pixel inside the cell.
 </p>
 
-In this figure, the frequency at Fluo. intensity 255 is significantly different from the others. It means that the fluorescence information is saturated.
 
 ### Cell/histo_cumulative/
 In this directory, a plotted cummulative freqency from Fluo. intensity 0  to 255 for each cell is stored.
 
-Figure 12 shows the cumulative frequency plot for the cell.
+Figure 8-6 shows the cumulative frequency plot for the cell.
 
 <div align="center">
 
-![Start-up window](images_readme/fig12.png)  
+![Start-up window](images_readme/cell_results/histo_c.png)  
 </div>
 
 <p align="center">
-Fig.12 Cumulative frequency plot for the cell.
+Fig.8-6 Cumulative frequency plot for the cell.
 </p>
 
 ### Cell/replot/
@@ -613,15 +612,15 @@ Fig.12 Cumulative frequency plot for the cell.
 In this directory, the fluorescence information in each cell normalized between 0 and 1, is stored.
 Note that the for the coordinates are in the new basis U.
 
-Figure 13 shows the cumulative frequency plot for the cell.
+Figure 8-7 shows the cumulative frequency plot for the cell.
 
 <div align="center">
 
-![Start-up window](images_readme/fig13.png)  
+![Start-up window](images_readme/cell_results/replot.png)  
 </div>
 
 <p align="center">
-Fig.13 Re-plotted fluo. information for the cell. 
+Fig.8-7 Re-plotted fluo. information for the cell. 
 </p>
 
 The fluorescence information is normalized 0 to 1, then plotted with a colormap "inferno" as follows.
@@ -630,6 +629,21 @@ The fluorescence information is normalized 0 to 1, then plotted with a colormap 
 
 ![Start-up window](images_readme/colorbar.png)  
 </div>
+
+### Cell/unified/
+In this directory, the combined images (ph and fluo1) are stored. This is for a demonstrating purpose.
+
+Figure 8-8 shows the unified image of fig. 8-1 and fig.8-2.
+
+<div align="center">
+
+![Start-up window](images_readme/cell_results/replot.png)  
+</div>
+
+<p align="center">
+Fig.8-7 Re-plotted fluo. information for the cell. 
+</p>
+
 
 # Quick Overview of the cells
 After running the scripts in "data_analysis" mode, several .png files will be generated in the same directory as "cytomatic4.py".
