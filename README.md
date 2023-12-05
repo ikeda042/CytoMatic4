@@ -637,11 +637,26 @@ Figure 8-8 shows the unified image of fig. 8-1 and fig.8-2.
 
 <div align="center">
 
-![Start-up window](images_readme/cell_results/replot.png)  
+![Start-up window](images_readme/cell_results/unified.png)  
 </div>
 
 <p align="center">
-Fig.8-7 Re-plotted fluo. information for the cell. 
+Fig.8-8 The unified image of fig. 8-1 and fig.8-2. 
+</p>
+
+
+### Cell/projected_points/
+
+This directory stores the result of the aforementioned projection algorithm for each cell.
+
+Figure 8-9 shows the result of projection. 
+<div align="center">
+
+![Start-up window](images_readme/cell_results/projected_points.png)  
+</div>
+
+<p align="center">
+Fig.8-9 The result of projection for the cell in fig.8-1. 
 </p>
 
 
