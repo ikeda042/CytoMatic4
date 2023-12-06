@@ -56,6 +56,7 @@ class Cell(Base):
     center_x = Column(FLOAT)
     center_y = Column(FLOAT)
 
+
 #######################################################
 # 資料作成用関数
 def unify_images_ndarray2(image1, image2, image3, output_name):
