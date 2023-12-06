@@ -41,37 +41,3 @@ except:
 # コミットと接続のクローズ
 conn.commit()
 conn.close()
-
-
-# conn = sqlite3.connect(db_name)
-# cursor = conn.cursor()
-# try:
-# # 新しいテーブルを作成（すべてのカラムをコピーし、変更したいカラム名だけ変更）
-#     cursor.execute('''
-#     CREATE TABLE cells AS 
-#     SELECT 
-#         id, 
-#         cell_id,
-#         label_experiment,
-#         manual_label,
-#         perimeter,
-#         area,
-#         img_ph,
-#         img_fluo1,
-#         contour,
-#         center_x,
-#         center_y
-#     FROM cells
-#     ''')
-# except:
-#     pass
-
-# # 旧テーブルを削除
-# cursor.execute('DROP TABLE cells_new')
-
-# # 新テーブルの名前を旧テーブルの名前に変更
-# cursor.execute('ALTER TABLE cells_new RENAME TO cells')
-
-# # コミットと接続のクローズ
-# conn.commit()
-# conn.close()
