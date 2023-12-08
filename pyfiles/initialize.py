@@ -122,7 +122,7 @@ def init(input_filename: str,
         cropped_images_ph = crop_contours(image_ph, contours, output_size)
 
         image_ph_copy = image_ph.copy()
-        cv2.drawContours(image_ph_copy,contours,-1,(0,255,0),1)
+        cv2.drawContours(image_ph_copy,contours,-1,(0,255,0),3)
         cv2.imwrite(f"ph_contours/{k}.png",image_ph_copy)
         n = 0
         if fluo_dual_layer_mode:

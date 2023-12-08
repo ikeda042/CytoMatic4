@@ -2,7 +2,7 @@ import sqlite3
 
 #旧データベーススキーマの場合の変更処理
 # データベースに接続
-db_name = 'sk326Gen120min.db'
+db_name = "sk326tri120min.db"
 conn = sqlite3.connect(db_name)
 cursor = conn.cursor()
 
