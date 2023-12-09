@@ -418,7 +418,7 @@ This orthogonality condition is satisfied when the derivative of $D_i$ with resp
 
 The optimal value of $u_1$, denoted as $u_{1_i}^\star$, is obtained by solving 
 
-$$\frac{d}{du_1}D_i = 0$$
+$$\frac{d}{du_1}D_i = 0\:\forall i$$
 
 for each pixel  $(p_i,q_i)$. 
 
