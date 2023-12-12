@@ -212,9 +212,9 @@ Hence, arbitrary coordinates in the new basis of the eigenbectors can be written
 
 $$\begin{pmatrix}
     u_1&u_2
-\end{pmatrix} = \mathbf{Q}^\mathrm{T}\begin{pmatrix}
+\end{pmatrix}^\mathrm{T} = \mathbf{Q}\begin{pmatrix}
     x_1&y_1
-\end{pmatrix}$$
+\end{pmatrix}^\mathrm{T}$$
 
 
 ### Result:
