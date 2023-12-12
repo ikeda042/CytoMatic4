@@ -16,7 +16,6 @@ from skimage.feature import graycomatrix, graycoprops
 from scipy.stats import kurtosis, skew
 from .components import create_dirs, calc_gradient, basis_conversion, calc_arc_length
 from mpl_toolkits.mplot3d import Axes3D
-
 from scipy.optimize import minimize
 import numpy as np
 
@@ -388,6 +387,16 @@ def data_analysis(db_name:str = "test.db", image_size:int = 100,out_name:str ="c
                     fig_histo_cumulative.savefig(f"Cell/histo_cumulative/{n}.png")
                     plt.close()
 
+                    #######################################################ヒストグラム解析（累積頻度のデルタ）#######################################################
+                    fig_histo_cumulative_delta = plt.figure(figsize=[6,6])
+                    plt.plot([i for i in range(0,255)],[cumulative_frequency[i+1]-cumulative_frequency[i] for i in range(0,255)])
+                    plt.xlabel('Value (0 to 255)')
+                    plt.ylabel('Delta Cumulative Frequency')
+                    plt.xlim(-1, 255)
+                    plt.ylim(0, 0.04)
+                    plt.grid(True)
+                    fig_histo_cumulative_delta.savefig(f"histo_cumulative_delta.png")
+                    plt.close()
                     #######################################################3dプロット
                     fig_3d = plt.figure(figsize=[6,6])
                     ax = fig_3d.add_subplot(111, projection='3d')
@@ -473,7 +482,6 @@ def data_analysis(db_name:str = "test.db", image_size:int = 100,out_name:str ="c
                 scale_bar_mergins = int(10*(image_size/100))
                 scale_bar_color = (255,255,255)
                 cv2.rectangle(image_ph,(image_size-scale_bar_mergins-scale_bar_length,image_size-scale_bar_mergins),(image_size-scale_bar_mergins,image_size-scale_bar_mergins-scale_bar_thickness),scale_bar_color,-1)
-                #want to put a text right below the scale bar, and the text should be centered and the style should be the same as the text that I've put on the image.
                 position = (image_size-scale_bar_mergins-scale_bar_length, image_size-scale_bar_mergins+scale_bar_thickness+10)
                 font = cv2.FONT_HERSHEY_SIMPLEX
                 font_scale = 0.5
