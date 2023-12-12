@@ -51,7 +51,7 @@ class Cell(Base):
     area = Column(FLOAT)
     img_ph = Column(BLOB) 
     img_fluo1 = Column(BLOB)
-    img_fluo2 = Column(BLOB)
+    # img_fluo2 = Column(BLOB)
     contour = Column(BLOB)
     center_x = Column(FLOAT)
     center_y = Column(FLOAT)
@@ -59,6 +59,15 @@ class Cell(Base):
 
 #######################################################
 # 資料作成用関数
+def adjust_brightness(image: np.ndarray, brightness_factor: float) -> np.ndarray:
+    if image.dtype != np.uint8:
+        raise ValueError("Image should be in uint8 format")
+    image_float = image.astype(np.float32)
+    image_bright = image_float * brightness_factor
+    image_bright_clipped = np.clip(image_bright, 0, 255)
+    result_image = image_bright_clipped.astype(np.uint8)
+    return result_image
+
 def unify_images_ndarray2(image1, image2, image3, output_name):
     combined_width = image1.shape[1] + image2.shape[1] + image3.shape[1]
     combined_height = max(image1.shape[0], image2.shape[0], image3.shape[0])
@@ -417,7 +426,7 @@ def data_analysis(db_name:str = "test.db", image_size:int = 100,out_name:str ="c
                     data_points = np.array([[i[0],j] for i,j in zip(projected_points,temp_y)])
 
                     fig_path = plt.figure(figsize=(6, 6))
-                    split_num = 40
+                    split_num = 25
                     delta_L = (np.max(x) - np.min(x)) / split_num
                     x = data_points[:, 0]
                     y = data_points[:, 1]
@@ -476,6 +485,8 @@ def data_analysis(db_name:str = "test.db", image_size:int = 100,out_name:str ="c
                     cv2.imwrite(f"Cell/unified_cells/{n}.png",image_ph)
                 if not single_layer_mode:
                     if not dual_layer_mode:
+                        fluo_out1 = adjust_brightness(fluo_out1,2)
+                        cv2.imwrite("fluo1.png",fluo_out1)
                         unify_images_ndarray(image1=image_ph, image2=fluo_out1 ,output_name=f"Cell/unified_cells/{n}")
                 if dual_layer_mode:
                     cv2.rectangle(image_fluo2,(image_size-scale_bar_mergins-scale_bar_length,image_size-scale_bar_mergins),(image_size-scale_bar_mergins,image_size-scale_bar_mergins-scale_bar_thickness),scale_bar_color,-1)
@@ -502,9 +513,10 @@ def data_analysis(db_name:str = "test.db", image_size:int = 100,out_name:str ="c
     # with open(f"{filename}_cumulative_frequency_one.txt",mode="w") as fpout:
     #     for i in cumulative_frequencys:
     #             fpout.write(f"{','.join([str(float(i)) for i in i])}\n")
-    # with open(f"{out_name}_cell_lengths.txt",mode="w") as fpout:
-    #     for i in cell_lengths:
-    #         fpout.write(f"{i[0]},{i[1]}\n")
+    
+    with open(f"{out_name}_cell_lengths.txt",mode="w") as fpout:
+        for i in cell_lengths:
+            fpout.write(f"{i[0]},{i[1]}\n")
 
     # with open(f"{out_name}_agg_formation_rate.txt",mode="w") as fpout:
     #     fpout.write(f"out_name,num_agg_detected,num_total_cells,agg_form_rate\n")
@@ -521,6 +533,7 @@ def data_analysis(db_name:str = "test.db", image_size:int = 100,out_name:str ="c
     # with open(f"{out_name}_max_int_minus_med.txt",mode="w") as fpout:
     #     for i in range(len(meds)):
     #         fpout.write(f"{max_int_minus_med[i]}\n")
+
     # with open(f"{out_name}_mean_fluo_raw_intensities.txt",mode="w") as fpout:
     #     for i in range(len(meds)):
     #         fpout.write(f"{mean_fluo_raw_intensities[i]}\n")
