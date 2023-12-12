@@ -217,7 +217,6 @@ def data_analysis(db_name:str = "test.db", image_size:int = 100,out_name:str ="c
                         for j in range(image_size):
                             if cv2.pointPolygonTest(pickle.loads(cell.contour), (j,i), False)>=0:
                                 output_image[i][j] = image_fluo1[i][j]
-                                
                     cv2.imwrite(f"Cell/fluo1_incide_cell_only/{n}.png",output_image)
 
                 if dual_layer_mode:
@@ -273,6 +272,7 @@ def data_analysis(db_name:str = "test.db", image_size:int = 100,out_name:str ="c
                                 if cv2.pointPolygonTest(pickle.loads(cell.contour), (i,j), False)>=0:
                                     coords_inside_cell_2.append([i,j])
                                     points_inside_cell_2.append(image_fluo2[j][i])
+                                    
                     # Basis conversion
                     contour = [[j,i] for i,j in [i[0] for i in pickle.loads(cell.contour)]]
                     X = np.array([[i[1] for i in coords_inside_cell_1],[i[0] for i in coords_inside_cell_1]])

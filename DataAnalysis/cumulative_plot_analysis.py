@@ -18,7 +18,6 @@ with open("sk328cip120min_cumulative_frequency_one.txt") as f:
     data_5 = [[float(i.replace("\n","")) for i in i.split(",")] for i in f.readlines()]
 
 
-
 fig = plt.figure(figsize=(6,6))
 sns.set()
 ax = fig.add_subplot(111)
