@@ -2,333 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib import gridspec
 
-# with open("tmp_peak_analysis_cip/sk328cip0min_peak_points_xs.txt", "r") as f:
-#     xs_1 = [[float(x.replace("\n","")) for x in line.split(",")] for line in f.readlines()]
-#     xs_1_normalized = []
-#     for i in xs_1:
-#         i = np.array(i)
-#         i = (i - i.min()) / (i.max() - i.min())
-#         xs_1_normalized.append(i.tolist())
-# with open("tmp_peak_analysis_cip/sk328cip0min_peak_points_ys.txt", "r") as f:
-#     ys_1 = [[float(x.replace("\n","")) for x in line.split(",")] for line in f.readlines()]
-#     ys_1_normalized = []
-#     for i in ys_1:
-#         i = np.array(i)
-#         i = (i - i.min()) / (i.max() - i.min())
-#         ys_1_normalized.append(i.tolist())
-
-# with open("tmp_peak_analysis_cip/sk328cip30min_peak_points_xs.txt", "r") as f:
-#     xs_2 = [[float(x.replace("\n","")) for x in line.split(",")] for line in f.readlines()]
-#     xs_2_normalized = []
-#     for i in xs_2:
-#         i = np.array(i)
-#         i = (i - i.min()) / (i.max() - i.min())
-#         xs_2_normalized.append(i.tolist())
-
-
-# with open("tmp_peak_analysis_cip/sk328cip30min_peak_points_ys.txt", "r") as f:
-#     ys_2 = [[float(x.replace("\n","")) for x in line.split(",")] for line in f.readlines()]
-#     ys_2_normalized = []
-#     for i in ys_2:
-#         i = np.array(i)
-#         i = (i - i.min()) / (i.max() - i.min())
-#         ys_2_normalized.append(i.tolist())
-
-# with open("tmp_peak_analysis_cip/sk328cip60min_peak_points_xs.txt", "r") as f:
-#     xs_3 = [[float(x.replace("\n","")) for x in line.split(",")] for line in f.readlines()]
-#     xs_3_normalized = []
-#     for i in xs_3:
-#         i = np.array(i)
-#         i = (i - i.min()) / (i.max() - i.min())
-#         xs_3_normalized.append(i.tolist())
-
-
-# with open("tmp_peak_analysis_cip/sk328cip60min_peak_points_ys.txt", "r") as f:
-#     ys_3 = [[float(x.replace("\n","")) for x in line.split(",")] for line in f.readlines()]
-#     ys_3_normalized = []
-#     for i in ys_3:
-#         i = np.array(i)
-#         i = (i - i.min()) / (i.max() - i.min())
-#         ys_3_normalized.append(i.tolist())
-
-
-# with open("tmp_peak_analysis_cip/sk328cip90min_peak_points_xs.txt", "r") as f:
-#     xs_4 = [[float(x.replace("\n","")) for x in line.split(",")] for line in f.readlines()]
-#     xs_4_normalized = []
-#     for i in xs_4:
-#         i = np.array(i)
-#         i = (i - i.min()) / (i.max() - i.min())
-#         xs_4_normalized.append(i.tolist())
-
-
-# with open("tmp_peak_analysis_cip/sk328cip90min_peak_points_ys.txt", "r") as f:
-#     ys_4 = [[float(x.replace("\n","")) for x in line.split(",")] for line in f.readlines()]
-#     ys_4_normalized = []
-#     for i in ys_4:
-#         i = np.array(i)
-#         i = (i - i.min()) / (i.max() - i.min())
-#         ys_4_normalized.append(i.tolist())
-
-# with open("tmp_peak_analysis_cip/sk328cip120min_peak_points_xs.txt", "r") as f:
-#     xs_5 = [[float(x.replace("\n","")) for x in line.split(",")] for line in f.readlines()]
-#     xs_5_normalized = []
-#     for i in xs_5:
-#         i = np.array(i)
-#         i = (i - i.min()) / (i.max() - i.min())
-#         xs_5_normalized.append(i.tolist())
-
-
-# with open("tmp_peak_analysis_cip/sk328cip120min_peak_points_ys.txt", "r") as f:
-#     ys_5 = [[float(x.replace("\n","")) for x in line.split(",")] for line in f.readlines()]
-#     ys_5_normalized = []
-#     for i in ys_5:
-#         i = np.array(i)
-#         i = (i - i.min()) / (i.max() - i.min())
-#         ys_5_normalized.append(i.tolist())
-
-
-
-# with open("temp_peak_analysis_tri/sk328tri0min_peak_points_xs.txt", "r") as f:
-#     xs_1 = [[float(x.replace("\n","")) for x in line.split(",")] for line in f.readlines()]
-#     xs_1_normalized = []
-#     for i in xs_1:
-#         i = np.array(i)
-#         i = (i - i.min()) / (i.max() - i.min())
-#         xs_1_normalized.append(i.tolist())
-
-# with open("temp_peak_analysis_tri/sk328tri0min_peak_points_ys.txt", "r") as f:
-#     ys_1 = [[float(x.replace("\n","")) for x in line.split(",")] for line in f.readlines()]
-#     ys_1_normalized = []
-#     for i in ys_1:
-#         i = np.array(i)
-#         i = (i - i.min()) / (i.max() - i.min())
-#         ys_1_normalized.append(i.tolist())
-    
-# with open("temp_peak_analysis_tri/sk328tri30min_peak_points_xs.txt", "r") as f:
-#     xs_2 = [[float(x.replace("\n","")) for x in line.split(",")] for line in f.readlines()]
-#     xs_2_normalized = []
-#     for i in xs_2:
-#         i = np.array(i)
-#         i = (i - i.min()) / (i.max() - i.min())
-#         xs_2_normalized.append(i.tolist())
-
-# with open("temp_peak_analysis_tri/sk328tri30min_peak_points_ys.txt", "r") as f:
-#     ys_2 = [[float(x.replace("\n","")) for x in line.split(",")] for line in f.readlines()]
-#     ys_2_normalized = []
-#     for i in ys_2:
-#         i = np.array(i)
-#         i = (i - i.min()) / (i.max() - i.min())
-#         ys_2_normalized.append(i.tolist())
-
-# with open("temp_peak_analysis_tri/sk328tri60min_peak_points_xs.txt", "r") as f:
-#     xs_3 = [[float(x.replace("\n","")) for x in line.split(",")] for line in f.readlines()]
-#     xs_3_normalized = []
-#     for i in xs_3:
-#         i = np.array(i)
-#         i = (i - i.min()) / (i.max() - i.min())
-#         xs_3_normalized.append(i.tolist())
-    
-# with open("temp_peak_analysis_tri/sk328tri60min_peak_points_ys.txt", "r") as f:
-#     ys_3 = [[float(x.replace("\n","")) for x in line.split(",")] for line in f.readlines()]
-#     ys_3_normalized = []
-#     for i in ys_3:
-#         i = np.array(i)
-#         i = (i - i.min()) / (i.max() - i.min())
-#         ys_3_normalized.append(i.tolist())
-    
-# with open("temp_peak_analysis_tri/sk328tri90min_peak_points_xs.txt", "r") as f:
-#     xs_4 = [[float(x.replace("\n","")) for x in line.split(",")] for line in f.readlines()]
-#     xs_4_normalized = []
-#     for i in xs_4:
-#         i = np.array(i)
-#         i = (i - i.min()) / (i.max() - i.min())
-#         xs_4_normalized.append(i.tolist())
-    
-# with open("temp_peak_analysis_tri/sk328tri90min_peak_points_ys.txt", "r") as f:
-#     ys_4 = [[float(x.replace("\n","")) for x in line.split(",")] for line in f.readlines()]
-#     ys_4_normalized = []
-#     for i in ys_4:
-#         i = np.array(i)
-#         i = (i - i.min()) / (i.max() - i.min())
-#         ys_4_normalized.append(i.tolist())
-
-# with open("temp_peak_analysis_tri/sk328tri120min_peak_points_xs.txt", "r") as f:
-#     xs_5 = [[float(x.replace("\n","")) for x in line.split(",")] for line in f.readlines()]
-#     xs_5_normalized = []
-#     for i in xs_5:
-#         i = np.array(i)
-#         i = (i - i.min()) / (i.max() - i.min())
-#         xs_5_normalized.append(i.tolist())
-
-# with open("temp_peak_analysis_tri/sk328tri120min_peak_points_ys.txt", "r") as f:
-#     ys_5 = [[float(x.replace("\n","")) for x in line.split(",")] for line in f.readlines()]
-#     ys_5_normalized = []
-#     for i in ys_5:
-#         i = np.array(i)
-#         i = (i - i.min()) / (i.max() - i.min())
-#         ys_5_normalized.append(i.tolist())
-
-# with open("temp_peak_analysis_gen/sk328gen0min_peak_points_xs.txt", "r") as f:
-#     xs_1 = [[float(x.replace("\n","")) for x in line.split(",")] for line in f.readlines()]
-#     xs_1_normalized = []
-#     for i in xs_1:
-#         i = np.array(i)
-#         i = (i - i.min()) / (i.max() - i.min())
-#         xs_1_normalized.append(i.tolist())
-
-# with open("temp_peak_analysis_gen/sk328gen0min_peak_points_ys.txt", "r") as f:
-#     ys_1 = [[float(x.replace("\n","")) for x in line.split(",")] for line in f.readlines()]
-#     ys_1_normalized = []
-#     for i in ys_1:
-#         i = np.array(i)
-#         i = (i - i.min()) / (i.max() - i.min())
-#         ys_1_normalized.append(i.tolist())
-
-# with open("temp_peak_analysis_gen/sk328gen30min_peak_points_xs.txt", "r") as f:
-#     xs_2 = [[float(x.replace("\n","")) for x in line.split(",")] for line in f.readlines()]
-#     xs_2_normalized = []
-#     for i in xs_2:
-#         i = np.array(i)
-#         i = (i - i.min()) / (i.max() - i.min())
-#         xs_2_normalized.append(i.tolist())
-
-# with open("temp_peak_analysis_gen/sk328gen30min_peak_points_ys.txt", "r") as f:
-#     ys_2 = [[float(x.replace("\n","")) for x in line.split(",")] for line in f.readlines()]
-#     ys_2_normalized = []
-#     for i in ys_2:
-#         i = np.array(i)
-#         i = (i - i.min()) / (i.max() - i.min())
-#         ys_2_normalized.append(i.tolist())
-
-# with open("temp_peak_analysis_gen/sk328gen60min_peak_points_xs.txt", "r") as f:
-#     xs_3 = [[float(x.replace("\n","")) for x in line.split(",")] for line in f.readlines()]
-#     xs_3_normalized = []
-#     for i in xs_3:
-#         i = np.array(i)
-#         i = (i - i.min()) / (i.max() - i.min())
-#         xs_3_normalized.append(i.tolist())
-
-# with open("temp_peak_analysis_gen/sk328gen60min_peak_points_ys.txt", "r") as f:
-#     ys_3 = [[float(x.replace("\n","")) for x in line.split(",")] for line in f.readlines()]
-#     ys_3_normalized = []
-#     for i in ys_3:
-#         i = np.array(i)
-#         i = (i - i.min()) / (i.max() - i.min())
-#         ys_3_normalized.append(i.tolist())
-
-# with open("temp_peak_analysis_gen/sk328gen90min_peak_points_xs.txt", "r") as f:
-#     xs_4 = [[float(x.replace("\n","")) for x in line.split(",")] for line in f.readlines()]
-#     xs_4_normalized = []
-#     for i in xs_4:
-#         i = np.array(i)
-#         i = (i - i.min()) / (i.max() - i.min())
-#         xs_4_normalized.append(i.tolist())
-
-# with open("temp_peak_analysis_gen/sk328gen90min_peak_points_ys.txt", "r") as f:
-#     ys_4 = [[float(x.replace("\n","")) for x in line.split(",")] for line in f.readlines()]
-#     ys_4_normalized = []
-#     for i in ys_4:
-#         i = np.array(i)
-#         i = (i - i.min()) / (i.max() - i.min())
-#         ys_4_normalized.append(i.tolist())
-
-# with open("temp_peak_analysis_gen/sk328gen120min_peak_points_xs.txt", "r") as f:
-#     xs_5 = [[float(x.replace("\n","")) for x in line.split(",")] for line in f.readlines()]
-#     xs_5_normalized = []
-#     for i in xs_5:
-#         i = np.array(i)
-#         i = (i - i.min()) / (i.max() - i.min())
-#         xs_5_normalized.append(i.tolist())
-
-# with open("temp_peak_analysis_gen/sk328gen120min_peak_points_ys.txt", "r") as f:
-#     ys_5 = [[float(x.replace("\n","")) for x in line.split(",")] for line in f.readlines()]
-#     ys_5_normalized = []
-#     for i in ys_5:
-#         i = np.array(i)
-#         i = (i - i.min()) / (i.max() - i.min())
-#         ys_5_normalized.append(i.tolist())
-
-# with open("sk326Gen0min_peak_points_ys.txt", "r") as f:
-#     ys_1 = [[float(x.replace("\n","")) for x in line.split(",")] for line in f.readlines()]
-#     ys_1_normalized = []
-#     for i in ys_1:
-#         i = np.array(i)
-#         i = (i - i.min()) / (i.max() - i.min())
-#         ys_1_normalized.append(i.tolist())
-
-# with open("sk326Gen30min_peak_points_ys.txt", "r") as f:
-#     ys_2 = [[float(x.replace("\n","")) for x in line.split(",")] for line in f.readlines()]
-#     ys_2_normalized = []
-#     for i in ys_2:
-#         i = np.array(i)
-#         i = (i - i.min()) / (i.max() - i.min())
-#         ys_2_normalized.append(i.tolist())
-
-# with open("sk326Gen60min_peak_points_ys.txt", "r") as f:
-#     ys_3 = [[float(x.replace("\n","")) for x in line.split(",")] for line in f.readlines()]
-#     ys_3_normalized = []
-#     for i in ys_3:
-#         i = np.array(i)
-#         i = (i - i.min()) / (i.max() - i.min())
-#         ys_3_normalized.append(i.tolist())
-
-# with open("sk326Gen90min_peak_points_ys.txt", "r") as f:
-#     ys_4 = [[float(x.replace("\n","")) for x in line.split(",")] for line in f.readlines()]
-#     ys_4_normalized = []
-#     for i in ys_4:
-#         i = np.array(i)
-#         i = (i - i.min()) / (i.max() - i.min())
-#         ys_4_normalized.append(i.tolist())
-
-# with open("sk326Gen120min_peak_points_ys.txt", "r") as f:
-#     ys_5 = [[float(x.replace("\n","")) for x in line.split(",")] for line in f.readlines()]
-#     ys_5_normalized = []
-#     for i in ys_5:
-#         i = np.array(i)
-#         i = (i - i.min()) / (i.max() - i.min())
-#         ys_5_normalized.append(i.tolist())
-
-# with open("sk326cip0min_peak_points_ys.txt") as f:
-#     ys_1 = [[float(x.replace("\n","")) for x in line.split(",")] for line in f.readlines()]
-#     ys_1_normalized = []
-#     for i in ys_1:
-#         i = np.array(i)
-#         i = (i - i.min()) / (i.max() - i.min())
-#         ys_1_normalized.append(i.tolist())
-
-# with open("sk326cip30min_peak_points_ys.txt") as f:
-#     ys_2 = [[float(x.replace("\n","")) for x in line.split(",")] for line in f.readlines()]
-#     ys_2_normalized = []
-#     for i in ys_2:
-#         i = np.array(i)
-#         i = (i - i.min()) / (i.max() - i.min())
-#         ys_2_normalized.append(i.tolist())
-
-# with open("sk326cip60min_peak_points_ys.txt") as f:
-#     ys_3 = [[float(x.replace("\n","")) for x in line.split(",")] for line in f.readlines()]
-#     ys_3_normalized = []
-#     for i in ys_3:
-#         i = np.array(i)
-#         i = (i - i.min()) / (i.max() - i.min())
-#         ys_3_normalized.append(i.tolist())
-    
-# with open("sk326cip90min_peak_points_ys.txt") as f:
-#     ys_4 = [[float(x.replace("\n","")) for x in line.split(",")] for line in f.readlines()]
-#     ys_4_normalized = []
-#     for i in ys_4:
-#         i = np.array(i)
-#         i = (i - i.min()) / (i.max() - i.min())
-#         ys_4_normalized.append(i.tolist())
-
-# with open("sk326cip120min_peak_points_ys.txt") as f:
-#     ys_5 = [[float(x.replace("\n","")) for x in line.split(",")] for line in f.readlines()]
-#     ys_5_normalized = []
-#     for i in ys_5:
-#         i = np.array(i)
-#         i = (i - i.min()) / (i.max() - i.min())
-#         ys_5_normalized.append(i.tolist())
-
-with open("sk326tri0min_peak_points_ys.txt", "r") as f:
+with open("temp_peak_analysis_tri/sk328tri0min_peak_points_ys.txt", "r") as f:
     ys_1 = [[float(x.replace("\n","")) for x in line.split(",")] for line in f.readlines()]
     ys_1_normalized = []
     for i in ys_1:
@@ -336,7 +10,7 @@ with open("sk326tri0min_peak_points_ys.txt", "r") as f:
         i = (i - i.min()) / (i.max() - i.min())
         ys_1_normalized.append(i.tolist())
 
-with open("sk326tri30min_peak_points_ys.txt", "r") as f:
+with open("temp_peak_analysis_tri/sk328tri30min_peak_points_ys.txt", "r") as f:
     ys_2 = [[float(x.replace("\n","")) for x in line.split(",")] for line in f.readlines()]
     ys_2_normalized = []
     for i in ys_2:
@@ -344,7 +18,7 @@ with open("sk326tri30min_peak_points_ys.txt", "r") as f:
         i = (i - i.min()) / (i.max() - i.min())
         ys_2_normalized.append(i.tolist())
 
-with open("sk326tri60min_peak_points_ys.txt", "r") as f:
+with open("temp_peak_analysis_tri/sk328tri60min_peak_points_ys.txt", "r") as f:
     ys_3 = [[float(x.replace("\n","")) for x in line.split(",")] for line in f.readlines()]
     ys_3_normalized = []
     for i in ys_3:
@@ -352,8 +26,7 @@ with open("sk326tri60min_peak_points_ys.txt", "r") as f:
         i = (i - i.min()) / (i.max() - i.min())
         ys_3_normalized.append(i.tolist())
 
-
-with open("sk326tri90min_peak_points_ys.txt", "r") as f:
+with open("temp_peak_analysis_tri/sk328tri90min_peak_points_ys.txt", "r") as f:
     ys_4 = [[float(x.replace("\n","")) for x in line.split(",")] for line in f.readlines()]
     ys_4_normalized = []
     for i in ys_4:
@@ -361,14 +34,13 @@ with open("sk326tri90min_peak_points_ys.txt", "r") as f:
         i = (i - i.min()) / (i.max() - i.min())
         ys_4_normalized.append(i.tolist())
 
-with open("sk326tri120min_peak_points_ys.txt", "r") as f:
+with open("temp_peak_analysis_tri/sk328tri120min_peak_points_ys.txt", "r") as f:
     ys_5 = [[float(x.replace("\n","")) for x in line.split(",")] for line in f.readlines()]
     ys_5_normalized = []
     for i in ys_5:
         i = np.array(i)
         i = (i - i.min()) / (i.max() - i.min())
         ys_5_normalized.append(i.tolist())
-
 
 class HeadmapVector:
     def __init__(self, heatmap_vector:np.ndarray, sample_num:int):
@@ -378,19 +50,21 @@ class HeadmapVector:
     def __gt__(self, other):
         # self_sum = np.sum([i for i in self.heatmap_vector if i >0.6])
         # other_sum = np.sum([i for i in other.heatmap_vector if i >0.6])
-        self_v = np.max(self.heatmap_vector) - np.median(self.heatmap_vector)
-        other_v = np.max(other.heatmap_vector) - np.median(other.heatmap_vector)
-        return self_v > other_v
-
+        # self_v = np.max(self.heatmap_vector) - np.median(self.heatmap_vector)
+        # other_v = np.max(other.heatmap_vector) - np.median(other.heatmap_vector)
+        self_v = np.sum(self.heatmap_vector)
+        other_v = np.sum(other.heatmap_vector)
+        return self_v < other_v
 
 # vectors = [HeadmapVector(i,1) for i in ys_1_normalized] + [HeadmapVector(i,2) for i in ys_2_normalized] + [HeadmapVector(i,3) for i in ys_3_normalized] + [HeadmapVector(i,4) for i in ys_4_normalized] + [HeadmapVector(i,5) for i in ys_5_normalized]
 
 vectors = sorted([HeadmapVector(i,1) for i in ys_1_normalized]) + sorted([HeadmapVector(i,2) for i in ys_2_normalized]) + sorted([HeadmapVector(i,3) for i in ys_3_normalized]) + sorted([HeadmapVector(i,4) for i in ys_4_normalized]) + sorted([HeadmapVector(i,5) for i in ys_5_normalized])
-title = "sk326tri (sorted by max - median(asc))"
+
+title = "sk328tri (sorted by sum of Normalized fluo. intensity)"
 # vectors = sorted(vectors,reverse=True)
 concatenated_samples = np.column_stack([i.heatmap_vector for i in vectors])  # ベクトルを横に並べて結合
 
-# 追加する横向きヒートマップのデータ（サンプルデータ）
+# 追加する横向きヒートマップのデータ（サンプルデータ)
 additional_row = np.array([i.sample_num/4 for i in vectors])[None, :]
 
 plt.figure(figsize=(10, 6))
@@ -413,9 +87,7 @@ ax2 = plt.subplot(gs[:, 1])
 plt.colorbar(im, cax=ax2)
 ax2.set_ylabel('Normalized fluo. intensity', rotation=270, labelpad=15)
 
-plt.savefig("heatmap_sk326_tri.png")
-
-
+plt.savefig("heatmap_sk328_tri.png")
 
 # print(f"len_ys_1_normalized: {len(ys_1_normalized)}")
 # print(f"len_ys_2_normalized: {len(ys_1_normalized)+ len(ys_2_normalized)}")
