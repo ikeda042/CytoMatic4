@@ -347,6 +347,7 @@ def data_analysis(db_name:str = "test.db", image_size:int = 100,out_name:str ="c
                     # else:
                     #     agg_bool.append(0)
                     fig.savefig(f"Cell/replot/{n}.png")
+                    fig.savefig(f"replot.png")
                     plt.close()
 
                     #######################################################ヒストグラム解析#######################################################
@@ -406,6 +407,7 @@ def data_analysis(db_name:str = "test.db", image_size:int = 100,out_name:str ="c
                     # Adding color bar to represent brightness
                     plt.colorbar(img)
                     fig_3d.savefig(f"Cell/3dplot/{n}.png")
+                    fig_3d.savefig(f"3dplot.png")
                     plt.close()
                     #######################################################Min distant point
                     fig_min_point = plt.figure(figsize=[6,6])
@@ -464,6 +466,7 @@ def data_analysis(db_name:str = "test.db", image_size:int = 100,out_name:str ="c
                     plt.title('Path Finder Algorithm')
                     plt.legend()
                     fig_path.savefig(f"Cell/peak_path/{n}.png")
+                    fig_path.savefig(f"peak_path.png")
                     plt.close()
 
                 ##########資料作成用(Cell/unified_cells）##########
