@@ -2,7 +2,48 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib import gridspec
 
-with open("temp_peak_analysis_tri/sk328tri0min_peak_points_ys.txt", "r") as f:
+# with open("temp_peak_analysis_tri/sk328tri0min_peak_points_ys.txt", "r") as f:
+#     ys_1 = [[float(x.replace("\n","")) for x in line.split(",")] for line in f.readlines()]
+#     ys_1_normalized = []
+#     for i in ys_1:
+#         i = np.array(i)
+#         i = (i - i.min()) / (i.max() - i.min())
+#         ys_1_normalized.append(i.tolist())
+
+# with open("temp_peak_analysis_tri/sk328tri30min_peak_points_ys.txt", "r") as f:
+#     ys_2 = [[float(x.replace("\n","")) for x in line.split(",")] for line in f.readlines()]
+#     ys_2_normalized = []
+#     for i in ys_2:
+#         i = np.array(i)
+#         i = (i - i.min()) / (i.max() - i.min())
+#         ys_2_normalized.append(i.tolist())
+
+# with open("temp_peak_analysis_tri/sk328tri60min_peak_points_ys.txt", "r") as f:
+#     ys_3 = [[float(x.replace("\n","")) for x in line.split(",")] for line in f.readlines()]
+#     ys_3_normalized = []
+#     for i in ys_3:
+#         i = np.array(i)
+#         i = (i - i.min()) / (i.max() - i.min())
+#         ys_3_normalized.append(i.tolist())
+
+# with open("temp_peak_analysis_tri/sk328tri90min_peak_points_ys.txt", "r") as f:
+#     ys_4 = [[float(x.replace("\n","")) for x in line.split(",")] for line in f.readlines()]
+#     ys_4_normalized = []
+#     for i in ys_4:
+#         i = np.array(i)
+#         i = (i - i.min()) / (i.max() - i.min())
+#         ys_4_normalized.append(i.tolist())
+
+# with open("temp_peak_analysis_tri/sk328tri120min_peak_points_ys.txt", "r") as f:
+#     ys_5 = [[float(x.replace("\n","")) for x in line.split(",")] for line in f.readlines()]
+#     ys_5_normalized = []
+#     for i in ys_5:
+#         i = np.array(i)
+#         i = (i - i.min()) / (i.max() - i.min())
+#         ys_5_normalized.append(i.tolist())
+
+
+with open("peakys2/sk25_bta_FITC_c_peak_points_ys.txt", "r") as f:
     ys_1 = [[float(x.replace("\n","")) for x in line.split(",")] for line in f.readlines()]
     ys_1_normalized = []
     for i in ys_1:
@@ -10,7 +51,7 @@ with open("temp_peak_analysis_tri/sk328tri0min_peak_points_ys.txt", "r") as f:
         i = (i - i.min()) / (i.max() - i.min())
         ys_1_normalized.append(i.tolist())
 
-with open("temp_peak_analysis_tri/sk328tri30min_peak_points_ys.txt", "r") as f:
+with open("peakys2/sk25_bta_FITC_10_peak_points_ys.txt", "r") as f:
     ys_2 = [[float(x.replace("\n","")) for x in line.split(",")] for line in f.readlines()]
     ys_2_normalized = []
     for i in ys_2:
@@ -18,7 +59,7 @@ with open("temp_peak_analysis_tri/sk328tri30min_peak_points_ys.txt", "r") as f:
         i = (i - i.min()) / (i.max() - i.min())
         ys_2_normalized.append(i.tolist())
 
-with open("temp_peak_analysis_tri/sk328tri60min_peak_points_ys.txt", "r") as f:
+with open("peakys2/sk25_bta_FITC_13_peak_points_ys.txt", "r") as f:
     ys_3 = [[float(x.replace("\n","")) for x in line.split(",")] for line in f.readlines()]
     ys_3_normalized = []
     for i in ys_3:
@@ -26,7 +67,7 @@ with open("temp_peak_analysis_tri/sk328tri60min_peak_points_ys.txt", "r") as f:
         i = (i - i.min()) / (i.max() - i.min())
         ys_3_normalized.append(i.tolist())
 
-with open("temp_peak_analysis_tri/sk328tri90min_peak_points_ys.txt", "r") as f:
+with open("peakys2/sk25_bta_FITC_15_peak_points_ys.txt", "r") as f:
     ys_4 = [[float(x.replace("\n","")) for x in line.split(",")] for line in f.readlines()]
     ys_4_normalized = []
     for i in ys_4:
@@ -34,7 +75,7 @@ with open("temp_peak_analysis_tri/sk328tri90min_peak_points_ys.txt", "r") as f:
         i = (i - i.min()) / (i.max() - i.min())
         ys_4_normalized.append(i.tolist())
 
-with open("temp_peak_analysis_tri/sk328tri120min_peak_points_ys.txt", "r") as f:
+with open("peakys2/sk25_bta_FITC_18_peak_points_ys.txt", "r") as f:
     ys_5 = [[float(x.replace("\n","")) for x in line.split(",")] for line in f.readlines()]
     ys_5_normalized = []
     for i in ys_5:
@@ -42,6 +83,21 @@ with open("temp_peak_analysis_tri/sk328tri120min_peak_points_ys.txt", "r") as f:
         i = (i - i.min()) / (i.max() - i.min())
         ys_5_normalized.append(i.tolist())
 
+with open("peakys2/sk25_bta_FITC_20_peak_points_ys.txt", "r") as f:
+    ys_6 = [[float(x.replace("\n","")) for x in line.split(",")] for line in f.readlines()]
+    ys_6_normalized = []
+    for i in ys_6:
+        i = np.array(i)
+        i = (i - i.min()) / (i.max() - i.min())
+        ys_6_normalized.append(i.tolist())
+
+
+print(ys_1_normalized[1])
+print(ys_2_normalized[1])
+print(ys_3_normalized[1])
+print(ys_4_normalized[1])
+print(ys_5_normalized[1])
+print(ys_6_normalized[1])
 class HeadmapVector:
     def __init__(self, heatmap_vector:np.ndarray, sample_num:int):
         self.heatmap_vector:np.ndarray = heatmap_vector
@@ -58,8 +114,11 @@ class HeadmapVector:
 
 # vectors = [HeadmapVector(i,1) for i in ys_1_normalized] + [HeadmapVector(i,2) for i in ys_2_normalized] + [HeadmapVector(i,3) for i in ys_3_normalized] + [HeadmapVector(i,4) for i in ys_4_normalized] + [HeadmapVector(i,5) for i in ys_5_normalized]
 
-vectors = sorted([HeadmapVector(i,1) for i in ys_1_normalized]) + sorted([HeadmapVector(i,2) for i in ys_2_normalized]) + sorted([HeadmapVector(i,3) for i in ys_3_normalized]) + sorted([HeadmapVector(i,4) for i in ys_4_normalized]) + sorted([HeadmapVector(i,5) for i in ys_5_normalized])
+vectors = sorted([HeadmapVector(i,1) for i in ys_1_normalized]) + sorted([HeadmapVector(i,2) for i in ys_2_normalized]) + sorted([HeadmapVector(i,3) for i in ys_3_normalized]) + sorted([HeadmapVector(i,4) for i in ys_4_normalized]) + sorted([HeadmapVector(i,5) for i in ys_5_normalized])+ sorted([HeadmapVector(i,6) for i in ys_6_normalized])
 
+# vectors = sorted([HeadmapVector(i,1) for i in ys_1]) + sorted([HeadmapVector(i,2) for i in ys_2]) + sorted([HeadmapVector(i,3) for i in ys_3]) + sorted([HeadmapVector(i,4) for i in ys_4]) + sorted([HeadmapVector(i,5) for i in ys_5])+ sorted([HeadmapVector(i,6) for i in ys_6])
+
+# vectors =  sorted([HeadmapVector(i,4) for i in ys_4_normalized]) + sorted([HeadmapVector(i,5) for i in ys_5_normalized])+ sorted([HeadmapVector(i,6) for i in ys_6_normalized])
 title = "sk328tri (sorted by sum of Normalized fluo. intensity)"
 # vectors = sorted(vectors,reverse=True)
 concatenated_samples = np.column_stack([i.heatmap_vector for i in vectors])  # ベクトルを横に並べて結合
@@ -87,7 +146,7 @@ ax2 = plt.subplot(gs[:, 1])
 plt.colorbar(im, cax=ax2)
 ax2.set_ylabel('Normalized fluo. intensity', rotation=270, labelpad=15)
 
-plt.savefig("heatmap_sk328_tri.png")
+plt.savefig("heatmap_FITC2.png")
 
 # print(f"len_ys_1_normalized: {len(ys_1_normalized)}")
 # print(f"len_ys_2_normalized: {len(ys_1_normalized)+ len(ys_2_normalized)}")
