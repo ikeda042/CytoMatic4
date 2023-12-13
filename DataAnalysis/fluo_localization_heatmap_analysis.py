@@ -155,7 +155,6 @@ plt.savefig("heatmap_FITC2.png")
 # print(f"len_ys_3_normalized: {len(ys_1_normalized)+ len(ys_2_normalized)+ len(ys_3_normalized)}")
 # print(f"len_ys_4_normalized: {len(ys_1_normalized)+ len(ys_2_normalized)+ len(ys_3_normalized)+ len(ys_4_normalized)}")
 # print(f"len_ys_5_normalized: {len(ys_1_normalized)+ len(ys_2_normalized)+ len(ys_3_normalized)+ len(ys_4_normalized)+ len(ys_5_normalized)}")
-
 # for i in ys_5_normalized:
 #     print(len(i))
 
