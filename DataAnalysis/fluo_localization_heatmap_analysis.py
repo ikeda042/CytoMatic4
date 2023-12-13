@@ -116,6 +116,8 @@ class HeadmapVector:
 
 vectors = sorted([HeadmapVector(i,1) for i in ys_1_normalized]) + sorted([HeadmapVector(i,2) for i in ys_2_normalized]) + sorted([HeadmapVector(i,3) for i in ys_3_normalized]) + sorted([HeadmapVector(i,4) for i in ys_4_normalized]) + sorted([HeadmapVector(i,5) for i in ys_5_normalized])+ sorted([HeadmapVector(i,6) for i in ys_6_normalized])
 
+
+
 # vectors = sorted([HeadmapVector(i,1) for i in ys_1]) + sorted([HeadmapVector(i,2) for i in ys_2]) + sorted([HeadmapVector(i,3) for i in ys_3]) + sorted([HeadmapVector(i,4) for i in ys_4]) + sorted([HeadmapVector(i,5) for i in ys_5])+ sorted([HeadmapVector(i,6) for i in ys_6])
 
 # vectors =  sorted([HeadmapVector(i,4) for i in ys_4_normalized]) + sorted([HeadmapVector(i,5) for i in ys_5_normalized])+ sorted([HeadmapVector(i,6) for i in ys_6_normalized])
@@ -156,3 +158,39 @@ plt.savefig("heatmap_FITC2.png")
 
 # for i in ys_5_normalized:
 #     print(len(i))
+
+plt.close()
+
+
+fig_box = plt.figure(figsize=(6,6))
+
+data1 = [np.sum(i) for i in ys_1_normalized]
+data2 = [np.sum(i) for i in ys_2_normalized]
+data3 = [np.sum(i) for i in ys_3_normalized]
+data4 = [np.sum(i) for i in ys_4_normalized]
+data5 = [np.sum(i) for i in ys_5_normalized]
+data6 = [np.sum(i) for i in ys_6_normalized]
+
+import numpy as np 
+import matplotlib.pyplot as plt
+
+fig = plt.figure(figsize=[8,8])
+
+# ボックスプロットを作成
+plt.boxplot([data1,data2,data3,data4,data5,data6],sym="")
+
+# データポイントをプロット（外れ値を含む）
+for i, data in enumerate([data1,data2,data3,data4,data5,data6], start=1):
+    x = np.random.normal(i, 0.04, size=len(data))  # データポイントのX座標を少しずらす
+    plt.plot(x, data, 'o', alpha=0.1)  
+
+# 各プロットにラベルを追加する
+plt.xticks([1, 2, 3, 4,5,6], [f'0% (n={len(data1)})', f'1.0%(n={len(data2)})', f'1.3% (n={len(data3)})', f'series4 (n={len(data4)})', f'series5 (n={len(data5)})', f'series6 (n={len(data6)})'])
+
+# グラフを表示
+plt.xlabel('Butanol ')
+plt.ylabel("Sum of Normalized fluo. intensity(-)")
+plt.grid(True)
+
+
+fig.savefig("result_sum.png",dpi = 500)
