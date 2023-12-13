@@ -192,5 +192,6 @@ plt.xlabel('Butanol ')
 plt.ylabel("Sum of Normalized fluo. intensity(-)")
 plt.grid(True)
 
-
 fig.savefig("result_sum.png",dpi = 500)
+plt.close()
+
