@@ -212,13 +212,20 @@ def data_analysis(db_name:str = "test.db", image_size:int = 100,out_name:str ="c
                     fluo_out1 = cv2.imdecode(np.frombuffer(cell.img_fluo1, dtype=np.uint8), cv2.IMREAD_COLOR)
                     cv2.drawContours(fluo_out1,pickle.loads(cell.contour),-1,(0,255,0),2)
                     cv2.imwrite(f"Cell/fluo1/{n}.png",fluo_out1)
-                    output_image =  np.zeros((image_size,image_size),dtype=np.uint8)
-                    # cv2.drawContours(output_image, [pickle.loads(cell.contour)], 0, 255, thickness=cv2.FILLED)
-                    for i in range(image_size):
-                        for j in range(image_size):
-                            if cv2.pointPolygonTest(pickle.loads(cell.contour), (j,i), False)>=0:
-                                output_image[i][j] = image_fluo1[i][j]
-                                
+
+                    # output_image =  np.zeros((image_size,image_size),dtype=np.uint8)
+                    # # cv2.drawContours(output_image, [pickle.loads(cell.contour)], 0, 255, thickness=cv2.FILLED)
+                    # for i in range(image_size):
+                    #     for j in range(image_size):
+                    #         if cv2.pointPolygonTest(pickle.loads(cell.contour), (j,i), False)>=0:
+                    #             output_image[i][j] = image_fluo1[i][j]
+
+                    #output_image生成の高速化
+           
+                    mask = np.zeros((image_size, image_size), dtype=np.uint8)
+                    cv2.fillPoly(mask, [pickle.loads(cell.contour)], 1)
+                    output_image = cv2.bitwise_and(image_fluo1, image_fluo1, mask=mask)
+                                                    
                     cv2.imwrite(f"Cell/fluo1_incide_cell_only/{n}.png",output_image)
 
                 if dual_layer_mode:
@@ -248,7 +255,6 @@ def data_analysis(db_name:str = "test.db", image_size:int = 100,out_name:str ="c
 
                     # 勾配の合成（勾配強度と角度を計算）
                     gradient_magnitude = np.sqrt(sobel_x**2 + sobel_y**2)
-
                     # 勾配の強度を正規化
                     # gradient_magnitude = cv2.normalize(gradient_magnitude, None, 0, 255, cv2.NORM_MINMAX, cv2.CV_8U)
 
