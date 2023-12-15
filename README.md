@@ -812,4 +812,5 @@ with Session() as session:
 # Contributors
 - Yunosuke Ikeda b182587@hiroshima-u.ac.jp (Lead Developer)
 - Haruya Tsurusako e3131901@foreign.kitakyu-u.ac.jp (Debugging: Cell Rotation algorithms by  circumscribed quadrangle.(not used in this version.))
-- Kyota Sanagi b200874@hiroshima-u.ac.jp(Debugging:Tkinter user interface)
+- Kyota Sanagi b200874@hiroshima-u.ac.jp(Debugging: Tkinter user interface)
+- Syunsuke Komatsu m232298@hiroshima-u.ac.jp(Debugging: Tkinter user interface)
