@@ -31,7 +31,7 @@ def find_minimum_distance_and_point(a, b, c, d, e, x_Q, y_Q):
 
     # scipyのminimize関数を使用して最短距離を見つける
     # 初期値は0とし、精度は低く設定して計算速度を向上させる
-    result = minimize(distance, 0, method='Nelder-Mead', options={'xatol': 1e-4, 'fatol': 1e-4})
+    result = minimize(distance, 0, method='Nelder-Mead', options={'xatol': 1e-4, 'fatol': 1e-2})
 
     # 最短距離とその時の関数上の点
     x_min = result.x[0]

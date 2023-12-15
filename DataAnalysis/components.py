@@ -64,6 +64,6 @@ def basis_conversion(contour:list[list[int]],X:np.ndarray,center_x:float,center_
 
 def calc_arc_length(theta:list[float],u_1_1:float,u_1_2:float) -> float:
     fx = lambda t: np.sqrt((4*theta[0]*t**3 + 3*theta[1]*t**2 + 2*theta[2]*t + theta[3])**2 + 1)
-    cell_length, _ = scipy.integrate.quad(fx, u_1_1, u_1_2, epsabs=1e-02)
+    cell_length, _ = scipy.integrate.quad(fx, u_1_1, u_1_2, epsabs=1e-01)
     return cell_length
 
