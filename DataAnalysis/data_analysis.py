@@ -177,7 +177,6 @@ def data_analysis(db_name:str = "test.db", image_size:int = 100,out_name:str ="c
     Session = sessionmaker(bind=engine)
     with Session() as session:
         cells = session.query(Cell).all()
-       
         for cell in tqdm(cells):
             if  cell.manual_label != "N/A" and cell.manual_label!= None :
                 print("###############################################")
