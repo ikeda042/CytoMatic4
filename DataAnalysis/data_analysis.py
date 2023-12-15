@@ -209,7 +209,7 @@ def data_analysis(db_name:str = "test.db", image_size:int = 100,out_name:str ="c
                 if not single_layer_mode:
                     image_fluo1 = cv2.imdecode(np.frombuffer(cell.img_fluo1, dtype=np.uint8), cv2.IMREAD_GRAYSCALE)
                     fluo_out1 = cv2.imdecode(np.frombuffer(cell.img_fluo1, dtype=np.uint8), cv2.IMREAD_COLOR)
-                    cv2.drawContours(fluo_out1,pickle.loads(cell.contour),-1,(0,0,255),1)
+                    cv2.drawContours(fluo_out1,pickle.loads(cell.contour),-1,(0,255,0),2)
                     cv2.imwrite(f"Cell/fluo1/{n}.png",fluo_out1)
                     output_image =  np.zeros((image_size,image_size),dtype=np.uint8)
                     # cv2.drawContours(output_image, [pickle.loads(cell.contour)], 0, 255, thickness=cv2.FILLED)
@@ -437,8 +437,8 @@ def data_analysis(db_name:str = "test.db", image_size:int = 100,out_name:str ="c
                     data_points = np.array([[i[0],j] for i,j in zip(projected_points,temp_y)])
 
                     fig_path = plt.figure(figsize=(6, 6))
-                    split_num = 25
-                    delta_L = (np.max(x) - np.min(x)) / split_num
+                    split_num = 140
+                    delta_L = (np.max(x) - np.min(x)) / split_num +1
                     x = data_points[:, 0]
                     y = data_points[:, 1]
                     path = []
