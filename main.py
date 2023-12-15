@@ -53,7 +53,8 @@ def main(
                 stmt = update(Cell).where(Cell.cell_id == cell[1]).values(manual_label = cell[2])
                 session.execute(stmt)
                 session.commit()
-        data_analysis(db_name=f"{file_name.split('.')[0]}.db", image_size=img_size,out_name = file_name.split(".")[0],single_layer_mode=single_layer_mode, dual_layer_mode=dual_layer_mode)
+        #終了時に解析を行わない様にする。
+        # data_analysis(db_name=f"{file_name.split('.')[0]}.db", image_size=img_size,out_name = file_name.split(".")[0],single_layer_mode=single_layer_mode, dual_layer_mode=dual_layer_mode)
     elif mode == "data_analysis":
         data_analysis(db_name=f"{file_name.split('.')[0]}.db", image_size=img_size,out_name = file_name.split(".")[0],single_layer_mode=single_layer_mode,dual_layer_mode=dual_layer_mode)
     # elif mode == "delete_all":
