@@ -10,3 +10,4 @@ tifffile
 sqlalchemy
 pillow
 tqdm
+seaborn
