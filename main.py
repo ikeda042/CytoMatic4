@@ -2,6 +2,7 @@ from pyfiles.image_process import image_process
 from pyfiles.delete_all import delete_all
 from pyfiles.app import app
 from DataAnalysis.data_analysis import data_analysis
+from DataAnalysis.data_analysis_light import data_analysis_light
 import sqlite3
 from pyfiles.database import Base, Cell
 from sqlalchemy import create_engine, update
@@ -53,10 +54,13 @@ def main(
                 stmt = update(Cell).where(Cell.cell_id == cell[1]).values(manual_label = cell[2])
                 session.execute(stmt)
                 session.commit()
-        #終了時に解析を行わない様にする。
+        #終了時に細胞を俯瞰するのみか、解析するかを選ぶ。
+                
+        data_analysis_light(db_name=f"{file_name.split('.')[0]}.db", image_size=img_size,out_name = file_name.split(".")[0],single_layer_mode=single_layer_mode, dual_layer_mode=dual_layer_mode)
         # data_analysis(db_name=f"{file_name.split('.')[0]}.db", image_size=img_size,out_name = file_name.split(".")[0],single_layer_mode=single_layer_mode, dual_layer_mode=dual_layer_mode)
+
     elif mode == "data_analysis":
-        data_analysis(db_name=f"{file_name.split('.')[0]}.db", image_size=img_size,out_name = file_name.split(".")[0],single_layer_mode=single_layer_mode,dual_layer_mode=dual_layer_mode)
+        data_analysis_light(db_name=f"{file_name.split('.')[0]}.db", image_size=img_size,out_name = file_name.split(".")[0],single_layer_mode=single_layer_mode,dual_layer_mode=dual_layer_mode)
     # elif mode == "delete_all":
     #     delete_all(input_filename=file_name)
     elif mode == "delete_all":
