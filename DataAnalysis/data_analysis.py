@@ -18,6 +18,7 @@ from .components import create_dirs, calc_gradient, basis_conversion, calc_arc_l
 from mpl_toolkits.mplot3d import Axes3D
 from scipy.optimize import minimize
 import numpy as np
+import seaborn as sns
 
 def find_minimum_distance_and_point(a, b, c, d, e, x_Q, y_Q):
     # 4次式 f(x) の定義
@@ -170,7 +171,7 @@ def data_analysis(db_name:str = "test.db", image_size:int = 100,out_name:str ="c
     ##############################################################
     
     create_dirs(["Cell","Cell/ph","Cell/fluo1","Cell/fluo2","Cell/histo","Cell/histo_cumulative","Cell/replot","Cell/replot_map","Cell/fluo1_incide_cell_only","Cell/fluo2_incide_cell_only","Cell/gradient_magnitudes","Cell/GLCM","Cell/unified_cells","Cell/3dplot","Cell/projected_points","Cell/peak_path"])
-
+    sns.set()
     engine = create_engine(f'sqlite:///{db_name}', echo=False)
     Base.metadata.create_all(engine)
     Session = sessionmaker(bind=engine)
@@ -458,13 +459,16 @@ def data_analysis(db_name:str = "test.db", image_size:int = 100,out_name:str ="c
                     peak_points.append(path)
                     path = np.array(path)
                     print(path)
-                    plt.scatter(data_points[:, 0], data_points[:, 1], label='Data Points',s = 20,color = "lime",marker="x")
-                    plt.plot(path[:, 0], path[:, 1], color='#FD00FD', label='Path',)
-                    plt.scatter(path[:, 0], path[:, 1], color='#FD00FD',s = 10)
+                    
+                    plt.scatter(data_points[:, 0], data_points[:, 1], label='Data Points',s = 20,c = temp_y,marker="x",cmap="viridis_r")
+                    plt.plot(path[:, 0], path[:, 1], color='#FD00FD', label='Path',linewidth=2)
+                    plt.scatter(path[:, 0], path[:, 1], color='#FD00FD',s = 15)
                     plt.xlabel('X')
                     plt.ylabel('Y')
                     plt.title('Path Finder Algorithm')
                     plt.legend()
+                    plt.grid()
+                    plt.grid()
                     fig_path.savefig(f"Cell/peak_path/{n}.png")
                     fig_path.savefig(f"peak_path.png")
                     plt.close()
