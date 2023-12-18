@@ -19,6 +19,7 @@ from mpl_toolkits.mplot3d import Axes3D
 from scipy.optimize import minimize
 import numpy as np
 import seaborn as sns
+from matplotlib.animation import FuncAnimation
 
 def find_minimum_distance_and_point(a, b, c, d, e, x_Q, y_Q):
     # 4次式 f(x) の定義
@@ -442,41 +443,96 @@ def data_analysis(db_name:str = "test.db", image_size:int = 100,out_name:str ="c
                     ##########ピークに沿ったpathの探索アルゴリズム##########
                     data_points = np.array([[i[0],j] for i,j in zip(projected_points,temp_y)])
 
-                    fig_path = plt.figure(figsize=(6, 6))
-                    split_num = 140
-                    delta_L = (np.max(x) - np.min(x)) / split_num +1
-                    x = data_points[:, 0]
-                    y = data_points[:, 1]
-                    path = []
-                    for i in range(split_num):
-                        min_x_i = np.min(x) + i * delta_L
-                        max_x_i = min_x_i + delta_L
-                        
-                        indices = (x >= min_x_i) & (x < max_x_i)
-                        x_in_range = x[indices]
-                        y_in_range = y[indices]
+                    def animate_path_finding(projected_points, temp_y):
+                        data_points = np.array([[i[0], j] for i, j in zip(projected_points, temp_y)])
+                        x = data_points[:, 0]
+                        y = data_points[:, 1]
 
-                        if len(y_in_range) > 0 :
-                            max_y = np.max(y_in_range)
-                            max_y_index = np.argmax(y_in_range)
-                            sampled_point = [x_in_range[max_y_index], max_y]
-                            path.append(sampled_point)
-                    peak_points.append(path)
-                    path = np.array(path)
-                    print(path)
-                    
-                    plt.scatter(data_points[:, 0], data_points[:, 1], label='Data Points',s = 20,c = temp_y,marker="x",cmap="viridis_r")
-                    plt.plot(path[:, 0], path[:, 1], color='#FD00FD', label='Path',linewidth=2)
-                    plt.scatter(path[:, 0], path[:, 1], color='#FD00FD',s = 15)
-                    plt.xlabel('X')
-                    plt.ylabel('Y')
-                    plt.title('Path Finder Algorithm')
-                    plt.legend()
-                    plt.grid()
-                    plt.grid()
-                    fig_path.savefig(f"Cell/peak_path/{n}.png")
-                    fig_path.savefig(f"peak_path.png")
-                    plt.close()
+                        fig, ax = plt.subplots(figsize=(6, 6))
+                        ax.scatter(x, y, label='Data Points', s=10, color = "lime", marker="x")
+                        line, = ax.plot([], [], color='#FD00FD', label='Path', linewidth=2)
+                        scatter_points = ax.scatter([], [], color='#FD00FD', s=15)
+                        ax.set_xlabel('X')
+                        ax.set_ylabel('Y')
+                        ax.set_title('Path Finder Algorithm')
+                        ax.legend()
+                        ax.grid()
+
+                        split_num = 50
+                        delta_L = (np.max(x) - np.min(x)) / split_num + 1
+                        path = []
+
+                        def update(i):
+                            min_x_i = np.min(x) + i * delta_L
+                            max_x_i = min_x_i + delta_L
+                            indices = (x >= min_x_i) & (x < max_x_i)
+                            x_in_range = x[indices]
+                            y_in_range = y[indices]
+
+                            if len(y_in_range) > 0:
+                                max_y = np.max(y_in_range)
+                                max_y_index = np.argmax(y_in_range)
+                                sampled_point = [x_in_range[max_y_index], max_y]
+                                path.append(sampled_point)
+
+                            if path:
+                                current_path = np.array(path)
+                                line.set_data(current_path[:, 0], current_path[:, 1])
+                                scatter_points.set_offsets(current_path)
+
+                            return line, scatter_points
+
+                        ani = FuncAnimation(fig, update, frames=range(split_num), blit=True, interval=80, repeat=False)
+
+                        def close_event():
+                            plt.close(fig)
+
+                        timer = fig.canvas.new_timer(interval=split_num * 80)
+                        timer.add_callback(close_event)
+                        timer.start()
+
+                        plt.show()
+
+                    animate_path = True
+                    if animate_path:
+                        animate_path_finding(projected_points, temp_y)
+                        plt.close()
+                    if True:
+                        fig_path = plt.figure(figsize=(6, 6))
+                        split_num = 140
+                        delta_L = (np.max(x) - np.min(x)) / split_num +1
+                        x = data_points[:, 0]
+                        y = data_points[:, 1]
+                        path = []
+                        for i in range(split_num):
+                            min_x_i = np.min(x) + i * delta_L
+                            max_x_i = min_x_i + delta_L
+                            
+                            indices = (x >= min_x_i) & (x < max_x_i)
+                            x_in_range = x[indices]
+                            y_in_range = y[indices]
+
+                            if len(y_in_range) > 0 :
+                                max_y = np.max(y_in_range)
+                                max_y_index = np.argmax(y_in_range)
+                                sampled_point = [x_in_range[max_y_index], max_y]
+                                path.append(sampled_point)
+                        peak_points.append(path)
+                        path = np.array(path)
+                        print(path)
+                        
+                        plt.scatter(data_points[:, 0], data_points[:, 1], label='Data Points',s = 20,c = temp_y,marker="x",cmap="viridis_r")
+                        plt.plot(path[:, 0], path[:, 1], color='#FD00FD', label='Path',linewidth=2)
+                        plt.scatter(path[:, 0], path[:, 1], color='#FD00FD',s = 15)
+                        plt.xlabel('X')
+                        plt.ylabel('Y')
+                        plt.title('Path Finder Algorithm')
+                        plt.legend()
+                        plt.grid()
+                        plt.grid()
+                        fig_path.savefig(f"Cell/peak_path/{n}.png")
+                        fig_path.savefig(f"peak_path.png")
+                        plt.close()
 
                 ##########資料作成用(Cell/unified_cells）##########
                 
