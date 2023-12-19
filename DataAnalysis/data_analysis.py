@@ -448,7 +448,7 @@ def data_analysis(db_name:str = "test.db", image_size:int = 100,out_name:str ="c
                         x = data_points[:, 0]
                         y = data_points[:, 1]
 
-                        fig, ax = plt.subplots(figsize=(6, 6))
+                        fig, ax = plt.subplots(figsize=(16, 9))
                         ax.scatter(x, y, label='Data Points', s=10, color = "lime", marker="x")
                         line, = ax.plot([], [], color='#FD00FD', label='Path', linewidth=2)
                         scatter_points = ax.scatter([], [], color='#FD00FD', s=15)
@@ -458,7 +458,7 @@ def data_analysis(db_name:str = "test.db", image_size:int = 100,out_name:str ="c
                         ax.legend()
                         ax.grid()
 
-                        split_num = 50
+                        split_num = 200
                         delta_L = (np.max(x) - np.min(x)) / split_num + 1
                         path = []
 
@@ -483,11 +483,12 @@ def data_analysis(db_name:str = "test.db", image_size:int = 100,out_name:str ="c
                             return line, scatter_points
 
                         ani = FuncAnimation(fig, update, frames=range(split_num), blit=True, interval=80, repeat=False)
+                        plt.grid()
                         plt.show(block=False)
-                        plt.pause(3)
+                        plt.pause(5)
                         plt.close()
 
-                    animate_path = True
+                    animate_path = False
                     if animate_path:
                         animate_path_finding(projected_points, temp_y)
                         plt.close()
