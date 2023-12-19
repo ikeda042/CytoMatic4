@@ -483,15 +483,9 @@ def data_analysis(db_name:str = "test.db", image_size:int = 100,out_name:str ="c
                             return line, scatter_points
 
                         ani = FuncAnimation(fig, update, frames=range(split_num), blit=True, interval=80, repeat=False)
-
-                        def close_event():
-                            plt.close(fig)
-
-                        timer = fig.canvas.new_timer(interval=split_num * 80)
-                        timer.add_callback(close_event)
-                        timer.start()
-
-                        plt.show()
+                        plt.show(block=False)
+                        plt.pause(3)
+                        plt.close()
 
                     animate_path = True
                     if animate_path:
