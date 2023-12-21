@@ -505,6 +505,7 @@ def data_analysis(db_name:str = "test.db", image_size:int = 100,out_name:str ="c
                         min_x = x[min_x_index]
                         min_y = y[min_x_index]
                         path = [[min_x, min_y]]
+                        plt.vlines(min_x, 0, 255, color='red',alpha=0,label = f"Split vlines({split_num})")
                         for i in range(split_num):
                             min_x_i = np.min(x) + i * delta_L
                             max_x_i = min_x_i + delta_L
@@ -512,7 +513,7 @@ def data_analysis(db_name:str = "test.db", image_size:int = 100,out_name:str ="c
                             indices = (x >= min_x_i) & (x < max_x_i)
                             x_in_range = x[indices]
                             y_in_range = y[indices]
-                            plt.vlines(min_x_i, 0, 255, color='red',alpha=0.2)
+                            plt.vlines(min_x_i, 0, 255, color='blue',alpha=0.4)
                             if len(y_in_range) > 0 :
                                 max_y = np.max(y_in_range)
                                 max_y_index = np.argmax(y_in_range)
