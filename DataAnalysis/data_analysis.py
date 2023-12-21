@@ -174,10 +174,10 @@ def data_analysis(db_name:str = "test.db", image_size:int = 100,out_name:str ="c
     輝度の密度関数(split 面積ベース)
     """
     sum_brightness = []
-    
+    sum_brightnesses = []
     ##############################################################
     
-    create_dirs(["Cell","Cell/ph","Cell/fluo1","Cell/fluo2","Cell/histo","Cell/histo_cumulative","Cell/replot","Cell/replot_map","Cell/fluo1_incide_cell_only","Cell/fluo2_incide_cell_only","Cell/gradient_magnitudes","Cell/GLCM","Cell/unified_cells","Cell/3dplot","Cell/projected_points","Cell/peak_path"])
+    create_dirs(["Cell","Cell/ph","Cell/fluo1","Cell/fluo2","Cell/histo","Cell/histo_cumulative","Cell/replot","Cell/replot_map","Cell/fluo1_incide_cell_only","Cell/fluo2_incide_cell_only","Cell/gradient_magnitudes","Cell/GLCM","Cell/unified_cells","Cell/3dplot","Cell/projected_points","Cell/peak_path","Cell/sum_brightness"])
     sns.set()
     engine = create_engine(f'sqlite:///{db_name}', echo=False)
     Base.metadata.create_all(engine)
@@ -506,7 +506,7 @@ def data_analysis(db_name:str = "test.db", image_size:int = 100,out_name:str ="c
                         print([[i[0],j] for i,j in zip(projected_points,temp_y)])
                         print("###############################################")
                         fig_path = plt.figure(figsize=(6, 6))
-                        split_num = 40 + 1
+                        split_num = 30 + 1
                         delta_L = (np.max(x) - np.min(x)) / split_num
                         x = data_points[:, 0]
                         min_x_index = np.argmin(x)
@@ -558,7 +558,9 @@ def data_analysis(db_name:str = "test.db", image_size:int = 100,out_name:str ="c
                     plt.xlabel("split area(-)")
                     plt.ylabel("Sum of brightness in the area(-)")
                     fig_sum_brightness.savefig(f"sum_brightness.png")
+                    fig_sum_brightness.savefig(f"Cell/sum_brightness/{n}.png")
                     plt.close()
+                    sum_brightnesses.append(sum_brightness)
                     sum_brightness = []
 
 
@@ -693,6 +695,10 @@ def data_analysis(db_name:str = "test.db", image_size:int = 100,out_name:str ="c
     with open(f"{out_name}_peak_points_ys.txt",mode="w") as fpout:
         for i in range(len(peak_points)):
             fpout.write(f"{','.join([str(float(i)) for i in [i[1] for i in peak_points[i]]])}\n")
+
+    with open(f"{out_name}_sum_brightnesses.txt",mode="w") as fpout:
+        for i in range(len(sum_brightnesses)):
+            fpout.write(f"{','.join([str(float(i)) for i in sum_brightnesses[i]])}\n")
 
     return n
     
