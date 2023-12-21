@@ -498,7 +498,7 @@ def data_analysis(db_name:str = "test.db", image_size:int = 100,out_name:str ="c
                         print([[i[0],j] for i,j in zip(projected_points,temp_y)])
                         print("###############################################")
                         fig_path = plt.figure(figsize=(6, 6))
-                        split_num = 20 + 1
+                        split_num = 40 + 1
                         delta_L = (np.max(x) - np.min(x)) / split_num
                         x = data_points[:, 0]
                         min_x_index = np.argmin(x)
@@ -512,7 +512,7 @@ def data_analysis(db_name:str = "test.db", image_size:int = 100,out_name:str ="c
                             indices = (x >= min_x_i) & (x < max_x_i)
                             x_in_range = x[indices]
                             y_in_range = y[indices]
-
+                            plt.vlines(min_x_i, 0, 255, color='red',alpha=0.2)
                             if len(y_in_range) > 0 :
                                 max_y = np.max(y_in_range)
                                 max_y_index = np.argmax(y_in_range)
@@ -527,9 +527,9 @@ def data_analysis(db_name:str = "test.db", image_size:int = 100,out_name:str ="c
                         path = np.array(path)
                         print(path)
                         
-                        plt.scatter(data_points[:, 0], data_points[:, 1], label='Data Points',s = 20,c = temp_y,marker="x",cmap="viridis_r")
+                        plt.scatter(data_points[:, 0], data_points[:, 1], label='Data Points',s = 20,marker="o",color = "lime")
                         plt.plot(path[:, 0], path[:, 1], color='#FD00FD', label='Path',linewidth=2)
-                        plt.scatter(path[:, 0], path[:, 1], color='#FD00FD',s = 15)
+                        plt.scatter(path[:, 0], path[:, 1], color='#FD00FD',s = 30,marker="x")
                         plt.xlabel('X')
                         plt.ylabel('Y')
                         plt.title('Path Finder Algorithm')
