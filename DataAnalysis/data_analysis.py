@@ -356,7 +356,7 @@ def data_analysis(db_name:str = "test.db", image_size:int = 100,out_name:str ="c
                     fig.savefig(f"Cell/replot/{n}.png")
                     fig.savefig(f"replot.png")
                     plt.close()
-
+                    
                     #######################################################ヒストグラム解析#######################################################
                     """
                     正規化した細胞内輝度によるヒストグラムの描画
@@ -442,7 +442,8 @@ def data_analysis(db_name:str = "test.db", image_size:int = 100,out_name:str ="c
                     plt.close()
                     ##########ピークに沿ったpathの探索アルゴリズム##########
                     data_points = np.array([[i[0],j] for i,j in zip(projected_points,temp_y)])
-
+                    x = data_points[:, 0]
+                    y = data_points[:, 1]
                     def animate_path_finding(projected_points, temp_y):
                         data_points = np.array([[i[0], j] for i, j in zip(projected_points, temp_y)])
                         x = data_points[:, 0]
@@ -493,12 +494,17 @@ def data_analysis(db_name:str = "test.db", image_size:int = 100,out_name:str ="c
                         animate_path_finding(projected_points, temp_y)
                         plt.close()
                     if True:
+                        print("###############################################")
+                        print([[i[0],j] for i,j in zip(projected_points,temp_y)])
+                        print("###############################################")
                         fig_path = plt.figure(figsize=(6, 6))
-                        split_num = 140
-                        delta_L = (np.max(x) - np.min(x)) / split_num +1
+                        split_num = 20 + 1
+                        delta_L = (np.max(x) - np.min(x)) / split_num
                         x = data_points[:, 0]
-                        y = data_points[:, 1]
-                        path = []
+                        min_x_index = np.argmin(x)
+                        min_x = x[min_x_index]
+                        min_y = y[min_x_index]
+                        path = [[min_x, min_y]]
                         for i in range(split_num):
                             min_x_i = np.min(x) + i * delta_L
                             max_x_i = min_x_i + delta_L
@@ -512,7 +518,12 @@ def data_analysis(db_name:str = "test.db", image_size:int = 100,out_name:str ="c
                                 max_y_index = np.argmax(y_in_range)
                                 sampled_point = [x_in_range[max_y_index], max_y]
                                 path.append(sampled_point)
+                        max_x_index = np.argmax(x)
+                        max_x = x[max_x_index]
+                        max_y = y[max_x_index]
+                        path.append([max_x, max_y])
                         peak_points.append(path)
+
                         path = np.array(path)
                         print(path)
                         
