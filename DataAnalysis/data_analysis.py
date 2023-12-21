@@ -552,11 +552,11 @@ def data_analysis(db_name:str = "test.db", image_size:int = 100,out_name:str ="c
                         plt.close()
                     ##########splitレンジ内の合計輝度プロット##########
                     fig_sum_brightness = plt.figure(figsize=[6,6])
-                    plt.scatter([i for i in range(len(sum_brightness))],sum_brightness,color = "blue",s = 20)
+                    plt.grid()
+                    # plt.scatter([i for i in range(len(sum_brightness))],sum_brightness,color = "blue",s = 20)
                     plt.plot([i for i in range(len(sum_brightness))],sum_brightness,color = "blue",linewidth=1)
                     plt.xlabel("split area(-)")
                     plt.ylabel("Sum of brightness in the area(-)")
-                    plt.grid()
                     fig_sum_brightness.savefig(f"sum_brightness.png")
                     plt.close()
                     sum_brightness = []
