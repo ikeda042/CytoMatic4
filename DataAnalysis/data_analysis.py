@@ -169,6 +169,12 @@ def data_analysis(db_name:str = "test.db", image_size:int = 100,out_name:str ="c
     projected_points_xs = []
     projected_points_ys = []
     peak_points:list[list[float]] = []
+
+    """
+    輝度の密度関数(split 面積ベース)
+    """
+    sum_brightness = []
+    
     ##############################################################
     
     create_dirs(["Cell","Cell/ph","Cell/fluo1","Cell/fluo2","Cell/histo","Cell/histo_cumulative","Cell/replot","Cell/replot_map","Cell/fluo1_incide_cell_only","Cell/fluo2_incide_cell_only","Cell/gradient_magnitudes","Cell/GLCM","Cell/unified_cells","Cell/3dplot","Cell/projected_points","Cell/peak_path"])
@@ -440,7 +446,7 @@ def data_analysis(db_name:str = "test.db", image_size:int = 100,out_name:str ="c
                     plt.ylim(0,255)
                     fig_min_point.savefig(f"Cell/projected_points/{n}.png")
                     plt.close()
-                    ##########ピークに沿ったpathの探索アルゴリズム##########
+                    ##########ピークに沿ったpathの探索アルゴリズム（Animation:beta)##########
                     data_points = np.array([[i[0],j] for i,j in zip(projected_points,temp_y)])
                     x = data_points[:, 0]
                     y = data_points[:, 1]
@@ -493,6 +499,8 @@ def data_analysis(db_name:str = "test.db", image_size:int = 100,out_name:str ="c
                     if animate_path:
                         animate_path_finding(projected_points, temp_y)
                         plt.close()
+                    
+                    ##########ピークに沿ったpathの探索アルゴリズム##########
                     if True:
                         print("###############################################")
                         print([[i[0],j] for i,j in zip(projected_points,temp_y)])
@@ -509,16 +517,18 @@ def data_analysis(db_name:str = "test.db", image_size:int = 100,out_name:str ="c
                         for i in range(split_num):
                             min_x_i = np.min(x) + i * delta_L
                             max_x_i = min_x_i + delta_L
-                            
                             indices = (x >= min_x_i) & (x < max_x_i)
                             x_in_range = x[indices]
                             y_in_range = y[indices]
                             plt.vlines(min_x_i, 0, 255, color='blue',alpha=0.4)
+                            #calculate sum of Y in range between min_x_i and max_x_i please
+                            sum_brightness = sum(y_in_range)
                             if len(y_in_range) > 0 :
                                 max_y = np.max(y_in_range)
                                 max_y_index = np.argmax(y_in_range)
                                 sampled_point = [x_in_range[max_y_index], max_y]
                                 path.append(sampled_point)
+
                         max_x_index = np.argmax(x)
                         max_x = x[max_x_index]
                         max_y = y[max_x_index]
@@ -540,6 +550,7 @@ def data_analysis(db_name:str = "test.db", image_size:int = 100,out_name:str ="c
                         fig_path.savefig(f"Cell/peak_path/{n}.png")
                         fig_path.savefig(f"peak_path.png")
                         plt.close()
+                    ##########splitレンジ内の合計輝度プロット##########
 
                 ##########資料作成用(Cell/unified_cells）##########
                 
