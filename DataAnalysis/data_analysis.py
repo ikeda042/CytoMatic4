@@ -522,7 +522,7 @@ def data_analysis(db_name:str = "test.db", image_size:int = 100,out_name:str ="c
                             y_in_range = y[indices]
                             plt.vlines(min_x_i, 0, 255, color='blue',alpha=0.4)
                             #calculate sum of Y in range between min_x_i and max_x_i please
-                            sum_brightness.append(sum(y_in_range))
+                            sum_brightness.append(np.mean(y_in_range))
                             if len(y_in_range) > 0 :
                                 max_y = np.max(y_in_range)
                                 max_y_index = np.argmax(y_in_range)
