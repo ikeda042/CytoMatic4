@@ -6,7 +6,6 @@ def init():
         os.system("git pull origin main")
     except:
         pass
-    
     os.system("pip install -r requirements.txt")
 
 init()
