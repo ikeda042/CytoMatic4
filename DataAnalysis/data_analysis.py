@@ -319,7 +319,7 @@ def data_analysis(db_name:str = "test.db", image_size:int = 100,out_name:str ="c
                     plt.xlabel("u1")
                     plt.ylabel("u2")
                     plt.axis("equal")
-
+                    
                     """
                     多項式回帰のKを検討（試験的）
                     """
