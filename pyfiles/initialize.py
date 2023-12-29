@@ -53,6 +53,10 @@ def init(input_filename: str,
         except Exception as e:
             print(e)
         try:
+            os.mkdir(f"TempData/frames/tiff_{i}/Cells/ph_raw")
+        except Exception as e:
+            print(e)
+        try:
             os.mkdir(f"TempData/frames/tiff_{i}/Cells/fluo1")
         except Exception as e:
             print(e)
