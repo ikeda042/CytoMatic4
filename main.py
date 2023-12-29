@@ -70,7 +70,7 @@ def main(
         for file_name in [i for i in os.listdir() if i.split(".")[-1] == "db" and i not in ["image_labels.db","test_database.db"]]:
             delete_all()
             t0 = time.time()
-            n = data_analysis(db_name=f"{file_name.split('.')[0]}.db", image_size=600,out_name = file_name.split(".")[0],dual_layer_mode=dual_layer_mode)
+            n = data_analysis(db_name=f"{file_name.split('.')[0]}.db", image_size=200,out_name = file_name.split(".")[0],dual_layer_mode=dual_layer_mode)
             times.append((time.time()-t0)/n)
         with open("time_analysis.txt","w") as f:
             for i in times:
