@@ -33,8 +33,8 @@ pip install -r requirements.txt
 1. Go to the directory and run cytomatic4.py
 
 ```bash
-cd CytoMatic4
-python3 cytomatic4.py
+cd PhenoPixel4.0
+python3 PhenoPixel4.py
 ```
 
 ![Start-up window](images_readme/cytomatic4.png)
