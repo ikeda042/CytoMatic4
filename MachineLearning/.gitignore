@@ -1,3 +1,4 @@
 *
 !.gitignore
 !manual_contour_detection.py
+!mdc_temp.png
