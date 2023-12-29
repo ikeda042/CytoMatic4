@@ -8,6 +8,11 @@
 
 PhenoPixel4.0 is an OpenCV-based image processing program designed for automating the extraction of cell images from a large number of images (e.g., multiple nd2 files). 
 
+<div align="center">
+
+![Start-up window](images_readme/manual_detect_demo.gif)
+
+</div>
 This program is Python-based and utilizes Tkinter for its GUI, making it cross-platform. 
 
 It has been primarily tested on Windows 10 and MacOS Sonoma 14.0.
