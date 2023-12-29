@@ -3,7 +3,7 @@ from tkinter import filedialog
 from main import main
 import os
 
-def imageK4():
+def PhenoPixel4():
     def run_main():
         file_name = file_name_var.get()
         param1 = int(param1_var.get())
@@ -68,7 +68,7 @@ def imageK4():
 
 
 if __name__ == "__main__":
-    imageK4()
+    PhenoPixel4()
     with open("param_data.txt",mode = "r") as fp:
         file_name = fp.readline().rstrip("\n")
         param1 = int(fp.readline().rstrip("\n"))
@@ -78,6 +78,6 @@ if __name__ == "__main__":
         layer_mode = fp.readline().rstrip("\n")
     main(file_name, param1, param2, img_size, mode, layer_mode)
     try:
-        os.remove("param_data.txt")
+        os.remove("fileparam_data.txt")
     except:
         pass
