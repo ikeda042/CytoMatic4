@@ -18,7 +18,7 @@ class ImageDrawer:
     def draw_point(self, event, x, y, flags, param):
         if event == cv2.EVENT_LBUTTONDOWN:
             self.points.append((x, y))
-            cv2.circle(self.img, (x, y), 1, (0, 0, 255), -1)  
+            cv2.circle(self.img, (x, y), 2, (0, 0, 255), -1)  
             self.redraw_image()
 
     def interpolate_points(self, p1, p2, num_points=10):
@@ -53,7 +53,7 @@ class ImageDrawer:
                 # 曲線の色を青に変更 (BGR形式で(255, 0, 0)は青色)
                 cv2.line(self.img, all_points[i], all_points[i + 1], (0,255, 0), 2)
         for point in self.points:
-            cv2.circle(self.img, point, 3, (0, 0, 255), -1)
+            cv2.circle(self.img, point, 5, (0, 0, 255), -1)
 
     def get_bezier_contour(self):
         all_points = []
@@ -70,12 +70,14 @@ class ImageDrawer:
         contour_img = np.zeros(self.original_img.shape[:2], dtype=np.uint8)
         cv2.drawContours(contour_img, [bezier_contour], -1, 255, thickness=cv2.FILLED)
         filename = f"{self.image_path.split('.')[0]}_label.png"
-        contour_img_to_save = cv2.resize(contour_img, self.original_img_size)
+        kernel = np.ones((8,8), np.uint8)
+        cleaned_image = cv2.morphologyEx(contour_img, cv2.MORPH_OPEN, kernel)
+        cv2.imwrite("cleange.png", cleaned_image)
+        contour_img_to_save = cv2.resize(cleaned_image, self.original_img_size)
         contour_img_to_save = cv2.threshold(contour_img_to_save, 127, 255, cv2.THRESH_BINARY)[1]
-
         cv2.imwrite(filename, contour_img_to_save)
         print(f"Contour image saved: {filename}")
-        cv2.imshow("Saved Contour", contour_img)
+        cv2.imshow("Saved Contour", cleaned_image)
 
     def run(self):
         cv2.namedWindow('image')
@@ -92,8 +94,8 @@ class ImageDrawer:
                     self.redraw_image()
             elif k == 13:  # Enterキーで輪郭出力
                 self.save_contour()
-
         cv2.destroyAllWindows()
+        
 
-drawer = ImageDrawer('0.png')
+drawer = ImageDrawer('MachineLearning/mdc_temp.png')
 drawer.run()
