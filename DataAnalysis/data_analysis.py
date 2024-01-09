@@ -179,6 +179,7 @@ def data_analysis(db_name:str = "test.db", image_size:int = 100,out_name:str ="c
     
     create_dirs(["Cell","Cell/ph","Cell/fluo1","Cell/fluo2","Cell/histo","Cell/histo_cumulative","Cell/replot","Cell/replot_map","Cell/fluo1_incide_cell_only","Cell/fluo2_incide_cell_only","Cell/gradient_magnitudes","Cell/GLCM","Cell/unified_cells","Cell/3dplot","Cell/projected_points","Cell/peak_path","Cell/sum_brightness"])
     sns.set()
+    plt.style.use('dark_background')
     engine = create_engine(f'sqlite:///{db_name}', echo=False)
     Base.metadata.create_all(engine)
     Session = sessionmaker(bind=engine)
@@ -547,7 +548,6 @@ def data_analysis(db_name:str = "test.db", image_size:int = 100,out_name:str ="c
                         plt.legend()
                         plt.grid()
                         plt.grid()
-                        plt.style.use('dark_background')
                         fig_path.savefig(f"Cell/peak_path/{n}.png")
                         fig_path.savefig(f"peak_path.png")
                         plt.close()
