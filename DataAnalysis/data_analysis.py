@@ -547,6 +547,7 @@ def data_analysis(db_name:str = "test.db", image_size:int = 100,out_name:str ="c
                         plt.legend()
                         plt.grid()
                         plt.grid()
+                        plt.style.use('dark_background')
                         fig_path.savefig(f"Cell/peak_path/{n}.png")
                         fig_path.savefig(f"peak_path.png")
                         plt.close()
