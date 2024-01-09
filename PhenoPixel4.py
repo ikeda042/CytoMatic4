@@ -3,6 +3,7 @@ from tkinter import filedialog
 from main import main
 import os
 
+
 def PhenoPixel4():
     def run_main():
         file_name = file_name_var.get()
@@ -11,16 +12,15 @@ def PhenoPixel4():
         img_size = int(img_size_var.get())
         mode = mode_var.get()
         layer_mode = layer_mode_var.get()
-        
-        with open("param_data.txt",'w') as temp_file:
-            temp_file.write(f'{file_name}\n')
-            temp_file.write(f'{param1}\n')
-            temp_file.write(f'{param2}\n')
-            temp_file.write(f'{img_size}\n')
-            temp_file.write(f'{mode}\n')
-            temp_file.write(f'{layer_mode}\n')
+
+        with open("param_data.txt", "w") as temp_file:
+            temp_file.write(f"{file_name}\n")
+            temp_file.write(f"{param1}\n")
+            temp_file.write(f"{param2}\n")
+            temp_file.write(f"{img_size}\n")
+            temp_file.write(f"{mode}\n")
+            temp_file.write(f"{layer_mode}\n")
         root.destroy()
-        
 
     # GUIウィンドウの初期化
     root = tk.Tk()
@@ -31,7 +31,11 @@ def PhenoPixel4():
 
     # ファイル選択
     file_name_var = tk.StringVar()
-    tk.Button(root, text="Select File", command=lambda: file_name_var.set(filedialog.askopenfilename())).pack()
+    tk.Button(
+        root,
+        text="Select File",
+        command=lambda: file_name_var.set(filedialog.askopenfilename()),
+    ).pack()
 
     # パラメータ入力フィールド
     tk.Label(root, text="Parameter 1").pack()
@@ -50,9 +54,15 @@ def PhenoPixel4():
     mode_var = tk.StringVar(value="all")
     tk.Label(root, text="Mode").pack()
     tk.Radiobutton(root, text="All", variable=mode_var, value="all").pack()
-    tk.Radiobutton(root, text="Data Analysis", variable=mode_var, value="data_analysis").pack()
-    tk.Radiobutton(root, text="Data Analysis(all db)", variable=mode_var, value="data_analysis_all").pack()
-    tk.Radiobutton(root, text="Delete All", variable=mode_var, value="delete_all").pack()
+    tk.Radiobutton(
+        root, text="Data Analysis", variable=mode_var, value="data_analysis"
+    ).pack()
+    tk.Radiobutton(
+        root, text="Data Analysis(all db)", variable=mode_var, value="data_analysis_all"
+    ).pack()
+    tk.Radiobutton(
+        root, text="Delete All", variable=mode_var, value="delete_all"
+    ).pack()
 
     layer_mode_var = tk.StringVar(value="dual")
     tk.Label(root, text="Layer Mode").pack()
@@ -69,7 +79,7 @@ def PhenoPixel4():
 
 if __name__ == "__main__":
     PhenoPixel4()
-    with open("param_data.txt",mode = "r") as fp:
+    with open("param_data.txt", mode="r") as fp:
         file_name = fp.readline().rstrip("\n")
         param1 = int(fp.readline().rstrip("\n"))
         param2 = int(fp.readline().rstrip("\n"))
