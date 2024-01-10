@@ -410,7 +410,7 @@ def data_analysis(
                             s=10,
                             cmap=cmap,
                         )
-                        plt.scatter(u1_contour, u2_contour, s=10, color="lime")
+                        # plt.scatter(u1_contour, u2_contour, s=10, color="lime")
                         plt.grid()
 
                     W = np.array(
