@@ -509,7 +509,7 @@ def data_analysis(
                     y_pos = ymin + 0.2 * (ymax - ymin)
                     y_pos_text = ymax - 0.2 * (ymax - ymin)
                     # 条件に応じて色を変更して点を描画
-                    if med < 0.7:
+                    if med < 0.7265065593190592:
                         plt.scatter(u1_c, y_pos, s=450, color="red", zorder=100)
                         agg_tracker += 1
                         agg_bool.append(1)
