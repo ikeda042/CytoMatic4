@@ -519,7 +519,7 @@ def data_analysis(
 
                     plt.text(
                         u1_c,
-                        u2_c + 25,
+                        y_pos_text,
                         s=f"Mean:{round(sum(normalized_points)/len(normalized_points),3)}\nMed:{round(sorted(normalized_points)[len(normalized_points)//2],3)}\nCell length(μm):{round(cell_length*0.0625,2)}",
                         color="red",
                         ha="center",
