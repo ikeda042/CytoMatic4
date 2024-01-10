@@ -936,9 +936,9 @@ def data_analysis(
     #     for i in range(len(mean_fluo_raw_intensities_2)):
     #         fpout.write(f"{mean_fluo_raw_intensities_2[i]}\n")
 
-    # with open(f"{out_name}_max_int_minus_med.txt",mode="w") as fpout:
-    #     for i in range(len(meds)):
-    #         fpout.write(f"{max_int_minus_med[i]}\n")
+    with open(f"{out_name}_max_int_minus_med.txt", mode="w") as fpout:
+        for i in range(len(meds)):
+            fpout.write(f"{max_int_minus_med[i]}\n")
 
     # with open(f"{out_name}_mean_fluo_raw_intensities.txt",mode="w") as fpout:
     #     for i in range(len(meds)):
@@ -967,7 +967,7 @@ def data_analysis(
     #     for i in range(len(ASMs)):
     #         fpout.write(f"{ASMs[i][0][0]}\n")
 
-    # with open(f"{out_name}_smoothnesses.txt",mode="w") as fpout:
+    # with open(f"{out_name}_smoothnesses.txt", mode="w") as fpout:
     #     for i in range(len(smoothnesses)):
     #         fpout.write(f"{smoothnesses[i]}\n")
 
