@@ -205,3 +205,20 @@ def combine_images_function(
                 ] = img
     plt.axis("off")
     cv2.imwrite(f"{filename}_histo_cumulative.png", result_image)
+
+    for i in range(total_rows):
+        for j in range(total_cols):
+            image_index = i * total_cols + j
+            if image_index < num_images:
+                image_path = f"Cell/replot_map/{image_index}.png"
+                print(image_path)
+                img = cv2.imread(image_path)
+                img = cv2.resize(img, (image_size, image_size))
+                result_image[
+                    i * image_size : (i + 1) * image_size,
+                    j * image_size : (j + 1) * image_size,
+                ] = img
+    plt.axis("off")
+    cv2.imwrite(
+        f"{filename}_replot_labeled_with_skewness_based_result.png", result_image
+    )
