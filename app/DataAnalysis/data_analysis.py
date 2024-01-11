@@ -292,7 +292,9 @@ def data_analysis(
                     output_image = cv2.bitwise_and(image_fluo1, image_fluo1, mask=mask)
 
                     cv2.imwrite(f"Cell/fluo1_incide_cell_only/{n}.png", output_image)
-
+                    cv2.imwrite(
+                        f"RealTimeData/fluo1_incide_cell_only.png", output_image
+                    )
                 if dual_layer_mode:
                     image_fluo2 = cv2.imdecode(
                         np.frombuffer(cell.img_fluo2, dtype=np.uint8),
