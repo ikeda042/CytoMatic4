@@ -786,6 +786,36 @@ def data_analysis(
                         fig_path.savefig(f"Cell/peak_path/{n}.png")
                         fig_path.savefig(f"peak_path.png")
                         plt.close()
+                    plt.clf()
+                    plt.close()
+                    fig_re_replot = plt.figure(figsize=[6, 6])
+                    plt.scatter(
+                        u1,
+                        u2,
+                        c=[i / max_points for i in points_inside_cell_1],
+                        s=10,
+                        cmap=cmap,
+                    )
+                    plt.xlabel("u1")
+                    plt.ylabel("u2")
+                    plt.axis("equal")
+                    plt.xlim(min_u1 - 80, max_u1 + 80)
+                    plt.ylim(u2_c - 80, u2_c + 80)
+                    plt.grid()
+                    tmp_path = [p[1] for p in path]
+                    normalized_tmp_path = [i / max(tmp_path) for i in tmp_path]
+
+                    plt.scatter(
+                        u1_c,
+                        y_pos,
+                        s=450,
+                        color="red" if skew(normalized_tmp_path) > 0 else "blue",
+                        zorder=100,
+                    )
+                    fig_re_replot.savefig(f"Cell/replot_map/{n}.png")
+                    fig_re_replot.savefig(f"re_replot.png")
+                    plt.close()
+
                     ##########splitレンジ内の合計輝度プロット##########
                     fig_sum_brightness = plt.figure(figsize=[6, 6])
                     plt.grid()
