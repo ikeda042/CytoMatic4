@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkinter import filedialog
-from main import main
+from app.main import main
 import os
 
 

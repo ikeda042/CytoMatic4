@@ -199,6 +199,7 @@ def data_analysis(
 
     create_dirs(
         [
+            "RealTimeData",
             "Cell",
             "Cell/ph",
             "Cell/fluo1",
@@ -527,7 +528,7 @@ def data_analysis(
                     )
 
                     fig.savefig(f"Cell/replot/{n}.png")
-                    fig.savefig(f"replot.png")
+                    fig.savefig(f"RealTimeData/replot.png")
                     plt.close()
 
                     #######################################################ヒストグラム解析#######################################################
@@ -584,7 +585,9 @@ def data_analysis(
                     plt.xlim(-1, 255)
                     plt.ylim(0, 0.04)
                     plt.grid(True)
-                    fig_histo_cumulative_delta.savefig(f"histo_cumulative_delta.png")
+                    fig_histo_cumulative_delta.savefig(
+                        f"RealTimeData/histo_cumulative_delta.png"
+                    )
                     plt.close()
                     #######################################################3dプロット
                     fig_3d = plt.figure(figsize=[6, 6])
@@ -603,7 +606,7 @@ def data_analysis(
                     # Adding color bar to represent brightness
                     plt.colorbar(img)
                     fig_3d.savefig(f"Cell/3dplot/{n}.png")
-                    fig_3d.savefig(f"3dplot.png")
+                    fig_3d.savefig(f"RealTimeData/3dplot.png")
                     plt.close()
                     #######################################################Min distant point
                     fig_min_point = plt.figure(figsize=[6, 6])
@@ -784,7 +787,7 @@ def data_analysis(
                         plt.grid()
                         plt.grid()
                         fig_path.savefig(f"Cell/peak_path/{n}.png")
-                        fig_path.savefig(f"peak_path.png")
+                        fig_path.savefig(f"RealTimeData/peak_path.png")
                         plt.close()
                     plt.clf()
                     plt.close()
@@ -813,7 +816,7 @@ def data_analysis(
                         zorder=100,
                     )
                     fig_re_replot.savefig(f"Cell/replot_map/{n}.png")
-                    fig_re_replot.savefig(f"re_replot.png")
+                    fig_re_replot.savefig(f"RealTimeData/re_replot.png")
                     plt.close()
 
                     ##########splitレンジ内の合計輝度プロット##########
@@ -828,7 +831,7 @@ def data_analysis(
                     )
                     plt.xlabel("split area(-)")
                     plt.ylabel("Sum of brightness in the area(-)")
-                    fig_sum_brightness.savefig(f"sum_brightness.png")
+                    fig_sum_brightness.savefig(f"RealTimeData/sum_brightness.png")
                     fig_sum_brightness.savefig(f"Cell/sum_brightness/{n}.png")
                     plt.close()
                     sum_brightnesses.append(sum_brightness)
@@ -893,7 +896,7 @@ def data_analysis(
                 if not single_layer_mode:
                     if not dual_layer_mode:
                         fluo_out1 = adjust_brightness(fluo_out1, 2)
-                        cv2.imwrite("fluo1.png", fluo_out1)
+                        cv2.imwrite("RealTimeData/fluo1.png", fluo_out1)
                         unify_images_ndarray(
                             image1=image_ph,
                             image2=fluo_out1,
@@ -944,7 +947,9 @@ def data_analysis(
     plt.xlim(-10, 255)
     plt.ylim(0, 1.05)
     plt.grid(True)
-    fig_histo_cumulative_inOne.savefig(f"{filename}_cumulative_frequency_one.png")
+    fig_histo_cumulative_inOne.savefig(
+        f"RealTimeData/{filename}_cumulative_frequency_one.png"
+    )
     plt.close()
     # with open(f"{filename}_cumulative_frequency_one.txt",mode="w") as fpout:
     #     for i in cumulative_frequencys:

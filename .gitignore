@@ -1,15 +1,4 @@
 *
-!README.md
-!pyfiles
-!.gitignore
-!main.py
-!DataAnalysis
-!test.db
-!nd2extract.py
-!cytomatic4.py
-!requirements.txt
-!images_readme
-!test_database.db
-!demo.py
-!MachineLearning
 !PhenoPixel4.py
+!README.md
+!app
