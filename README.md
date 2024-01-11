@@ -37,7 +37,7 @@ cd PhenoPixel4.0
 python3 PhenoPixel4.py
 ```
 
-![Start-up window](images_readme/cytomatic4.png)
+![Start-up window](app/images_readme/cytomatic4.png)
 
 2. Click "Select File" to choose a file. (file ext must be .nd2/.tif)
 3. Input parameters. 
@@ -49,15 +49,15 @@ python3 PhenoPixel4.py
 4. Click "Run" to start the program.
 5. Image labeling application window pops up when done with cell extraction.
 6. Choose arbitrary label for each and press "Submit" or simply press Return key. (Default value is set to N/A)
-![Start-up window](images_readme/2.png)
+![Start-up window](app/images_readme/2.png)
 1. Close the window when reached the last cell, then database will automatically be created.
 
 # Database
 ## image_labels.db
 Each cell ID has its manual_label from the application input.
-![db column for image_labels.db](images_readme/3.png)
+![db column for image_labels.db](app/images_readme/3.png)
 ## filename.db
-![db column for image_labels.db](images_readme/4.png)
+![db column for image_labels.db](app/images_readme/4.png)
 Each row (representing a cell) has the following values:
 * id : int : unique ID
 * cell_id : str : cell id (Frame n Cell n)
@@ -119,7 +119,7 @@ Scale bar is 20% of image size (200x200 pixel, 0.0625 µm/pixel)
 
 <div align="center">
 
-![Start-up window](images_readme/5.png)  
+![Start-up window](app/images_readme/5.png)  
 
 </div>
 
@@ -179,7 +179,7 @@ Figure 2 shows the raw image of an <i>E.coli </i> cell and the long axis calcula
 
 <div align="center">
 
-![Start-up window](images_readme/result_1.png)  
+![Start-up window](app/images_readme/result_1.png)  
 
 </div>
 
@@ -235,7 +235,7 @@ $$\begin{pmatrix}
 
 <div align="center">
 
-![Start-up window](images_readme/base_conv.png)  
+![Start-up window](app/images_readme/base_conv.png)  
 </div>
 <p align="center">
 Fig.3  Each coordinate of contour in the new basis (Right). 
@@ -255,7 +255,7 @@ Figure 4 shows an example of a filamentous cell with Ciprofloxacin exposure.
 
 <div align="center">
 
-![Start-up window](images_readme/fig4.png)  
+![Start-up window](app/images_readme/fig4.png)  
 </div>
 <p align="center">
 Fig.4 A filamentous <i>E.coli</i> cell (PH Left, Fluo-GFP Center, Fluo-mCherry Right).
@@ -269,7 +269,7 @@ Figure 5 shows the coordinates of the contour in the new basis.
 
 <div align="center">
 
-![Start-up window](images_readme/fig5.png)  
+![Start-up window](app/images_readme/fig5.png)  
 </div>
 <p align="center">
 Fig.5 The coordinates of the contour in the new basis (PH Left, contour in the new basis Right).
@@ -346,7 +346,7 @@ Figure 6 shows the center axis of the cell in the new basis (4-th polynominal).
 
 <div align="center">
 
-![Start-up window](images_readme/fig6.png)  
+![Start-up window](app/images_readme/fig6.png)  
 </div>
 <p align="center">
 Fig.6 The center axis of the contour in the new basis (PH Left, contour in the new basis with the center axis Right).
@@ -360,7 +360,7 @@ For example, Figure 6-1 depicts a cell exhibiting extreme filamentous changes af
 
 <div align="center">
 
-![Start-up window](images_readme/choosing_k_1.png)  
+![Start-up window](app/images_readme/choosing_k_1.png)  
 </div>
 <p align="center">
 Fig.6-1  An extremely filamentous cell. (PH Left, contour in the new basis with the center axis Right).
@@ -372,7 +372,7 @@ Figure 6-2 demonstrates fit curves (the center axis) for K-values ranging from 5
 
 <div align="center">
 
-![Start-up window](images_readme/result_kth10.png)  
+![Start-up window](app/images_readme/result_kth10.png)  
 </div>
 <p align="center">
 Fig.6-2: Fit curves for the center axis with varying K-values (5 to 10).
@@ -395,7 +395,7 @@ Quantifying the localization of fluorescence is straightforward in cells with a 
 
 <div align="center">
 
-![Start-up window](images_readme/fig_straight_cell.png)  
+![Start-up window](app/images_readme/fig_straight_cell.png)  
 </div>
 <p align="center">
 Fig.7-1: An image of an <i>E.coli</i> cell with a straight morphology.
@@ -474,7 +474,7 @@ We applied the aforementioned algorithm for the cell shown in figure 7-2.
 
 <div align="center">
 
-![Start-up window](images_readme/curved_cell_18.png)  
+![Start-up window](app/images_readme/curved_cell_18.png)  
 </div>
 <p align="center">
 Fig.7-2: An image of a "curved" <i>E.coli</i> cell.
@@ -484,7 +484,7 @@ Figure 7-3 shows all the projected points on the center curve.
 
 <div align="center">
 
-![Start-up window](images_readme/projected_points.png)  
+![Start-up window](app/images_readme/projected_points.png)  
 </div>
 <p align="center">
 Fig.7-3: All the points(red) projected onto the center curve(blue).
@@ -495,7 +495,7 @@ Figure 7-4 depicts the result of projection onto the curve.
 
 <div align="center">
 
-![Start-up window](images_readme/projected_points_18.png)  
+![Start-up window](app/images_readme/projected_points_18.png)  
 </div>
 <p align="center">
 Fig.7-4: Projected points (red) onto the center curve.
@@ -508,7 +508,7 @@ Figure 7-3 describes the result of the peak-path finder algorithm.
 
 <div align="center">
 
-![Start-up window](images_readme/peak_path_18.png)  
+![Start-up window](app/images_readme/peak_path_18.png)  
 </div>
 <p align="center">
 Fig.7-4: The estimated peak path by the algorithm.
@@ -525,7 +525,7 @@ The following *E.coli* cell in figure 8-1 is one of the output cells in the dire
 
 <div align="center">
 
-![Start-up window](images_readme/cell_results/ph.png)  
+![Start-up window](app/images_readme/cell_results/ph.png)  
 </div>
 
 <p align="center">
@@ -549,7 +549,7 @@ Figure 8-2 shows the fluo1 image of fig.8-1
 
 <div align="center">
 
-![Start-up window](images_readme/cell_results/fluo1.png)  
+![Start-up window](app/images_readme/cell_results/fluo1.png)  
 </div>
 
 <p align="center">
@@ -566,7 +566,7 @@ Figure 8-3 shows areas inside the contour(red, fig.8-2).
 
 <div align="center">
 
-![Start-up window](images_readme/cell_results/incide_cell.png)  
+![Start-up window](app/images_readme/cell_results/incide_cell.png)  
 </div>
 
 <p align="center">
@@ -584,7 +584,7 @@ Figure 8-4 shows the plotted gradient information.
 
 <div align="center">
 
-![Start-up window](images_readme/cell_results/gradient_magnitude0.png)  
+![Start-up window](app/images_readme/cell_results/gradient_magnitude0.png)  
 </div>
 
 <p align="center">
@@ -598,7 +598,7 @@ Figure 8-5 shows the histogram for the fluorescence information in fig.8-3.
 
 <div align="center">
 
-![Start-up window](images_readme/cell_results/histo.png)  
+![Start-up window](app/images_readme/cell_results/histo.png)  
 </div>
 
 <p align="center">
@@ -613,7 +613,7 @@ Figure 8-6 shows the cumulative frequency plot for the cell.
 
 <div align="center">
 
-![Start-up window](images_readme/cell_results/histo_c.png)  
+![Start-up window](app/images_readme/cell_results/histo_c.png)  
 </div>
 
 <p align="center">
@@ -629,7 +629,7 @@ Figure 8-7 shows the cumulative frequency plot for the cell.
 
 <div align="center">
 
-![Start-up window](images_readme/cell_results/replot.png)  
+![Start-up window](app/images_readme/cell_results/replot.png)  
 </div>
 
 <p align="center">
@@ -640,7 +640,7 @@ The fluorescence information is normalized 0 to 1, then plotted with a colormap 
 
 <div align="center">
 
-![Start-up window](images_readme/colorbar.png)  
+![Start-up window](app/images_readme/colorbar.png)  
 </div>
 
 ### Cell/unified/
@@ -650,7 +650,7 @@ Figure 8-8 shows the unified image of fig. 8-1 and fig.8-2.
 
 <div align="center">
 
-![Start-up window](images_readme/cell_results/unified.png)  
+![Start-up window](app/images_readme/cell_results/unified.png)  
 </div>
 
 <p align="center">
@@ -665,7 +665,7 @@ This directory stores the result of the aforementioned projection algorithm for 
 Figure 8-9 shows the result of projection. 
 <div align="center">
 
-![Start-up window](images_readme/cell_results/projected_points.png)  
+![Start-up window](app/images_readme/cell_results/projected_points.png)  
 </div>
 
 <p align="center">
@@ -680,7 +680,7 @@ Figure 8-10 depicts the estimated peak path for the cell in fig.8-1.
 
 <div align="center">
 
-![Start-up window](images_readme/cell_results/peak_path.png)  
+![Start-up window](app/images_readme/cell_results/peak_path.png)  
 </div>
 
 <p align="center">
@@ -694,7 +694,7 @@ Figure 8-11 shows the 3d plot of the cell in fig. 8-2.
 
 <div align="center">
 
-![Start-up window](images_readme/cell_results/3dplot.png)  
+![Start-up window](app/images_readme/cell_results/3dplot.png)  
 </div>
 
 <p align="center">
@@ -721,7 +721,7 @@ Displays all raw cells with their contours (in green) in a single image.
 
 <div align="center">
 
-![Start-up window](images_readme/test_database_ph.png)  
+![Start-up window](app/images_readme/test_database_ph.png)  
 </div>
 
 
@@ -729,14 +729,14 @@ Displays all raw cells with their contours (in green) in a single image.
 Shows all raw fluorescent cells with their contours (in red) in a single image.
 <div align="center">
 
-![Start-up window](images_readme/test_database_fluo1.png)  
+![Start-up window](app/images_readme/test_database_fluo1.png)  
 </div>
 
 ## Replot 
 Shows all the replot figures in a single image.
 <div align="center">
 
-![Start-up window](images_readme/test_database_replot.png)  
+![Start-up window](app/images_readme/test_database_replot.png)  
 
 </div>
 
@@ -745,7 +745,7 @@ Shows all the histogram figures in a single image.
 
 <div align="center">
 
-![Start-up window](images_readme/test_database_histo.png)  
+![Start-up window](app/images_readme/test_database_histo.png)  
 
 </div>
 
@@ -754,7 +754,7 @@ Shows all the cumulative histogram figures in a single image.
 
 <div align="center">
 
-![Start-up window](images_readme/test_database_histo_cumulative.png)  
+![Start-up window](app/images_readme/test_database_histo_cumulative.png)  
 
 </div>
 
@@ -763,7 +763,7 @@ Shows all the figures of the results for projection in a single image.
 
 <div align="center">
 
-![Start-up window](images_readme/test_database_projected_points.png)  
+![Start-up window](app/images_readme/test_database_projected_points.png)  
 
 </div>
 
@@ -773,7 +773,7 @@ Shows all the figures of the estimated peak paths in a single image.
 
 <div align="center">
 
-![Start-up window](images_readme/test_database_peak_paths.png)  
+![Start-up window](app/images_readme/test_database_peak_paths.png)  
 
 </div>
 
