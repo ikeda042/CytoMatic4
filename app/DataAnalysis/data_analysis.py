@@ -5,17 +5,12 @@ import numpy as np
 import cv2
 import pickle
 import matplotlib.pyplot as plt
-import sqlite3
-from sqlalchemy import update
-from numpy.linalg import eig, inv
-import os
+from numpy.linalg import inv
 from .combine_images import combine_images_function
 from scipy.integrate import quad
 from tqdm import tqdm
-from skimage.feature import graycomatrix, graycoprops
 from scipy.stats import kurtosis, skew
-from .components import create_dirs, calc_gradient, basis_conversion, calc_arc_length
-from mpl_toolkits.mplot3d import Axes3D
+from .components import create_dirs, basis_conversion, calc_arc_length
 from scipy.optimize import minimize
 import numpy as np
 import seaborn as sns
