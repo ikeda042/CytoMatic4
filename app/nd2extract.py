@@ -19,6 +19,7 @@ def extract_nd2(file_name: str):
         )
         print(f"Total images: {len(images)}")
         print(f"Channels: {images.sizes['c']}")
+        print("##############################################")
         channels = images.metadata["channels"]
         for n, img in enumerate(images):
             for channel in range(images.sizes["c"]):
@@ -29,6 +30,7 @@ def extract_nd2(file_name: str):
                 array *= 255  # Scale to 0-255
                 array = array.astype(np.uint8)  # Convert to 8-bit integer
                 image = Image.fromarray(array)
+                # set channel to 1-channel if the file structure is reversed
                 image.save(f"nd2totiff/image_{n}_channel_{channel}.tif")
         all_images = []
         for i in range(n):
