@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import filedialog
 from app.main import main
 import os
+from typing import cast, Literal
 
 
 def PhenoPixel4():
@@ -86,7 +87,14 @@ if __name__ == "__main__":
         img_size = int(fp.readline().rstrip("\n"))
         mode = fp.readline().rstrip("\n")
         layer_mode = fp.readline().rstrip("\n")
-    main(file_name, param1, param2, img_size, mode, layer_mode)
+    main(
+        file_name,
+        param1,
+        param2,
+        img_size,
+        cast(Literal["all", "data_analysis", "delete_all"], mode),
+        cast(Literal["dual", "single", "normal"], layer_mode),
+    )
     try:
         os.remove("fileparam_data.txt")
     except:
