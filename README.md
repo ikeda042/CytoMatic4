@@ -2,7 +2,7 @@
 
 <div align="center">
 
-![Start-up window](images_readme/schema.png)
+![Start-up window](app/images_readme/schema.png)
 
 </div>
 
@@ -11,7 +11,7 @@ PhenoPixel4.0 is an OpenCV-based image processing program designed for automatin
 It is also capable of detecting the contours of cells manually as shown so that all the phenotypic cells can be equally sampled.
 <div align="center">
 
-![Start-up window](images_readme/manual_detect_demo.gif)
+![Start-up window](app/images_readme/manual_detect_demo.gif)
 
 </div>
 This program is Python-based and utilizes Tkinter for its GUI, making it cross-platform. 
