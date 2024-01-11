@@ -950,7 +950,7 @@ def data_analysis(
     plt.ylim(0, 1.05)
     plt.grid(True)
     fig_histo_cumulative_inOne.savefig(
-        f"RealTimeData/{filename}_cumulative_frequency_one.png"
+        f"RealTimeData/{filename.replace('/','')}_cumulative_frequency_one.png"
     )
     plt.close()
     # with open(f"{filename}_cumulative_frequency_one.txt",mode="w") as fpout:
