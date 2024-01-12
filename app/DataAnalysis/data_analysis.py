@@ -212,6 +212,7 @@ def data_analysis(
             "Cell/projected_points",
             "Cell/peak_path",
             "Cell/sum_brightness",
+            "Cell/gradient_magnitude_replot"
         ]
     )
     sns.set()
@@ -260,6 +261,7 @@ def data_analysis(
 
                 coords_inside_cell_1, points_inside_cell_1 = [], []
                 coords_inside_cell_2, points_inside_cell_2 = [], []
+                gradient_magnitude_normalized_inside_cell = []
                 if not single_layer_mode:
                     image_fluo1 = cv2.imdecode(
                         np.frombuffer(cell.img_fluo1, dtype=np.uint8),
@@ -329,7 +331,8 @@ def data_analysis(
                     # 勾配の合成（勾配強度と角度を計算）
                     gradient_magnitude = np.sqrt(sobel_x**2 + sobel_y**2)
                     # 勾配の強度を正規化
-                    # gradient_magnitude = cv2.normalize(gradient_magnitude, None, 0, 255, cv2.NORM_MINMAX, cv2.CV_8U)
+                    gradient_magnitude_normalized = cv2.normalize(gradient_magnitude, None, 0, 255, cv2.NORM_MINMAX, cv2.CV_8U)
+
 
                     # 勾配強度画像を保存
                     cv2.imwrite(
@@ -349,6 +352,7 @@ def data_analysis(
                                 ):
                                     coords_inside_cell_1.append([i, j])
                                     points_inside_cell_1.append(output_image[j][i])
+                                    gradient_magnitude_normalized_inside_cell.append(gradient_magnitude_normalized[j][i])
                     if single_layer_mode:
                         for i in range(image_size):
                             for j in range(image_size):
@@ -505,20 +509,20 @@ def data_analysis(
                     ymin, ymax = plt.ylim()
                     # グラフの下から20%の位置を計算
                     y_pos = ymin + 0.2 * (ymax - ymin)
-                    y_pos_text = ymax - 0.2 * (ymax - ymin)
+                    y_pos_text = ymax - 0.15 * (ymax - ymin)
                     # 条件に応じて色を変更して点を描画
-                    if med < 0.7265065593190592:
-                        plt.scatter(u1_c, y_pos, s=450, color="red", zorder=100)
-                        agg_tracker += 1
-                        agg_bool.append(1)
-                    else:
-                        plt.scatter(u1_c, y_pos, s=550, color="blue", zorder=100)
-                        agg_bool.append(0)
-
+                    # if med < 0.7265065593190592:
+                    #     plt.scatter(u1_c, y_pos, s=450, color="red", zorder=100)
+                    #     agg_tracker += 1
+                    #     agg_bool.append(1)
+                    # else:
+                    #     plt.scatter(u1_c, y_pos, s=550, color="blue", zorder=100)
+                    #     agg_bool.append(0)
+                        
                     plt.text(
                         u1_c,
                         y_pos_text,
-                        s=f"Mean:{round(sum(normalized_points)/len(normalized_points),3)}\nMed:{round(sorted(normalized_points)[len(normalized_points)//2],3)}\nCell length(μm):{round(cell_length*0.0625,2)}",
+                        s=f"Mean:{round(sum(normalized_points)/len(normalized_points),3)}\nMed:{round(sorted(normalized_points)[len(normalized_points)//2],3)}\nCell length(μm):{round(cell_length*0.0625,2)}\nvar:{round(np.var(normalized_points),3)}\nmax_int_minus_med:{round(max_points - med_raw,3)}\nmean_fluo_raw_intensities:{round(sum(points_inside_cell_1)/len(points_inside_cell_1),3)}\n",
                         color="red",
                         ha="center",
                         va="top",
@@ -814,6 +818,30 @@ def data_analysis(
                     )
                     fig_re_replot.savefig(f"Cell/replot_map/{n}.png")
                     fig_re_replot.savefig(f"RealTimeData/re_replot.png")
+                    plt.close()
+
+                    #######################################################勾配画像のreplot#######################################################
+                    fig_replot_grad_magnitude = plt.figure(figsize=[6, 6])
+                    plt.scatter(
+                        u1,
+                        u2,
+                        c=gradient_magnitude_normalized_inside_cell,
+                        s=10,
+                        cmap=cmap,
+                    )
+                    plt.xlabel("u1")
+                    plt.ylabel("u2")
+                    plt.axis("equal")
+                    plt.xlim(min_u1 - 80, max_u1 + 80)
+                    plt.ylim(u2_c - 80, u2_c + 80)
+                    plt.grid()
+                    fig_replot_grad_magnitude.savefig(
+                        f"Cell/gradient_magnitude_replot/{n}.png"
+                    )
+                    fig_replot_grad_magnitude.savefig(
+                        f"RealTimeData/replot_grad_magnitude.png"
+                    )
+                    plt.clf()
                     plt.close()
 
                     ##########splitレンジ内の合計輝度プロット##########
