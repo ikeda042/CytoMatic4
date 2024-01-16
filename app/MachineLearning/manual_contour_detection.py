@@ -97,5 +97,5 @@ class ImageDrawer:
         cv2.destroyAllWindows()
         
 
-drawer = ImageDrawer('MachineLearning/mdc_temp.png')
+drawer = ImageDrawer('app/MachineLearning/mdc_temp.png')
 drawer.run()
