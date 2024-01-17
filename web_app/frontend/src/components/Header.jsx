@@ -5,10 +5,10 @@ import Typography from '@mui/material/Typography';
 
 function Header() {
   return (
-    <AppBar position="static">
+    <AppBar position="static" style={{ backgroundColor: 'gray' }}>
       <Toolbar>
         <Typography variant="h6">
-          LandingPage
+          PhenoPixel4.0
         </Typography>
       </Toolbar>
     </AppBar>
