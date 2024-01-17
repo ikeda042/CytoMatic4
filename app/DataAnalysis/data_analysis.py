@@ -418,8 +418,10 @@ def data_analysis(
                     W = np.array(
                         [[i**4, i**3, i**2, i, 1] for i in [i[1] for i in U]]
                     )
+                    print(W)
                     f = np.array([i[0] for i in U])
                     theta = inv(W.transpose() @ W) @ W.transpose() @ f
+                    print(theta)
                     x = np.linspace(min_u1, max_u1, 1000)
                     y = [
                         theta[0] * i**4
@@ -429,6 +431,7 @@ def data_analysis(
                         + theta[4]
                         for i in x
                     ]
+                    
 
                     cell_length = calc_arc_length(theta, min_u1, max_u1)
                     print(cell_lengths)
@@ -616,8 +619,8 @@ def data_analysis(
                         min_distance, min_point = find_minimum_distance_and_point(
                             theta[0], theta[1], theta[2], theta[3], theta[4], i, j
                         )
-                        print(min_distance)
-                        print(min_point)
+                        # print(min_distance)
+                        # print(min_point)
                         raw_points.append(min_point)
                         # plt.scatter(min_point[0],min_point[1],s = 10,color = "lime" )
                     projected_points = [[0, raw_points[0][1]]]
