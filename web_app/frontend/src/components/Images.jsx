@@ -32,7 +32,7 @@ function ImageGallery() {
 
   return (
     <div>
-      <h1>Image Gallery</h1>
+      <h1>Cell viewer</h1>
       {imageData && (
         <div>
           <img src={`data:image/jpeg;base64,${imageData.originalImage}`} alt="Original" />

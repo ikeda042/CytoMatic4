@@ -1,10 +1,11 @@
 import React from 'react';
-import Header from './Header'; // Header コンポーネントのパスを適切に設定
-
+import Header from './Header';
+import ImageGallery from './Images'; 
 function LandingPage() {
   return (
     <div>
       <Header />
+      <ImageGallery />
       {/* その他のランディングページコンテンツ */}
     </div>
   );
