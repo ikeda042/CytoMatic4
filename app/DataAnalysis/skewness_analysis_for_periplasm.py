@@ -33,7 +33,7 @@ def skewness_analysis(data_all:list[list[list[float]]]) -> None:
     plt.boxplot(skewnesses_all,sym="")
     for i, data in enumerate(skewnesses_all, start=1):
         x = np.random.normal(i, 0.04, size=len(data))
-        plt.plot(x, data, 'o', alpha=0.1)  
+        plt.plot(x, data, 'o', alpha=0.4)  
 
     plt.xticks([i+1 for i in range(len(skewnesses_all))], [f'{i*30} (n={len(data_i)})' for i,data_i in enumerate(skewnesses_all,start=0)])
 
