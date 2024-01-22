@@ -790,6 +790,8 @@ def data_analysis(
                         plt.legend()
                         plt.grid()
                         plt.grid()
+                        if len([i for i in points_inside_cell_1 if i == 255]) > 5:
+                            plt.scatter((max_x+min_x)/2,0, s = 500, color = "red")
                         fig_path.savefig(f"Cell/peak_path/{n}.png")
                         fig_path.savefig(f"RealTimeData/peak_path.png")
                         plt.close()
