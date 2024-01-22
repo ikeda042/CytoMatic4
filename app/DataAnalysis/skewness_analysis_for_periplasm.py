@@ -29,15 +29,16 @@ def skewness_analysis(data_all:list[list[list[float]]]) -> None:
     fig.savefig("result_peak_path_by_skewness.png", dpi=500)
     plt.close()
 
-    fig = plt.figure(figsize=[8,6])
+    fig = plt.figure(figsize=[6,6])
     plt.boxplot(skewnesses_all,sym="")
     for i, data in enumerate(skewnesses_all, start=1):
         x = np.random.normal(i, 0.04, size=len(data))
         plt.plot(x, data, 'o', alpha=0.4)  
 
-    plt.xticks([i+1 for i in range(len(skewnesses_all))], [f'{i*30} (n={len(data_i)})' for i,data_i in enumerate(skewnesses_all,start=0)])
+    labels = ["Ctrl.", "Heat Shock"]
+    plt.xticks([i+1 for i in range(len(skewnesses_all))], [f'{labels[i]} (n={len(data_i)})' for i,data_i in enumerate(skewnesses_all,start=0)])
 
-    plt.xlabel('Triclosan exposure time (min)')
+    plt.xlabel('Samples')
     plt.ylabel("Skewness(-)")
     plt.grid(True)
     fig.savefig("result_skewness_boxplot.png",dpi = 500)
