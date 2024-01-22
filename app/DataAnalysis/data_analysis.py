@@ -288,9 +288,13 @@ def data_analysis(
                     cv2.fillPoly(mask, [pickle.loads(cell.contour)], 1)
                     output_image = cv2.bitwise_and(image_fluo1, image_fluo1, mask=mask)
 
-                    cv2.imwrite(f"Cell/fluo1_incide_cell_only/{n}.png", output_image)
+                    output_image_color = cv2.cvtColor(output_image, cv2.COLOR_GRAY2BGR)
+                    output_image_color[:, :, 0] = 0
+                    output_image_color[:, :, 2] = 0
+
+                    cv2.imwrite(f"Cell/fluo1_incide_cell_only/{n}.png", output_image_color)
                     cv2.imwrite(
-                        f"RealTimeData/fluo1_incide_cell_only.png", output_image
+                        f"RealTimeData/fluo1_incide_cell_only.png", output_image_color
                     )
                 if dual_layer_mode:
                     image_fluo2 = cv2.imdecode(
