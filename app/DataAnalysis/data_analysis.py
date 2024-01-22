@@ -65,7 +65,7 @@ def adjust_brightness(image: np.ndarray, brightness_factor: float) -> np.ndarray
     if image.dtype != np.uint8:
         raise ValueError("Image should be in uint8 format")
     image_float = image.astype(np.float32)
-    image_bright = image_float * brightness_factor
+    image_bright = image_float * 1
     image_bright_clipped = np.clip(image_bright, 0, 255)
     result_image = image_bright_clipped.astype(np.uint8)
     return result_image
@@ -235,6 +235,9 @@ def data_analysis(
                 image_ph = cv2.imdecode(
                     np.frombuffer(cell.img_ph, dtype=np.uint8), cv2.IMREAD_COLOR
                 )
+                cv2.imwrite(
+                        f"RealTimeData/ph.png", image_ph
+                    )
                 image_ph_copy = image_ph.copy()
                 image_size = image_ph.shape[0]
                 cv2.drawContours(
