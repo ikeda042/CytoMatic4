@@ -735,7 +735,7 @@ $$
 Then the fluo. only incide the cell can be expressed as:
 
 $$
-\mathbf{G}_{\text{inside}} = \mathbf{W}\bigodot\mathbf{G}
+\mathbf{G}_{\text{inside}} = \mathbf{W}\otimes\mathbf{G}
 $$
 
 
