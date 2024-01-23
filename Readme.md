@@ -7,7 +7,14 @@
 </div>
 PhenoPixel4.0 is an OpenCV-based image processing program designed for automating the extraction of cell images from a large number of images (e.g., multiple nd2 files). 
 
+10k+ cells can be sampled a day with its rapid scanning system.
+<div align="center">
 
+![Start-up window](docs_images/rapid_scan.gif)
+
+</div>
+
+It is also capable of detecting the contours of cells manually as shown so that all the phenotypic cells can be equally sampled.
 
 <div align="center">
 
@@ -15,7 +22,6 @@ PhenoPixel4.0 is an OpenCV-based image processing program designed for automatin
 
 </div>
 
-It is also capable of detecting the contours of cells manually as shown so that all the phenotypic cells can be equally sampled.
 
 This program is Python-based and utilizes Tkinter for its GUI, making it cross-platform, and has been primarily tested on Windows 11 and MacOS Sonoma 14.0.
 
