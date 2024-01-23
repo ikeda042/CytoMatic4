@@ -777,12 +777,14 @@ $$ \mathbf{K}_j =
 
 then the filterd image (i.e., the gradient magnitude image) is written as:
 
-$$\mathbf{G}_{grad} = \sqrt{ (\mathbf{K}_i \ast \mathbf{G}_{\text{inside}})^2  + (\mathbf{K}_j \ast \mathbf{G}_{\text{inside}})^2}$$
+$$
+\mathbf{G}_{grad} = \sqrt{ (\mathbf{K}_i \ast \mathbf{G}_{\text{inside}})^2  + (\mathbf{K}_j \ast \mathbf{G}_{\text{inside}})^2}
+$$
 
 and using this information, the gradient's direction can also be calculated
 
 $$
-\Theta  = arctan(\mathbf{K}_j  \mathbf{G}_{\text{inside}},\mathbf{K}_i  \mathbf{G}_{\text{inside}})
+\Theta  = arctan(\mathbf{K}_j \ast \mathbf{G}_{\text{inside}},\mathbf{K}_i \ast \mathbf{G}_{\text{inside}})
 $$
 
 
