@@ -87,7 +87,7 @@ Each row has the following columns:
 
 
 # File Structure
-
+This is the overview of the program file structure.
 
 ```bash
 |-- PhenoPixel 4.0
@@ -174,9 +174,16 @@ Each row has the following columns:
             |-- unify_images.py
 ```
 
-
-
-
-
-
+- `PhenoPixel4.py`: Provides GUI and file selection features using tkinter.
+- `main.py`: Central functionalities including image processing and data analysis.
+- `nd2extract.py`: Data extraction from ND2 files.
+- `app.py`: GUI part of the application using tkinter and SQLite.
+- `calc_center.py`: Calculates the center of contours in images using OpenCV.
+- `crop_contours.py`: Processes images to crop contours.
+- `extract_tiff.py`: Extraction and processing of TIFF files.
+- `image_process.py`: Integrates various custom modules for image processing.
+- `initialize.py`: Initial setup for image processing.
+- `unify_images.py`: Combines multiple images into a single output.
+- `demo.py`: Data analysis demonstration using `test_database.db`
+  
 
