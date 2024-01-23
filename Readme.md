@@ -1024,6 +1024,105 @@ Shows all the figures of the estimated peak paths in a single image.
 
 </div>
 
+
+# Localization Analyses
+
+## localization heatmap
+Taking advantage of the estimated peak path for each cell, we can check the localization of fluorescence incide the cells in a single figure. 
+
+In this section, we use `test_database.db` and `demo.py` for the demonstratioin purposes.
+
+After running demo.py, you have `app/test_database_peak_points_ys.txt`. 
+
+Because x axis (relative position in the cell) is uniformly split, we only care about the points for brightness. 
+
+We create a figure that contains all the peak paths we have obtained with the following codes.
+
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+from matplotlib import gridspec
+
+## Edit here
+file = "app/test_database_peak_points_ys.txt"
+
+with open(file, "r") as f:
+    ys = [
+        [float(x.replace("\n", "")) for x in line.split(",")] for line in f.readlines()
+    ]
+    ys_normalized = []
+    for i in ys:
+        i = np.array(i)
+        i = (i - i.min()) / (i.max() - i.min())
+        ys_normalized.append(i.tolist())
+
+
+class HeadmapVector:
+    def __init__(self, heatmap_vector: np.ndarray, sample_num: int):
+        self.heatmap_vector: np.ndarray = heatmap_vector
+        self.sample_num: int = sample_num
+
+    def __gt__(self, other):
+        self_v = np.sum(self.heatmap_vector)
+        other_v = np.sum(other.heatmap_vector)
+        return self_v < other_v
+
+
+# Edit here
+################################################################
+vectors = sorted([HeadmapVector(i, 1) for i in ys_normalized])
+################################################################
+
+concatenated_samples = np.column_stack([i.heatmap_vector for i in vectors])
+
+plt.figure(figsize=(10, 10))
+gs = gridspec.GridSpec(
+    2, 2, width_ratios=[30, 1], height_ratios=[1, 10], hspace=0.05, wspace=0.05
+)
+
+additional_row = np.array([i.sample_num / 4 for i in vectors])[None, :]
+plt.figure(figsize=(10, 6))
+gs = gridspec.GridSpec(
+    2, 2, width_ratios=[30, 1], height_ratios=[1, 10], hspace=0.05, wspace=0.05
+)
+
+ax0 = plt.subplot(gs[0, 0])
+ax0.imshow(
+    additional_row,
+    aspect="auto",
+    cmap="inferno",
+    extent=[0, concatenated_samples.shape[1], 0, 1],
+)
+ax0.set_xticks([])
+ax0.set_yticks([])
+
+ax1 = plt.subplot(gs[1, 0])
+im = ax1.imshow(concatenated_samples, aspect="auto", cmap="inferno")
+ax1.set_xlabel(f"Sample Number {title}")
+ax1.set_ylabel("Split index (Relative position)")
+ax2 = plt.subplot(gs[:, 1])
+plt.colorbar(im, cax=ax2)
+ax2.set_ylabel("Normalized fluo. intensity", rotation=270, labelpad=15)
+
+plt.savefig("heatmap.png")
+```
+
+With the codes, we obtain a heatmap as shown in figure 9-1.
+
+<div align="center">
+
+![Start-up window](docs_images/heatmap.png)  
+</div>
+
+<p align="center">
+Fig.9-1 The heatmap of the fluo. localization of the cells. (Sorted by the definition in the codes.) 
+</p>
+
+
+
+
+
+
 # License
 [OpenCV License](https://github.com/opencv/opencv/blob/master/LICENSE)
 

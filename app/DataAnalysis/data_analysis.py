@@ -734,7 +734,7 @@ def data_analysis(
                         print([[i[0], j] for i, j in zip(projected_points, temp_y)])
                         print("###############################################")
                         fig_path = plt.figure(figsize=(6, 6))
-                        split_num = 70 + 1
+                        split_num = 30 + 1
                         delta_L = (np.max(x) - np.min(x)) / split_num
                         x = data_points[:, 0]
                         min_x_index = np.argmin(x)
