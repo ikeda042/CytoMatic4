@@ -27,7 +27,6 @@ https://github.com/ikeda042/PhenoPixel4.0.git
 1. Install the required packages with the following commmand in the root directory of the repository.
 ```bash
 pip install -r requirements.txt
-```
 
 # Usage
 1. Go to the directory and run cytomatic4.py
