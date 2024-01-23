@@ -60,6 +60,32 @@ For exmaple, if you have an nd2 file structured like PH_0, Fluo_0, PH_1, Fluo_1.
 ![Start-up window](docs_images/image_labeling_app.png)
 6. Close the window when reached the last cell, then database will automatically be created.
 
+# Database
+## image_labels.db
+
+Each row has the following columns:
+
+| Column Name | Data Type | Description                   |
+|-------------|-----------|-------------------------------|
+| id          | int       | Unique ID                     |
+| image_id    | str       | Cell id                       |
+| label       | str       | Label data manually chosen    |
+
+## filename.db
+| Column Name      | Data Type      | Description                                         |
+|------------------|----------------|-----------------------------------------------------|
+| id               | int            | Unique ID                                           |
+| cell_id          | str            | Cell id (Frame n Cell n)                            |
+| label_experiment | str \| Null    | Experimental label (e.g., Series1 exposure30min)    |
+| manual_label     | str \| Null    | Label data from image_labels.db with respect to cell ID |
+| perimeter        | float          | Perimeter                                           |
+| area             | float          | Area                                                |
+| image_ph         | BLOB           | PH image in Square block (image size x image size)  |
+| image_flup1      | BLOB \| Null   | Fluo 1 image                                        |
+| image_flup2      | BLOB \| Null   | Fluo 2 image                                        |
+| contour          | BLOB           | 2D array cell contour                               |
+
+
 
 
 
