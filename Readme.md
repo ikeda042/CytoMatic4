@@ -363,3 +363,19 @@ Figure 4 shows an example of a filamentous cell with Ciprofloxacin exposure.
 </div>
 
 
+<p align="center">
+Fig.4 A filamentous <i>E.coli</i> cell (PH Left, Fluo-GFP Center, Fluo-mCherry Right).
+</p>
+
+
+Thus, the center axis of the cell, not necessarily straight, is required to calculate the cell length. 
+
+Using the aforementioned basis conversion algorithm, first we converted the basis of the cell contour to its Cov matrix's eigenvectors' basis.
+
+Figure 5 shows the coordinates of the contour in the eigenspace's bases. 
+
+
+<div align="center">
+
+![Start-up window](docs_images/fig5.png)  
+</div>
