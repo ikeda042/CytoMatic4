@@ -822,4 +822,19 @@ Fig.8-6 Cumulative frequency plot for the cell.
 </p>
 
 
+### Cell/replot/
 
+In this directory, the fluorescence information in each cell normalized between 0 and 1, is stored.
+Note that the for the coordinates are in the new basis U.
+
+Figure 8-7 shows the cumulative frequency plot for the cell.
+
+
+<div align="center">
+
+![Start-up window](docs_images/0_replot.png)  
+</div>
+
+<p align="center">
+Fig.8-7 Re-plotted fluo. information for the cell. 
+</p>
