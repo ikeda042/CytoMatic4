@@ -499,3 +499,10 @@ As shown in Fig. 6-2, K = 8 appears to be the optimal value.
 However, it's important to note that the differences in calculated arc lengths across various K-values fall within the subpixel range.
 
 Consequently, choosing K = 4 might remain a viable compromise in any case.
+
+
+## Quantification of Localization of Fluorescence
+### Objective:
+
+To quantify the localization of fluorescence within cells.
+
