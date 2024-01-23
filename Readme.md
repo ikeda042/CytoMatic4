@@ -785,7 +785,7 @@ $$
 and using this information, the gradient's direction can also be calculated
 
 $$ \Theta  = 
-arctan(\mathbf{K}_j \ast \mathbf{G}_{\text{inside}},\mathbf{K}_i \ast \mathbf{G}_{\text{inside}}) 
+arctan(\mathbf{K}_j \ast \mathbf{G} ^2,\mathbf{K}_i \ast \mathbf{G} ^2) 
 $$
 
 
