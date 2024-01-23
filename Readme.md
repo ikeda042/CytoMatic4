@@ -699,6 +699,31 @@ Figure 8-3 shows areas inside the contour(red, fig.8-2).
 ![Start-up window](docs_images/0_fluo_only_inside_cell.png)  
 </div>
 
+Pixells are reconstructed in RGB (3 channels, 8bit) and the fluorescent intensity of channels R and B set to 0.
+
+Let the contour of the cell
+
+$$\mathbf{C} = \begin{pmatrix}
+    u_{1_1} &\cdots&\ u_{1_n} \\ 
+    u_{2_1} &\cdots&\ u_{2_n} 
+\end{pmatrix} \in \mathbb{R}^{2\times n}$$
+
+then the filtering matrix for excluding all the pixells outside the cells and be written as: 
+
+$$ \mathbf{W} =  \begin{pmatrix}
+  w_{0,0}&\cdots &w_{i,0}\\
+  \vdots&\vdots&\vdots\\
+  w_{0,j}&\cdots &w_{i,j}\\
+\end{pmatrix} \in \mathbb{R}^{i\times{j}}  $$
+
+, where 
+
+$$
+\left\{ \begin{align} &1 w_{i,j} \in \mathbf{C}\\ &0 w_{i,j} \notin \mathbf{C}\\ \end{align} \right.
+$$
+
+
+
 
 
 
