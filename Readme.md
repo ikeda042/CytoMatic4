@@ -21,3 +21,6 @@ This program is Python-based and utilizes Tkinter for its GUI, making it cross-p
 
 It has been primarily tested on Windows 11 and MacOS Sonoma 14.0.
 
+```plantuml
+Bob->Alice : Hello!
+```
