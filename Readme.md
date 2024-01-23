@@ -1025,7 +1025,7 @@ Shows all the figures of the estimated peak paths in a single image.
 </div>
 
 
-# Localization Analyses
+# Data analysis scripts
 
 ## localization heatmap
 Taking advantage of the estimated peak path for each cell, we can check the localization of fluorescence incide the cells in a single figure. 
@@ -1117,11 +1117,6 @@ With the codes, we obtain a heatmap as shown in figure 9-1.
 <p align="center">
 Fig.9-1 The heatmap of the fluo. localization of the cells. (Sorted by the definition in the codes.) 
 </p>
-
-
-
-
-
 
 # License
 [OpenCV License](https://github.com/opencv/opencv/blob/master/LICENSE)
