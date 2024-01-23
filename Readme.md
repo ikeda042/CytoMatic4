@@ -379,3 +379,73 @@ Figure 5 shows the coordinates of the contour in the eigenspace's bases.
 
 ![Start-up window](docs_images/fig5.png)  
 </div>
+
+<p align="center">
+Fig.5 The coordinates of the contour in the new basis (PH Left, contour in the new basis Right).
+</p>
+
+We then applied least aquare method to the coordinates of the contour in the new basis.
+
+Let the contour in the new basis
+
+$$\mathbf{C} = \begin{pmatrix}
+    u_{1_1} &\cdots&\ u_{1_n} \\ 
+    u_{2_1} &\cdots&\ u_{2_n} 
+\end{pmatrix} \in \mathbb{R}^{2\times n}$$
+
+then regression with arbitrary k-th degree polynomial (i.e. the center axis of the cell) can be expressed as:
+$$f\hat{(u_1)} = \theta^\mathrm{T} \mathbf{U}$$
+
+where 
+
+$$\theta = \begin{pmatrix}
+    \theta_k&\cdots&\theta_0
+\end{pmatrix}^\mathrm{T}\in \mathbb{R}^{k+1}$$
+
+$$\mathbf{U} = \begin{pmatrix}
+    u_1^k&\cdots u_1^0
+\end{pmatrix}^\mathrm{T}$$
+
+the parameters in theta can be determined by normal equation:
+
+$$\theta = (\mathbf{W}^\mathrm{T}\mathbf{W})^{-1}\mathbf{W}^\mathrm{T}\mathbf{f}$$
+
+where
+
+$$\mathbf{W} = \begin{pmatrix}
+    u_{1_1}^k&\cdots&1 \\
+     \vdots&\vdots&\vdots \\
+     u_{1_n}^k&\cdots&1 
+\end{pmatrix} \in \mathbb{R}^{n\times k +1}$$
+
+$$\mathbf{f} = \begin{pmatrix}
+    u_{2_1}&\cdots&u_{2_n}
+\end{pmatrix}^\mathrm{T}$$
+
+Hence, we have obtained the parameters in theta for the center axis of the cell in the new basis. (fig. 6)
+
+Now using the axis, the arc length can be calculated as:
+
+$$\mathbf{L} = \int_{u_{1_1}}^{u_{1_2}} \sqrt{1 + (\frac{d}{du_1}\theta^\mathrm{T}\mathbf{U})^2} du_1 $$
+
+**The length is preserved in both bases.**
+
+We rewrite the basis conversion process as:
+
+$$\mathbf{U} = \mathbf{Q}^\mathbf{T} \mathbf{X}$$
+
+The inner product of any vectors in the new basis $\in \mathbb{R}^2$ is 
+
+$$ \|\mathbf{U}\|^2 = \mathbf{U}^\mathrm{T}\mathbf{U} = (\mathbf{Q}^\mathrm{T}\mathbf{X})^\mathrm{T}\mathbf{Q}^\mathbf{T}\mathbf{X} = \mathbf{X}^\mathrm{T}\mathbf{Q}\mathbf{Q}^\mathrm{T}\mathbf{X} \in \mathbb{R}$$
+
+Since $\mathbf{Q}$ is an orthogonal matrix, 
+
+$$\mathbf{Q}^\mathrm{T}\mathbf{Q} = \mathbf{Q}\mathbf{Q}^\mathrm{T} = \mathbf{I}$$
+
+Thus, 
+
+$$\|\mathbf{U}\|^2 = \|\mathbf{X}\|^2$$
+
+Hence <u>the length is preserved in both bases.</u> 
+
+
