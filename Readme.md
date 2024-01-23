@@ -629,6 +629,18 @@ Fig.7-4: Projected points (red) onto the center curve.
 
 
 
+Figure 7-5 describes the result of the peak-path finder algorithm.
+
+<div align="center">
+
+![Start-up window](docs_images/peak_path_18.png)
+</div>
+<p align="center">
+Fig.7-5: The estimated peak path by the algorithm.
+</p>
+
+
+
 
 
 
