@@ -273,7 +273,7 @@ Hence,
 
 $$ \Sigma\mathbf{w}=\lambda\mathbf{w} $$
 
-Select the eigenvector corresponding to the eigenvalue where λ1 > λ2 as the direction of cell elongation.
+Select the eigenvector corresponding to the eigenvalue where λ1 > λ2 as the direction of cell elongation. (Longer axis)
 
 ### Result:
 
