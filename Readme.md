@@ -701,12 +701,18 @@ Figure 8-3 shows areas inside the contour(red, fig.8-2).
 
 Pixells are reconstructed in RGB (3 channels, 8bit) and the fluorescent intensity of channels R and B set to 0.
 
-Let the contour of the cell
+Let the cell coordinates
 
 $$\mathbf{C} = \begin{pmatrix}
     u_{1_1} &\cdots&\ u_{1_n} \\ 
     u_{2_1} &\cdots&\ u_{2_n} 
 \end{pmatrix} \in \mathbb{R}^{2\times n}$$
+
+and the fluo. image of the cell
+
+$$
+\mathbf{G}\in \mathbb{R}^{i\times{j}}
+$$
 
 then the filtering matrix for excluding all the pixells outside the cells and be written as: 
 
@@ -718,13 +724,18 @@ $$ \mathbf{W} =  \begin{pmatrix}
 
 , where 
 
-
 $$
 w_{i,j} =
     \begin{cases}
             1  &         \text{if } (i,j) \in \mathbf{C} \\
             0  &         \text{if } (i,j) \notin \mathbf{C}
     \end{cases}
+$$
+
+Then the fluo. only incide the cell can be expressed as:
+
+$$
+\mathbf{G}_{\text{inside}} = \mathbf{W}\bigodot\mathbf{G}
 $$
 
 
