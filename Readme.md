@@ -1032,7 +1032,7 @@ Taking advantage of the estimated peak path for each cell, we can check the loca
 
 In this section, we use `test_database.db` and `demo.py` for the demonstratioin purposes.
 
-After running demo.py, you have `app/test_database_peak_points_ys.txt`. 
+After running demo.py, we have `app/test_database_peak_points_ys.txt`. 
 
 Because x axis (relative position in the cell) is uniformly split, we only care about the points for brightness. 
 
