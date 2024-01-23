@@ -86,8 +86,93 @@ Each row has the following columns:
 | contour          | BLOB           | 2D array cell contour                               |
 
 
+# File Structure
 
 
+```bash
+|-- PhenoPixel 4.0
+    |-- PhenoPixel4.py
+    |-- demo.py
+    |-- Cell
+        |-- 3dplot
+        |-- GLCM
+        |-- fluo1
+        |-- fluo1_incide_cell_only
+        |-- fluo2
+        |-- fluo2_incide_cell_only
+        |-- gradient_magnitude_replot
+        |-- gradient_magnitudes
+        |-- histo
+        |-- histo_cumulative
+        |-- peak_path
+        |-- ph
+        |-- projected_points
+        |-- replot
+        |-- replot_map
+        |-- sum_brightness
+        |-- unified_cells
+    |-- RealTimeData
+        |-- 3dplot.png
+        |-- fluo1.png
+        |-- fluo1_incide_cell_only.png
+        |-- histo_cumulative_delta.png
+        |-- peak_path.png
+        |-- ph.png
+        |-- re_replot.png
+        |-- replot.png
+        |-- replot_grad_magnitude.png
+        |-- sum_brightness.png
+    |-- app
+        |-- .gitignore
+        |-- main.py
+        |-- nd2extract.py
+        |-- requirements.txt
+        |-- test_database.db
+        |-- Cell
+            |-- 3dplot
+            |-- GLCM
+            |-- fluo1
+            |-- fluo1_incide_cell_only
+            |-- fluo2
+            |-- fluo2_incide_cell_only
+            |-- gradient_magnitudes
+            |-- histo
+            |-- histo_cumulative
+            |-- peak_path
+            |-- ph
+            |-- projected_points
+            |-- replot
+            |-- replot_map
+            |-- sum_brightness
+            |-- unified_cells
+        |-- DataAnalysis
+            |-- .gitignore
+            |-- SVD.py
+            |-- calc_cell_length.py
+            |-- combine_images.py
+            |-- components.py
+            |-- cumulative_plot_analysis.py
+            |-- data_analysis.py
+            |-- data_analysis_light.py
+            |-- fluo_localization_heatmap_analysis.py
+            |-- old_schema_patch.py
+            |-- peak_paths_plot.py
+            |-- skewness_analysis_for_periplasm.py
+            |-- utils
+                |-- .gitignore
+                |-- CDF_analysis.py
+        |-- pyfiles
+            |-- .gitignore
+            |-- app.py
+            |-- calc_center.py
+            |-- crop_contours.py
+            |-- database.py
+            |-- delete_all.py
+            |-- extract_tiff.py
+            |-- image_process.py
+            |-- initialize.py
+            |-- unify_images.py
+```
 
 
 
