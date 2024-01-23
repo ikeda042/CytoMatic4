@@ -788,13 +788,38 @@ $$ \Theta  =
 arctan(\mathbf{K}_j \ast \mathbf{G} ,\mathbf{K}_i \ast \mathbf{G}) 
 $$
 
+### Cell/histo/
+In this directory, histogram of the fluorescence intensities in 256 levels from 0 to 255 for each cell is stored. 
+
+Figure 8-5 shows the histogram for the fluorescence information in fig.8-3.
+
+
+<div align="center">
+
+![Start-up window](docs_images/0_histo.png)  
+</div>
+
+<p align="center">
+Fig.8-5 Calculated gradient at each pixel inside the cell.
+</p>
+
+
+### Cell/histo_cumulative/
 
 
 
+In this directory, a plotted cummulative freqency from Fluo. intensity 0  to 255 for each cell is stored.
 
+Figure 8-6 shows the cumulative frequency plot for the cell.
 
+<div align="center">
 
+![Start-up window](docs_images/0_histo-c.png)  
+</div>
 
+<p align="center">
+Fig.8-6 Cumulative frequency plot for the cell.
+</p>
 
 
 
