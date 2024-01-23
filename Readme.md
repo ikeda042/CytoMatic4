@@ -449,3 +449,17 @@ $$\|\mathbf{U}\|^2 = \|\mathbf{X}\|^2$$
 Hence <u>the length is preserved in both bases.</u> 
 
 
+### Result:
+
+Figure 6 shows the center axis of the cell in the new basis (4-th polynominal).
+
+
+
+
+<div align="center">
+
+![Start-up window](docs_images/fig6.png)  
+</div>
+<p align="center">
+Fig.6 The center axis of the contour in the new basis (PH Left, contour in the new basis with the center axis Right).
+</p>
