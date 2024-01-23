@@ -32,4 +32,14 @@ https://github.com/ikeda042/PhenoPixel4.0.git
 pip install -r app/requirements.txt
 ```
 
+# Usage
+1. Go to the root directory and run `PhenoPixel4.py`
+```bash
+python PhenoPixel4.py
+```
+After running the scripts, the landing window automatically pops up. 
+
+![Start-up window](docs_images/landing_window.png)
+
+
 
