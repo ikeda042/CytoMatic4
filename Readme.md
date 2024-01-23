@@ -11,7 +11,7 @@ PhenoPixel4.0 is an OpenCV-based image processing program designed for automatin
 10k+ cells can be sampled within a day with its rapid scanning system.
 <div align="center">
 
-![Start-up window](docs_images/rapid_scan.gif)
+![Start-up window](docs_images/rapid_scan_resized.gif)
 
 </div>
 
