@@ -21,6 +21,13 @@ This program is Python-based and utilizes Tkinter for its GUI, making it cross-p
 
 It has been primarily tested on Windows 11 and MacOS Sonoma 14.0.
 
-```plantuml
-Bob->Alice : Hello!
+# Installation 
+1. Install `python 3.8` or higher on your computer.
+2. Clone this repository to your computer. (e.g., on visual studio code)
+```bash
+https://github.com/ikeda042/PhenoPixel4.0.git
+```
+3. Install the required packages with the following commmand in the root directory of the repository.
+```bash
+pip install -r app/requirements.txt
 ```
