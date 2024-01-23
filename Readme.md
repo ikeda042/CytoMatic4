@@ -925,3 +925,77 @@ python demo.py
 
 ## PH
 Displays all raw cells with their contours (in green) in a single image.
+
+<div align="center">
+
+![Start-up window](docs_images/test_database_ph.png)  
+</div>
+
+## Fluo
+Shows all raw fluorescent cells with their contours in a single image.
+<div align="center">
+
+![Start-up window](docs_images/test_database_fluo1.png)  
+</div>
+
+## Fluo only incide the cells
+Shows all raw fluorescent pixells incide their contours in a single image.
+
+<div align="center">
+
+![Start-up window](docs_images/test_database_fluo_only_inside_cell.png)  
+</div>
+
+## Replot 
+Shows all the replot figures in a single image.
+<div align="center">
+
+![Start-up window](docs_images/test_database_replot.png)  
+
+</div>
+
+## Histo
+Shows all the histogram figures in a single image.
+
+<div align="center">
+
+![Start-up window](docs_images/test_database_histo.png)  
+
+</div>
+
+## Histo Cumulative
+Shows all the cumulative histogram figures in a single image.
+
+<div align="center">
+
+![Start-up window](docs_images/test_database_histo_cumulative.png)  
+
+</div>
+
+
+## Projected Points
+Shows all the figures of the results for projection in a single image.
+
+<div align="center">
+
+![Start-up window](docs_images/test_database_projected_points.png)  
+
+</div>
+
+## Peak paths
+Shows all the figures of the estimated peak paths in a single image.
+
+<div align="center">
+
+![Start-up window](docs_images/test_database_peak_paths.png)  
+
+</div>
+
+
+
+
+
+
+
+
+
