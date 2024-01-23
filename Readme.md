@@ -598,6 +598,37 @@ We applied the aforementioned algorithm for the cell shown in figure 7-2.
 
 <div align="center">
 
-![Start-up window](app/images_readme/curved_cell_18.png)  
+![Start-up window](docs_images/curved_cell_18.png)  
+
+</div>
+
+
+<p align="center">
+Fig.7-2: An image of a "curved" <i>E.coli</i> cell.
+</p>
+
+Figure 7-3 shows all the projected points on the center curve.
+
+<div align="center">
+
+![Start-up window](docs_images/projected_points.png)  
 </div>
 <p align="center">
+Fig.7-3: All the points(red) projected onto the center curve(blue).
+</p>
+
+Figure 7-4 depicts the result of projection onto the curve.
+
+<div align="center">
+
+![Start-up window](docs_images/projected_points_18.png)  
+</div>
+<p align="center">
+Fig.7-4: Projected points (red) onto the center curve.
+</p>
+
+
+
+
+
+
