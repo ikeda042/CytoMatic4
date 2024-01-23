@@ -1121,6 +1121,46 @@ With the codes, we obtain a heatmap as shown in figure 9-1.
 Fig.9-1 The heatmap of the fluo. localization of the cells. (Sorted by the definition in the codes.) 
 </p>
 
+## Overlay of the peak paths
+You can overlay all the peak paths you have obtained in a single figure with the following scripts.
+
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+
+## Edit here
+file = "app/test_database_peak_points_ys.txt"
+
+with open(file, "r") as f:
+    ys = [
+        [float(x.replace("\n", "")) for x in line.split(",")] for line in f.readlines()
+    ]
+    ys_normalized = []
+    for i in ys:
+        i = np.array(i)
+        i = (i - i.min()) / (i.max() - i.min())
+        ys_normalized.append(i.tolist())
+
+plt.figure(figsize=(10, 7))
+for i in ys_normalized:
+    plt.plot(i, linewidth=0.5,color = "red",alpha = 0.5)
+plt.grid()
+plt.ylabel("Normalized Intensity")
+plt.xlabel("Relative position")
+plt.savefig("overlay.png")
+```
+
+Figure 9-2 shows the result of executing the scripts.
+
+<div align="center">
+
+![Start-up window](docs_images/overlay.png)  
+</div>
+
+<p align="center">
+Fig.9-2 The overlay plot of all the peak paths.
+</p>
+
 # License
 [OpenCV License](https://github.com/opencv/opencv/blob/master/LICENSE)
 
