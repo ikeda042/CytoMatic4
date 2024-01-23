@@ -506,3 +506,58 @@ Consequently, choosing K = 4 might remain a viable compromise in any case.
 
 To quantify the localization of fluorescence within cells.
 
+
+### Method:
+
+Quantifying the localization of fluorescence is straightforward in cells with a "straight" morphology(fig. 7-1). 
+
+
+<div align="center">
+
+![Start-up window](docs_images/fig_straight_cell.png)  
+
+</div>
+
+
+<p align="center">
+Fig.7-1: An image of an <i>E.coli</i> cell with a straight morphology.
+</p>
+
+However, challenges arise with "curved" cells(fig. 7-2).
+
+To address this, we capitalize on our pre-established equation representing the cellular curve (specifically, a quadratic function). 
+
+This equation allows for the precise calculation of the distance between the curve and individual pixels, which is crucial for our quantification approach.
+
+The process begins by calculating the distance between the cellular curve and each pixel. 
+
+This is achieved using the following formula:
+
+An arbitrary point on the curve is described as:
+$$(u_1,\theta^\mathrm{T}\mathbf{U}) $$
+The minimal distance between this curve and each pixel, denoted as 
+$(p_i,q_i)$, is calculated using the distance formula:
+
+$$D_i(u_1) = \sqrt{(u_1-p_i)^2+(f\hat{(u_1)} - q_i)^2}$$
+
+Minimizing $D_i$ with respect to $u_1$ ensures orthogonality between the curve and the line segment joining $(u_1,\theta^\mathrm{T}\mathbf{U})$ and $(p_i,q_i)$ 
+
+This orthogonality condition is satisfied when the derivative of $D_i$ with respect to $u_1$ is zero.
+
+The optimal value of $u_1$, denoted as $u_{1_i}^\star$, is obtained by solving 
+
+$$\frac{d}{du_1}D_i = 0\:\forall i$$
+
+for each pixel  $(p_i,q_i)$. 
+
+Define the set of solution vectors as 
+$$\mathbf{U}^\star = \lbrace (u_{1_i}^\star,f\hat{(u_{1_i}^\star)})^\mathrm{T} : u_{1_i}^\star \in u_1 \rbrace \in \mathbb{R}^{2\times n}$$
+
+, where $f\hat{(u_{1_i}^\star)}$ denotes the correspoinding function value.
+
+
+It should be noted that the vectors in $\mathbf{U}^\star$ can be interpreted as the projections of the pixels $(p_i,q_i)$ onto the curve.
+
+Define the set of projected vectors $\mathbf{P}^\star$ such that each vector in this set consists of the optimal parameter value $u_{1_i}^\star$ and the corresponding fluorescence intensity, denoted by $G(p_i,q_i)$, at the pixel $(p_i,q_i)$. 
+
+$$\mathbf{P}^\star = \lbrace (u_{1_i}^\star,G(p_i,q_i))^\mathrm{T} : u_{1_i}^\star \in u_1 \rbrace \in \mathbb{R}^{2\times n}$$
