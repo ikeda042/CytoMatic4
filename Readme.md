@@ -692,12 +692,16 @@ In this directory, only the cells(fluo1-channel) surrounded by the contour(red i
 
 The center of the cell is set to the center of the square.
 
-Figure 8-3 shows areas inside the contour(red, fig.8-2).
+Figure 8-3 shows areas inside the contour(green, fig.8-2).
 
 <div align="center">
 
 ![Start-up window](docs_images/0_fluo_only_inside_cell.png)  
 </div>
+
+<p align="center">
+Fig.8-3 Areas surrounded by the contour(green, fig.8-2).
+</p>
 
 Pixells are reconstructed in RGB (3 channels, 8bit) and the fluorescent intensity of channels R and B set to 0.
 
@@ -737,6 +741,49 @@ Then the fluo. only incide the cell can be expressed as:
 $$
 \mathbf{G}_{\text{inside}} = \mathbf{W}\otimes\mathbf{G}
 $$
+
+### Cell/gradient_magnitudes/
+
+In this directory, each image has the gradient information of the fluorescence intensities inside the cell calculated by the Sobel operator, plotted on the coordinates of the original cell pixels.
+
+The center of the cell is set to the center of the square.
+
+Figure 8-4 shows the plotted gradient information.
+
+<div align="center">
+
+![Start-up window](docs_images/gradient_magnitude0.png)  
+</div>
+
+<p align="center">
+Fig.8-4 Calculated gradient at each pixel inside the cell.
+</p>
+
+The kernels for the filtering operator are written as:
+
+$$ \mathbf{K}_i = 
+\begin{bmatrix}
+-1& 0&1\\
+-2& 0&2\\
+-1& 0&1\\
+\end{bmatrix}$$ 
+
+$$ \mathbf{K}_j = 
+\begin{bmatrix}
+1& 2&1\\
+0& 0&0\\
+-1& -2&-1\\
+\end{bmatrix}$$ 
+
+then the filterd image (i.e., the gradient magnitude image) is written as:
+
+$$\mathbf{G}_{grad} = \sqrt{ (\mathbf{K}_i \ast \mathbf{G}_{\text{inside}})^2  + (\mathbf{K}_j \ast \mathbf{G}_{\text{inside}})^2}$$
+
+and using this information, the gradient's direction can also be calculated
+
+$$\Theta  = arctan(\mathbf{K}_j \ast \mathbf{G}_{\text{inside}},\mathbf{K}_i \ast \mathbf{G}_{\text{inside}})
+
+
 
 
 
