@@ -658,7 +658,46 @@ The following *E.coli* cell in figure 8-1 is one of the output cells in the dire
 Fig.8-1 A ph image of an <i>E.coli</i> cell.
 </p>
 
+## Output Folders/Files
 
+### Cell/ph/
+In this directory, the raw image(ph) of each cell with its contour(green) in the arbitrary set square is stored.  (e.g. fig.8-1)
+
+The center of the cell is set to the center of the square.
+
+### Cell/fluo1/
+
+In this directory, the image(fluo1-channel) of each cell in the in the arbitrary set square is stored.
+
+The center of the cell is set to the center of the square.
+
+Figure 8-2 shows the fluo1 image of fig.8-1
+
+<div align="center">
+
+![Start-up window](docs_images/0_fluo.png)  
+</div>
+
+<p align="center">
+Fig.8-2 A fluo1 image of the <i>E.coli</i> cell in fig.8-1.
+</p>
+
+### Cell/fluo2/
+In this directory, the same thing as fluo1 is stored for the different channel. 
+(only when Dual mode.)
+
+### Cell/fluo1_incide_cell_only/
+
+In this directory, only the cells(fluo1-channel) surrounded by the contour(red in fig.8-2) are stored.
+
+The center of the cell is set to the center of the square.
+
+Figure 8-3 shows areas inside the contour(red, fig.8-2).
+
+<div align="center">
+
+![Start-up window](docs_images/0_fluo_only_inside_cell.png)  
+</div>
 
 
 
