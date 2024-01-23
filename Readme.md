@@ -86,6 +86,39 @@ Each row has the following columns:
 | contour          | BLOB           | 2D array cell contour                               |
 
 
+# Connecting to the database
+You can connect to the database with the following scripts.
+
+```python
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+
+engine = create_engine('sqlite:///database_name.db', echo=True)
+Session = sessionmaker(bind=engine)
+Base = declarative_base()
+class Cell(Base):
+    __tablename__ = 'cells'
+    id = Column(Integer, primary_key=True)
+    cell_id = Column(String)
+    label_experiment = Column(String)
+    manual_label  = Column(Integer)
+    perimeter = Column(FLOAT)
+    area = Column(FLOAT)
+    img_ph = Column(BLOB) 
+    img_fluo1 = Column(BLOB)
+    img_fluo2 = Column(BLOB)
+    contour = Column(BLOB)
+    center_x = Column(FLOAT)
+    center_y = Column(FLOAT)
+
+with Session() as session:
+    cells = session.query(Cell).all()
+    for cell in cells:
+        print(cell.cell_id, cell.manual_label)
+        # Arbitrary image processing/analysis
+```
+
+
 # File Structure
 This is the overview of the program file structure.
 
@@ -990,43 +1023,6 @@ Shows all the figures of the estimated peak paths in a single image.
 ![Start-up window](docs_images/test_database_peak_paths.png)  
 
 </div>
-
-
-
-
-# Connecting to the database
-You can connect to the database with the following scripts.
-
-
-```python
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
-
-engine = create_engine('sqlite:///database_name.db', echo=True)
-Session = sessionmaker(bind=engine)
-Base = declarative_base()
-class Cell(Base):
-    __tablename__ = 'cells'
-    id = Column(Integer, primary_key=True)
-    cell_id = Column(String)
-    label_experiment = Column(String)
-    manual_label  = Column(Integer)
-    perimeter = Column(FLOAT)
-    area = Column(FLOAT)
-    img_ph = Column(BLOB) 
-    img_fluo1 = Column(BLOB)
-    img_fluo2 = Column(BLOB)
-    contour = Column(BLOB)
-    center_x = Column(FLOAT)
-    center_y = Column(FLOAT)
-
-with Session() as session:
-    cells = session.query(Cell).all()
-    for cell in cells:
-        print(cell.cell_id, cell.manual_label)
-        # Arbitrary image processing/analysis
-```
-
 
 # License
 [OpenCV License](https://github.com/opencv/opencv/blob/master/LICENSE)
