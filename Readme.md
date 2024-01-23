@@ -908,3 +908,20 @@ Figure 8-11 shows the 3d plot of the cell in fig. 8-2.
 Fig.8-11 The 3d plot of the cell in fig. 8-2
 </p>
 
+
+# Quick Overview of the cells
+After running the scripts in "data_analysis" mode, several .png files will be generated in the same directory as "PhenoPixel4.py".
+
+Note that <u>"all" mode automatically includes this process.</u> so that you can directly check the results after running the processes.
+
+In this section, we use "test_database.db" to demonstrate.
+
+
+You can also run the scripts with the following commands to achieve the same results:
+
+```bash
+python demo.py
+```
+
+## PH
+Displays all raw cells with their contours (in green) in a single image.
