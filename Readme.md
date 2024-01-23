@@ -894,3 +894,17 @@ Fig.8-10 The result of the peak path finder algorithm for the cell in fig.8-1.
 
 
 ### Cell/3dplot/
+
+This directory contains the 3d plot for each cell. Z-axis represents the fluorescence intensity for each pixel incide the cell.
+
+Figure 8-11 shows the 3d plot of the cell in fig. 8-2.
+
+<div align="center">
+
+![Start-up window](docs_images/0_3dplot.png)  
+</div>
+
+<p align="center">
+Fig.8-11 The 3d plot of the cell in fig. 8-2
+</p>
+
