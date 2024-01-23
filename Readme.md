@@ -994,6 +994,44 @@ Shows all the figures of the estimated peak paths in a single image.
 
 
 
+# Connecting to the database
+You can connect to the database with the following scripts.
+
+
+```python
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+
+engine = create_engine('sqlite:///database_name.db', echo=True)
+Session = sessionmaker(bind=engine)
+Base = declarative_base()
+class Cell(Base):
+    __tablename__ = 'cells'
+    id = Column(Integer, primary_key=True)
+    cell_id = Column(String)
+    label_experiment = Column(String)
+    manual_label  = Column(Integer)
+    perimeter = Column(FLOAT)
+    area = Column(FLOAT)
+    img_ph = Column(BLOB) 
+    img_fluo1 = Column(BLOB)
+    img_fluo2 = Column(BLOB)
+    contour = Column(BLOB)
+    center_x = Column(FLOAT)
+    center_y = Column(FLOAT)
+
+with Session() as session:
+    cells = session.query(Cell).all()
+    for cell in cells:
+        print(cell.cell_id, cell.manual_label)
+        # Arbitrary image processing/analysis
+```
+
+
+# License
+[OpenCV License](https://github.com/opencv/opencv/blob/master/LICENSE)
+
+
 
 
 
