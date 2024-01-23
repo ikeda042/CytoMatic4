@@ -46,7 +46,6 @@ while True:
                 mask = np.zeros((image_size[0],image_size[1]), dtype=np.uint8)
                 cv2.fillPoly(mask, [pickle.loads(cell.contour)], 1)
                 output_image = cv2.bitwise_and(image_fluo1, image_fluo1, mask=mask)
-                output_image = mask * image_fluo1
                 output_image_color = cv2.cvtColor(output_image, cv2.COLOR_GRAY2BGR)
                 output_image_color[:, :, 0] = 0
                 output_image_color[:, :, 2] = 0
