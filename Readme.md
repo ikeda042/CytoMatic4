@@ -714,7 +714,7 @@ $$
 \mathbf{G}\in \mathbb{R}^{i\times{j}}
 $$
 
-then the filtering matrix for excluding all the pixells outside the cells and be written as: 
+then the filtering matrix for excluding all the pixells outside the cells is written as: 
 
 $$ \mathbf{W} =  \begin{pmatrix}
   w_{0,0}&\cdots &w_{i,0}\\
