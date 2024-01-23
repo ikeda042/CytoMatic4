@@ -1028,15 +1028,16 @@ Shows all the figures of the estimated peak paths in a single image.
 # Data analyses scripts
 
 ## localization heatmap
-Taking advantage of the estimated peak path for each cell, we can check the localization of fluorescence incide the cells in a single figure. 
+Utilizing the estimated peak paths for each cell, we can visualize the localization of fluorescence within the cells in a single figure.
 
-In this section, we use `test_database.db` and `demo.py` for the demonstratioin purposes.
+This section utilizes `test_database.db` and `demo.py` for demonstration purposes.
 
-After running demo.py, we have `app/test_database_peak_points_ys.txt`. 
 
-Because x axis (relative position in the cell) is uniformly split, we only care about the points for brightness. 
+After executing `demo.py`, the file `app/test_database_peak_points_ys.txt` is generated.
 
-We create a figure that contains all the peak paths we have obtained with the following codes.
+Since the x-axis (representing the relative position in the cell) is uniformly divided, our focus is primarily on the points of brightness.
+
+We generate a figure that consolidates all the obtained peak paths using the following code:
 
 ```python
 import numpy as np
