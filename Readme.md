@@ -718,7 +718,7 @@ $$ \mathbf{W} =  \begin{pmatrix}
 
 , where 
 
-$$ \begin{align}w_{i,j}  = \begin{cases}1 & (u_{1_i},u_{1_j}) \in \mathbf{C}\\0& (u_{1_i},u_{1_j})  \notin \mathbf{C}\end{cases}\end{align} $$
+$$ \begin{align}w_{i,j}  = \begin{cases}1 & (u_{1_i},u_{1_j}) \in \mathbf{C}\\ 0& (u_{1_i},u_{1_j})  \notin \mathbf{C}\end{cases}\end{align} $$
 
 
 
