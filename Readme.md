@@ -679,7 +679,9 @@ For data analysis, you are welcome to use your original scripts. (We provide how
 
 However, you can also utilize the default scripts provided to review the cells you have labeled with the application.
 
-The following *E.coli* cell in figure 8-1 is one of the output cells in the directory after running demo.py **"Cell/ph/"**.
+The following *E.coli* cell in figure 8-1 is one of the output cells in the directory after running `demo.py`
+
+ **"Cell/ph/"**.
 
 <div align="center">
 
