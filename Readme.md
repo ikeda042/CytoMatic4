@@ -1025,7 +1025,7 @@ Shows all the figures of the estimated peak paths in a single image.
 </div>
 
 
-# Data analysis scripts
+# Data analyses scripts
 
 ## localization heatmap
 Taking advantage of the estimated peak path for each cell, we can check the localization of fluorescence incide the cells in a single figure. 
