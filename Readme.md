@@ -640,6 +640,27 @@ Fig.7-5: The estimated peak path by the algorithm.
 </p>
 
 
+# Data analysis
+
+For data analysis, you are welcome to use your original scripts. (We provide how to connect to the database (i.e., *.db) in the different section.) 
+
+However, you can also utilize the default scripts provided to review the cells you have labeled with the application.
+
+The following *E.coli* cell in figure 8-1 is one of the output cells in the directory after running demo.py **"Cell/ph/"**.
+
+<div align="center">
+
+![Start-up window](docs_images/0_ph.png)  
+
+</div>
+
+<p align="center">
+Fig.8-1 A ph image of an <i>E.coli</i> cell.
+</p>
+
+
+
+
 
 
 
