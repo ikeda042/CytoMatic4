@@ -454,8 +454,6 @@ Hence <u>the length is preserved in both bases.</u>
 Figure 6 shows the center axis of the cell in the new basis (4-th polynominal).
 
 
-
-
 <div align="center">
 
 ![Start-up window](docs_images/fig6.png)  
@@ -463,3 +461,37 @@ Figure 6 shows the center axis of the cell in the new basis (4-th polynominal).
 <p align="center">
 Fig.6 The center axis of the contour in the new basis (PH Left, contour in the new basis with the center axis Right).
 </p>
+
+### Choosing the Appropriate K-Value for Polynomial Regression
+
+
+By default, the K-value is set to 4 in the polynomial regression. However, this may not be sufficient for accurately modeling "wriggling" cells.
+
+For example, Figure 6-1 depicts a cell exhibiting extreme filamentous changes after exposure to Ciprofloxacin. The center axis as modeled does not adequately represent the cell's structure.
+
+<div align="center">
+
+![Start-up window](docs_images/choosing_k_1.png)  
+
+</div>
+
+<p align="center">
+Fig.6-1  An extremely filamentous cell. (PH Left, contour in the new basis with the center axis Right).
+</p>
+
+
+The center axis (in red) with K = 4 does not fit as well as expected, indicating a need to explore higher K-values (i.e., K > 4) for better modeling.
+
+Figure 6-2 demonstrates fit curves (the center axis) for K-values ranging from 5 to 10.
+
+
+
+<div align="center">
+
+![Alt text](docs_images/result_kth10.png)
+</div>
+<p align="center">
+Fig.6-2: Fit curves for the center axis with varying K-values (5 to 10).
+</p>
+
+
