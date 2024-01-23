@@ -885,7 +885,7 @@ Figure 8-10 depicts the estimated peak path for the cell in fig.8-1.
 
 <div align="center">
 
-![Start-up window](docs_images/0_peak_path.png)  
+![Start-up window](docs_images/0_PP.png)  
 </div>
 
 <p align="center">
