@@ -2,7 +2,7 @@
 
 <div align="center">
 
-![Start-up window](app/images_readme/schema.png)
+![Start-up window](docs_images/Schema_new.png)
 
 </div>
 PhenoPixel4.0 is an OpenCV-based image processing program designed for automating the extraction of cell images from a large number of images (e.g., multiple nd2 files). 
@@ -11,7 +11,7 @@ PhenoPixel4.0 is an OpenCV-based image processing program designed for automatin
 
 <div align="center">
 
-![Start-up window](app/images_readme/manual_detect_demo.gif)
+![Start-up window](docs_images/manual_detect_demo.gif)
 
 </div>
 
