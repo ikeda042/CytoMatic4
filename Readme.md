@@ -777,7 +777,7 @@ $$ \mathbf{K}_j =
 
 then the filterd image (i.e., the gradient magnitude image) is written as:
 
-$$ \mathbf{G}_{grad}  =  \sqrt{\mathbf{G}_{\text{incide}}}$$
+$$ \mathbf{G}_{grad}  =  \sqrt{\mathbf{G}_{incide}}$$
 
 and using this information, the gradient's direction can also be calculated
 
