@@ -845,3 +845,52 @@ The fluorescence information is normalized 0 to 1, then plotted with a colormap 
 
 ![Start-up window](docs_images/colorbar.png)  
 </div>
+
+### Cell/unified/
+
+In this directory, the combined images (ph and fluo1) are stored. This is for a demonstrating purpose.
+
+Note that the scale bar is 20% of image size (0.0625 µm/pixel)
+
+Figure 8-8 shows the unified image of fig. 8-1 and fig.8-2.
+
+<div align="center">
+
+![Start-up window](docs_images/0_unified.png)  
+</div>
+
+<p align="center">
+Fig.8-8 The unified image of fig. 8-1 and fig.8-2. 
+</p>
+
+### Cell/projected_points/
+
+This directory stores the result of the aforementioned projection algorithm for each cell.
+
+Figure 8-9 shows the result of projection. 
+<div align="center">
+
+![Start-up window](docs_images/0_projected.png)  
+</div>
+
+<p align="center">
+Fig.8-9 The result of projection for the cell in fig.8-1. 
+</p>
+
+### Cell/peak_path/
+
+In this directory, the estimated peak path for each cell using the aforementioned algoritm is stored.
+
+Figure 8-10 depicts the estimated peak path for the cell in fig.8-1.
+
+<div align="center">
+
+![Start-up window](docs_images/0_peak_path.png)  
+</div>
+
+<p align="center">
+Fig.8-10 The result of the peak path finder algorithm for the cell in fig.8-1. 
+</p>
+
+
+### Cell/3dplot/
