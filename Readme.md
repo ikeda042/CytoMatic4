@@ -6,10 +6,11 @@
 
 </div>
 
-
+<!-- 
 
 <div align="center">
 
 ![Start-up window](app/images_readme/schema.png)
 
-</div>
+</div> -->
+
