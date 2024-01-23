@@ -763,21 +763,24 @@ The kernels for the filtering operator are written as:
 
 $$ \mathbf{K}_i = 
 \begin{bmatrix}
--1& 0&1\\
--2& 0&2\\
--1& 0&1\\
+-1& 0&+1\\
+-2& 0&+2\\
+-1& 0&+1\\
 \end{bmatrix}$$ 
 
 $$ \mathbf{K}_j = 
 \begin{bmatrix}
-1& 2&1\\
++1& +2&+1\\
 0& 0&0\\
 -1& -2&-1\\
 \end{bmatrix}$$ 
 
 then the filterd image (i.e., the gradient magnitude image) is written as:
 
-$$ \mathbf{G}_{grad}  =  \sqrt{\mathbf{K}_i \ast \mathbf{G} ^2 + \mathbf{K}_j \ast \mathbf{G} ^2 }$$
+$$ 
+\mathbf{G}_{grad}  =  
+\sqrt{\mathbf{K}_i \ast \mathbf{G} ^2 + \mathbf{K}_j \ast \mathbf{G} ^2 }
+$$
 
 and using this information, the gradient's direction can also be calculated
 
