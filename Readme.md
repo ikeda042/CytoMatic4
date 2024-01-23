@@ -56,7 +56,10 @@ For exmaple, if you have an nd2 file structured like PH_0, Fluo_0, PH_1, Fluo_1.
 
 3. Click "Run" to start the program.
 4. Image labeling application window pops up when done with cell extraction.
-5. 
+5. Choose arbitrary label for each and press "Submit" or simply press Return key. (Default value is set to N/A) You can use the label later to analyse cells. (e.g., only picking up cells with label 1)
+
+
+
 
 
 
