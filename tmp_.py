@@ -19,7 +19,7 @@ for path in paths:
 
 
 
-fig = plt.figure(figsize=[8,6])
+fig = plt.figure(figsize=[28,9])
 
 labels = length_dict.keys()
 data_long = [length_dict[i][0] for i in labels]
@@ -32,7 +32,7 @@ for i, d in enumerate(data, start=1):
     x = np.random.normal(i, 0.04, size=len(d)) 
     plt.plot(x, d, 'o', alpha=0.5)  
 
-plt.xticks([i+1 for i in range(len(data))], [f"{i}" for i in labels])
+plt.xticks([i+1 for i in range(len(data))], [f"{i.split('_')[0].split('b')[-1]}" for i in labels])
 
 plt.xlabel('Samples')
 plt.ylabel('Lengths (pixel)')
