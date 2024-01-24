@@ -12,6 +12,8 @@ from typing import Literal
 from app.nd2extract import extract_nd2
 import os
 import time
+import matplotlib
+matplotlib.use("Agg")
 
 
 def main(
