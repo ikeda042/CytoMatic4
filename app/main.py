@@ -3,6 +3,7 @@ from .pyfiles.delete_all import delete_all
 from .pyfiles.app import app
 from .DataAnalysis.data_analysis import data_analysis
 from .DataAnalysis.data_analysis_light import data_analysis_light
+from .DataAnalysis.data_analysis_singlemode import data_analysis_singlemode
 import sqlite3
 from .pyfiles.database import Base, Cell
 from sqlalchemy import create_engine, update
@@ -18,7 +19,7 @@ def main(
     param1: int,
     param2: int,
     img_size: int,
-    mode: Literal["all", "data_analysis", "data_analysis", "delete_all"] = "all",
+    mode: Literal["all", "data_analysis", "data_analysis_all", "delete_all",""] = "all",
     layer_mode: Literal["dual", "single", "normal"] = "dual",
 ):
     delete_all()
@@ -99,13 +100,25 @@ def main(
         ]:
             delete_all()
             t0 = time.time()
-            n = data_analysis(
-                db_name=f"{file_name.split('.')[0]}.db",
-                image_size=200,
-                out_name=file_name.split(".")[0],
-                dual_layer_mode=dual_layer_mode,
-            )
+
+            if single_layer_mode:
+                n = data_analysis_singlemode(
+                    db_name=f"{file_name.split('.')[0]}.db",
+                    image_size=200,
+                    out_name=file_name.split(".")[0],
+                    dual_layer_mode=dual_layer_mode
+                    )
+                n = 1
+            else:
+                n = data_analysis(
+                    db_name=f"{file_name.split('.')[0]}.db",
+                    image_size=200,
+                    out_name=file_name.split(".")[0],
+                    dual_layer_mode=dual_layer_mode,
+                )
+            
             times.append((time.time() - t0) / n)
+            
         with open("time_analysis.txt", "w") as f:
             for i in times:
                 f.write(str(i) + "\n")
