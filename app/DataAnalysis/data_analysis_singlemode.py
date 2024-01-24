@@ -298,7 +298,8 @@ def data_analysis_singlemode(
                     zorder=100,
                     marker="x",
                 )
-
+                plt.vlines((max(u1) + min(u1)) / 2, min(u2), max(u2), color="red", linewidth=3)
+                plt.hlines((max(u2) + min(u2)) / 2, min(u1), max(u1), color="red", linewidth=3)
                 plt.scatter(u1_contour, u2_contour, s=5, color="lime")
                 plt.xlabel("u1")
                 plt.ylabel("u2")
