@@ -105,7 +105,8 @@ def data_analysis_singlemode(
 ):
        ##############################################################
     n = -1
-    cell_lengths = []
+    longer_axes = []
+    shorter_axes = []
     agg_tracker = 0
     means = []
     meds = []
@@ -271,8 +272,8 @@ def data_analysis_singlemode(
                         for i in x
                     ]
                 cell_length = calc_arc_length(theta, min_u1, max_u1)
-                print(cell_lengths)
-                cell_lengths.append([cell.cell_id, cell_length])
+                # print(cell_lengths)
+                # cell_lengths.append([cell.cell_id, cell_length])
                 plt.plot(x, y, color="blue", linewidth=1)
                 plt.scatter(
                     min_u1,
@@ -309,7 +310,13 @@ def data_analysis_singlemode(
                 fig.savefig(f"Cell/replot/{n}.png")
                 fig.savefig(f"RealTimeData/replot.png")
                 plt.close()
+                longer_axes.append(max(u1) - min(u1))
+                shorter_axes.append(max(u2) - min(u2))
 
+    with open(f"{out_name}_lengths.txt", "w") as f:
+        f.write("longer_axes,shorter_axes\n")
+        for i in range(len(longer_axes)):
+            f.write(f"{longer_axes[i]},{shorter_axes[i]}\n")
     total_rows = int(np.sqrt(n))+ 1
     total_cols = n//total_rows + 1
     num_images = n
