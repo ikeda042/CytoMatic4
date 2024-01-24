@@ -26,14 +26,12 @@ data_long = [length_dict[i][0] for i in labels]
 data_short = [length_dict[i][1] for i in labels]
 
 
-
 data = data_long
 plt.boxplot(data,sym="")
-for i, data in enumerate([data], start=1):
-    x = np.random.normal(i, 0.04, size=len(data)) 
-    plt.plot(x, data, 'o', alpha=0.5)  
+for i, d in enumerate(data, start=1):
+    x = np.random.normal(i, 0.04, size=len(d)) 
+    plt.plot(x, d, 'o', alpha=0.5)  
 
-# 各プロットにラベルを追加する
 plt.xticks([i+1 for i in range(len(data))], [f"{i}" for i in labels])
 
 plt.xlabel('Samples')
