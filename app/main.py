@@ -78,7 +78,7 @@ def main(
         # data_analysis(db_name=f"{file_name.split('.')[0]}.db", image_size=img_size,out_name = file_name.split(".")[0],single_layer_mode=single_layer_mode, dual_layer_mode=dual_layer_mode)
 
     elif mode == "data_analysis":
-        data_analysis_light(
+        data_analysis(
             db_name=f"{file_name.split('.')[0]}.db",
             image_size=img_size,
             out_name=file_name.split(".")[0],
