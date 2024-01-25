@@ -34,7 +34,8 @@ fig = plt.figure(figsize=[7, 7])
 ax = fig.add_subplot(111)
 ax.set_aspect("equal")
 ax.scatter([i[0] for i in contour], [i[1] for i in contour], s=50, color="lime")
-fig.savefig("result.png", dpi=500)
+fig.savefig("result_contour.png", dpi=500)
+plt.close()
 
 
 print("+++++++++++++++test field+++++++++++++++")
@@ -91,6 +92,17 @@ params_dict = {
 #     print(len(i[0][0][3]))
 
 cell_num = 0
-cell_0 = cell.get_cellList()[0][0][0][0][0][0][cell_num][0][0][params_dict['mesh']]
-print(cell_0)
+cell_0_mesh = cell.get_cellList()[0][0][0][0][0][0][cell_num][0][0][params_dict['mesh']]
+print(cell_0_mesh[0])
+print(len(cell_0_mesh[0]))
+
+
+# reconstruct mesh
+fig = plt.figure(figsize=[7, 7])
+ax = fig.add_subplot(111)
+ax.set_aspect("equal")
+for i in cell_0_mesh:
+    ax.plot([i[0], i[2]], [i[1], i[3]], color="r")
+fig.savefig("result_mesh.png", dpi=500)
+
 
