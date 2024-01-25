@@ -7,6 +7,7 @@ import os
 import shutil
 import cv2
 from matplotlib import gridspec
+from scipy.interpolate import interp1d
 
 dir_name = "Matlab"
 if os.path.exists(dir_name):
@@ -186,6 +187,11 @@ class CellMat:
                 f.write(",".join(path) + "\n")
     
     def heatmap(self) -> None:
+        def resample_to_n_points(x, y, n):
+            x_new = np.linspace(np.min(x), np.max(x), n)
+            interpolator = interp1d(x, y, kind='linear')
+            y_new = interpolator(x_new)
+            return x_new, y_new
         with open(f"{self.file_name}_peak_paths.txt", "r") as f:
             ys = [
                 [float(x.replace("\n", "")) for x in line.split(",")] for line in f.readlines()
@@ -194,7 +200,8 @@ class CellMat:
             for i in ys:
                 i = np.array(i)
                 i = (i - i.min()) / (i.max() - i.min())
-                ys_normalized.append(i.tolist())
+                ys_normalized.append(i.tolist())  
+        ys_normalized = [resample_to_n_points(np.arange(len(i)), i, 100)[1] for i in ys_normalized]  
         vectors = sorted([HeadmapVector(i, 1) for i in ys_normalized])
         concatenated_samples = np.column_stack([i.heatmap_vector for i in vectors])
         plt.figure(figsize=(10, 10))
@@ -206,7 +213,6 @@ class CellMat:
         gs = gridspec.GridSpec(
             2, 2, width_ratios=[30, 1], height_ratios=[1, 10], hspace=0.05, wspace=0.05
         )
-
         ax0 = plt.subplot(gs[0, 0])
         ax0.imshow(
             additional_row,
@@ -234,4 +240,4 @@ def load_mat(filename:str) -> None:
     cell_mat.extract_peak_paths()
     cell_mat.heatmap()
 
-# load_mat("Ph_com_mesh_signal.mat")
+load_mat("Ph_com_mesh_signal.mat")
