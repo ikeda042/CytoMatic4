@@ -13,6 +13,7 @@ if os.path.exists(dir_name):
 os.makedirs(dir_name)
 os.mkdir('Matlab/contours')
 os.mkdir('Matlab/meshes')
+os.mkdir('Matlab/overlay')
 
 matplotlib.use("Agg")
 plt.style.use("dark_background")
@@ -86,6 +87,20 @@ class CellMat:
                 ax.plot([i[1], i[3]], [i[0], i[2]], color="lime")
             fig.savefig(f"Matlab/meshes/result_mesh_{cell_id}.png", dpi=100)
             plt.close()
+    
+    def overlay_meshes(self) -> None:
+        for i in range(len(self.contours)):
+            fig = plt.figure(figsize=[7, 7])
+            ax = fig.add_subplot(111)
+            ax.set_aspect("equal")
+            ax.scatter([i[0] for i in self.contours[i]], [i[1] for i in self.contours[i]], s=50, color="lime")
+            for j in self.meshes[i]:
+                ax.plot([j[2], j[0]], [j[3], j[1]], color="lime")
+            fig.savefig(f"Matlab/overlay/overlay_{i}.png", dpi=100)
+            plt.close()
+            
+
+
 
     def combine_images(self) -> None:
         image_size = 700
@@ -122,10 +137,23 @@ class CellMat:
         plt.axis('off')
         cv2.imwrite(f'{self.file_name}_meshes.png', result_image)
 
+        for i in range(total_rows):
+            for j in range(total_cols):
+                image_index = i * total_cols + j  
+                if image_index < num_images:
+                    image_path = f'Matlab/overlay/overlay_{image_index}.png' 
+                    print(image_path)
+                    img = cv2.imread(image_path)
+                    img = cv2.resize(img, (image_size, image_size))
+                    result_image[i * image_size: (i + 1) * image_size,
+                                j * image_size: (j + 1) * image_size] = img
+        plt.axis('off')
+        cv2.imwrite(f'{self.file_name}_overlay.png', result_image)
 
 
 
-cell = CellMat("Ph_com_mesh_signal.mat")
-cell.extract_meshes()
-cell.extract_contours()
-cell.combine_images()
+cell_mat = CellMat("Ph_com_mesh_signal.mat")
+cell_mat.extract_meshes()
+cell_mat.extract_contours()
+cell_mat.overlay_meshes()
+cell_mat.combine_images()
