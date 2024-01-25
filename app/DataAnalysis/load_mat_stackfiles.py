@@ -240,4 +240,3 @@ def load_mat(filename:str) -> None:
     cell_mat.extract_peak_paths()
     cell_mat.heatmap()
 
-load_mat("Ph_com_mesh_signal.mat")
