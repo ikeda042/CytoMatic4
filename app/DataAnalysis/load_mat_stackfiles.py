@@ -238,4 +238,3 @@ def load_mat(filename:str) -> None:
     cell_mat.combine_images()
     cell_mat.extract_peak_paths()
     cell_mat.heatmap()
-
