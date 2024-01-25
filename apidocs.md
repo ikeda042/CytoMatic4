@@ -14,30 +14,28 @@
 </div>
 
 ## スタックファイルをアップロードする
-1. 緑色の一番上のバーをクリックすると以下のような画面になる。
-
+1. 緑色の一番上のバーをクリックすると以下のような画面になる。ここで、 右端の`Try it out`をクリックする。
 <div align="center">
 
 ![Start-up window](apidocs/2.png)
 
 </div>
 
-2. 右端の`Try it out`をクリックする。
+2. ファイルを選択してexecuteを押す。
+   この時、　Loadingが終了するまで待つ。（10秒くらい）
    <div align="center">
 
 ![Start-up window](apidocs/3.png)
 
 </div>
 
-3. ファイルを選択してexecuteを押す。
-   この時、　Loadingが終了するまで待つ。（10秒くらい）
+3. Loadingが終わったら、スタックファイルのアップロード、読み込みが完了。
 <div align="center">
 
 ![Start-up window](apidocs/4.png)
 
 </div>
 
-4. Loadingが終わったら、スタックファイルのアップロード、読み込みが完了。
 
 ## 解析結果を確認する
 1. 以下の青色のバーをクリックし、アップロード時と同様に右端の`Try it out`をクリックする。
