@@ -5,7 +5,7 @@ from fastapi import FastAPI, File, UploadFile
 from typing import List
 import aiofiles
 
-app = FastAPI()
+app = FastAPI(title="PhenoPixel4.0", version="0.0.0")
 
 @app.post("/uploadfile/")
 async def create_upload_file(file: UploadFile = File(...)):
