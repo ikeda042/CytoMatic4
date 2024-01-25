@@ -68,7 +68,7 @@ class CellMat:
         cells = self.cell_list[0][0][0][0][0][0]
         for cell_id in range(len(cells) - 1):
             cell_i_contour = cells[cell_id][0][0][self.params_dict["birthframe"]]
-            print(cell_i_contour)
+            # print(cell_i_contour)
             try:
                 # reconstruct contour
                 fig = plt.figure(figsize=[7, 7])
@@ -84,8 +84,10 @@ class CellMat:
                 plt.close()
                 self.contours.append(cell_i_contour)
             except Exception as e:
-                print(e)
-                print(cell_id)
+                # print(e)
+                # print(cell_id)
+                pass
+
 
     def extract_meshes(self) -> None:
         cells = self.cell_list[0][0][0][0][0][0]
@@ -93,7 +95,7 @@ class CellMat:
         for cell_id in range(cell_num):
             cell_i_mesh = cells[cell_id][0][0][self.params_dict["mesh"]]
             self.meshes.append(cell_i_mesh)
-            print(cell_i_mesh)
+            # print(cell_i_mesh)
             # reconstruct mesh
             fig = plt.figure(figsize=[7, 7])
             ax = fig.add_subplot(111)
@@ -115,7 +117,6 @@ class CellMat:
                 color="lime",
             )
             for j in self.meshes[i]:
-                print(j)
                 ax.plot([j[2], j[0]], [j[3], j[1]], color="lime")
             fig.savefig(f"Matlab/overlay/overlay_{i}.png", dpi=50)
             plt.close()
@@ -129,14 +130,14 @@ class CellMat:
             (total_rows * image_size, total_cols * image_size, 3), dtype=np.uint8
         )
         num_images += 1
-        print("=======================================================")
-        print(image_size)
+        # print("=======================================================")
+        # print(image_size)
         for i in range(total_rows):
             for j in range(total_cols):
                 image_index = i * total_cols + j
                 if image_index < num_images:
                     image_path = f"Matlab/contours/result_contour_{image_index}.png"
-                    print(image_path)
+                    # print(image_path)
                     img = cv2.imread(image_path)
                     img = cv2.resize(img, (image_size, image_size))
                     result_image[
@@ -151,7 +152,7 @@ class CellMat:
                 image_index = i * total_cols + j
                 if image_index < num_images:
                     image_path = f"Matlab/meshes/result_mesh_{image_index}.png"
-                    print(image_path)
+                    # print(image_path)
                     img = cv2.imread(image_path)
                     img = cv2.resize(img, (image_size, image_size))
                     result_image[
@@ -166,7 +167,7 @@ class CellMat:
                 image_index = i * total_cols + j
                 if image_index < num_images:
                     image_path = f"Matlab/overlay/overlay_{image_index}.png"
-                    print(image_path)
+                    # print(image_path)
                     img = cv2.imread(image_path)
                     img = cv2.resize(img, (image_size, image_size))
                     result_image[
@@ -182,7 +183,7 @@ class CellMat:
         for cell_id in range(len(cells) - 1):
             cell_i_peak_path = cells[cell_id][0][0][self.params_dict["signal2"]]
             peak_paths.append(cell_i_peak_path)
-        print(peak_paths)
+        # print(peak_paths)
         with open(f"{self.file_name}_peak_paths.txt", "w") as f:
             for path in peak_paths:
                 path = [str(i[0]) for i in path]

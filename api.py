@@ -11,20 +11,22 @@ app = FastAPI(title="PhenoPixel4.0")
 @app.post("/uploadfile/")
 async def create_upload_file(file: UploadFile = File(...)):
     content = await file.read()
-    filename = file.filename
+    filename = cast(str,file.filename)
+    filename = "mat_file.mat"
     async with aiofiles.open(filename, "wb") as f:
         await f.write(content)
-    load_mat(cast(str, filename))
+    load_mat(filename)
+    file_path = f"{filename.replace('.mat','')}_heatmap.png"  
     return {"filename": filename}
 
 @app.get("/get-overlay-image")
 async def get_overlay():
-    file_path = "Ph_com_mesh_signal_overlay.png"  
+    file_path = "mat_file__overlay.png"  
     return FileResponse(file_path)
 
 @app.get("/get-heatmap")
-async def get_heatmap(file_name: str):
-    file_path = f"{file_name.replace('.mat','')}_heatmap.png"  
+async def get_heatmap():
+    file_path = f"mat_file_heatmap.png"  
     return FileResponse(file_path)
 
 def main():
