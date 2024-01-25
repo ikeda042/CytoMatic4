@@ -5,11 +5,14 @@ from fastapi import FastAPI, File, UploadFile
 from typing import cast
 import aiofiles
 from app.DataAnalysis.load_mat_stackfiles import load_mat
+from datetime import datetime
 
 app = FastAPI(title="PhenoPixel4.0")
 
 @app.post("/uploadfile/",tags=["ここでスタックファイル(.mat)をアップロード"])
 async def create_upload_file(file: UploadFile = File(...)):
+    print(file.filename,"uploaded+++++++++++++++++++++++++++++++++++++++++++++++")
+    print(datetime.now())
     content = await file.read()
     filename = cast(str,file.filename)
     filename = "mat_file.mat"
