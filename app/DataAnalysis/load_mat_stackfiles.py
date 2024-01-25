@@ -3,106 +3,129 @@ import numpy as np
 from typing import Any, cast
 import matplotlib.pyplot as plt
 import matplotlib
+import os
+import shutil
+import cv2
+
+dir_name = "Matlab"
+if os.path.exists(dir_name):
+    shutil.rmtree(dir_name)
+os.makedirs(dir_name)
+os.mkdir('Matlab/contours')
+os.mkdir('Matlab/meshes')
 
 matplotlib.use("Agg")
+plt.style.use("dark_background")
 
-
-class Cell:
+class CellMat:
     def __init__(self, file_name) -> None:
         self.mat_data: Any = sio.loadmat(file_name=file_name)
         self.keys = self.mat_data.keys()
+        self.params_dict = {
+                            "model": 0,
+                            "algorithm": 1,
+                            "birthframe": 2,
+                            "mesh": 3,
+                            "stage": 4,
+                            "polarity": 5,
+                            "timelapse": 6,
+                            "box": 7,
+                            "divisions": 8,
+                            "ancestors": 9,
+                            "descendants": 10,
+                            "signal0": 11,
+                            "signal2": 12,
+                            "steplength": 13,
+                            "length": 14,
+                            "lengthvector": 15,
+                            "area": 16,
+                            "steparea": 17,
+                            "stepvolume": 18,
+                            "volume": 19,
+                        }
+        self.cell_list = self.mat_data["cellList"]
+        self.meshes:list[np.ndarray] = []
+        self.contours:list[np.ndarray] = []
 
     def get_cellList(self) -> np.ndarray:
-        return self.mat_data["cellList"]
+        return self.cell_list
+    
+    def extract_contours(self) -> None:
+        cell_id = 0
+        cells = self.cell_list[0][0][0][0][0][0]
+        for cell_id in range(len(cells)-1):
+            cell_i_contour = cells[cell_id][0][0][self.params_dict['birthframe']]
+            print(cell_i_contour)
+            try:
+                # reconstruct contour
+                fig = plt.figure(figsize=[7, 7])
+                ax = fig.add_subplot(111)
+                ax.set_aspect("equal")
+                ax.scatter([i[0] for i in cell_i_contour], [i[1] for i in cell_i_contour], s=50, color="lime")
+                fig.savefig(f"Matlab/contours/result_contour_{cell_id}.png", dpi=100)
+                plt.close()
+                self.contours.append(cell_i_contour)
+            except Exception as e:
+                print(e)
+                print(cell_id)
+
+    def extract_meshes(self) -> None:
+        cells = self.cell_list[0][0][0][0][0][0]
+        cell_num = len(cells)
+        for cell_id in range(cell_num):
+            cell_i_mesh = cells[cell_id][0][0][self.params_dict["mesh"]]
+            self.meshes.append(cell_i_mesh)
+            print(cell_i_mesh[0])
+            print(len(cell_i_mesh[0]))
+            # reconstruct mesh
+            fig = plt.figure(figsize=[7, 7])
+            ax = fig.add_subplot(111)
+            ax.set_aspect("equal")
+            for i in cell_i_mesh:
+                ax.plot([i[1], i[3]], [i[0], i[2]], color="lime")
+            fig.savefig(f"Matlab/meshes/result_mesh_{cell_id}.png", dpi=100)
+            plt.close()
+
+    @staticmethod
+    def combine_images(image_size, filename):
+        num_images = len(os.listdir('Matlab/contours')) - 1
+        total_rows = int(np.sqrt(num_images))+ 1
+        total_cols = num_images//total_rows + 1
+        result_image = np.zeros((total_rows * image_size, total_cols * image_size, 3), dtype=np.uint8)
+        num_images += 1
+        print("=======================================================")
+        print(image_size)
+        for i in range(total_rows):
+            for j in range(total_cols):
+                image_index = i * total_cols + j 
+                if image_index <num_images:
+                    image_path = f'Matlab/contours/result_contour_{image_index}.png'  
+                    print(image_path)
+                    img = cv2.imread(image_path)
+                    img = cv2.resize(img, (image_size, image_size))
+
+                    result_image[i * image_size: (i + 1) * image_size,
+                                j * image_size: (j + 1) * image_size] = img
+        plt.axis('off')
+        cv2.imwrite(f'{filename}_contours.png', result_image)
+
+        for i in range(total_rows):
+            for j in range(total_cols):
+                image_index = i * total_cols + j  
+                if image_index < num_images:
+                    image_path = f'Matlab/contours/result_mesh_{image_index}.png' 
+                    print(image_path)
+                    img = cv2.imread(image_path)
+                    img = cv2.resize(img, (image_size, image_size))
+                    result_image[i * image_size: (i + 1) * image_size,
+                                j * image_size: (j + 1) * image_size] = img
+        plt.axis('off')
+        cv2.imwrite(f'{filename}_meshes.png', result_image)
 
 
-cell = Cell("Ph_com_mesh_signal.mat")
+cell = CellMat("Ph_com_mesh_signal.mat")
+cell.extract_meshes()
+cell.extract_contours()
+cell.combine_images(700,  "test")
 
-data_i: np.ndarray = cell.get_cellList()
-cell_i: np.ndarray | None = None
-for i in range(11):
-    data_i = data_i[0]
-    if i == 8:
-        cell_i = data_i
-cell_i = cast(np.ndarray, cell_i)
-print(len(cell_i))
-contour = cell_i[2]
-print(contour)
-
-# reconstruct contour
-fig = plt.figure(figsize=[7, 7])
-ax = fig.add_subplot(111)
-ax.set_aspect("equal")
-ax.scatter([i[0] for i in contour], [i[1] for i in contour], s=50, color="lime")
-fig.savefig("result_contour.png", dpi=500)
-plt.close()
-
-
-"""
-@params_dict
-0: model
-1: algorithm
-2: birthframe
-3: mesh
-4: stage
-5: polarity
-6: timelapse
-7: box
-8: divisions
-9: ancestors
-10: descendants
-11: signal0
-12: signal2
-13: steplength
-14: length
-15: lengthvector
-16: area
-17: steparea
-18: stepvolume
-19: volume
-"""
-
-params_dict = {
-    "model": 0,
-    "algorithm": 1,
-    "birthframe": 2,
-    "mesh": 3,
-    "stage": 4,
-    "polarity": 5,
-    "timelapse": 6,
-    "box": 7,
-    "divisions": 8,
-    "ancestors": 9,
-    "descendants": 10,
-    "signal0": 11,
-    "signal2": 12,
-    "steplength": 13,
-    "length": 14,
-    "lengthvector": 15,
-    "area": 16,
-    "steparea": 17,
-    "stepvolume": 18,
-    "volume": 19,
-}
-
-cells = cell.get_cellList()[0][0][0][0][0][0]
-
-cell_num = len(cells)
-
-for cell_id in range(cell_num):
-    cell_0_mesh = cell.get_cellList()[0][0][0][0][0][0][cell_id][0][0][params_dict["mesh"]]
-    print(cell_0_mesh[0])
-    print(len(cell_0_mesh[0]))
-
-    # reconstruct mesh
-    fig = plt.figure(figsize=[7, 7])
-    ax = fig.add_subplot(111)
-    ax.set_aspect("equal")
-    for i in cell_0_mesh:
-        ax.plot([i[0], i[2]], [i[1], i[3]], color="r")
-    fig.savefig("result_mesh.png", dpi=500)
-    plt.close()
-
-print("+++++++++++++++test field+++++++++++++++")
-cell_id = 0
-print(cell.get_cellList()[0][0][0][0][0][0][cell_id][0][0][params_dict["mesh"]])
+img = cv2.imread("Matlab/meshes/result_mesh_0.png")
