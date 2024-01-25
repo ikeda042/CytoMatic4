@@ -13,4 +13,4 @@ tqdm
 seaborn
 pillow
 aiofiles
-aiofiles
+fastapi
