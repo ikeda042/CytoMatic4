@@ -127,7 +127,7 @@ class CellMat:
 
 
     def combine_images(self) -> None:
-        image_size = 200
+        image_size = 100
         num_images = len(os.listdir("Matlab/contours")) - 1
         total_rows = int(np.sqrt(num_images)) + 1
         total_cols = num_images // total_rows + 1
