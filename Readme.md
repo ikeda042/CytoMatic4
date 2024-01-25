@@ -56,7 +56,7 @@ Input parameters are listed below.
 | Parameter 1 | int [0-255] | Lower threshold for Canny algorithm.|
 | Parameter 2 | int [0-255] | Higher threshold for Canny algorithm.|
 |Image Size | int | Size of the squares for each cell.|
-|Mode| Literal | `all` for general analysis including cell extraction, `Data Analysis` for only data analysis using existing database(.db),  `Data Analysis(all db)` for sequentially read all the databases in the root directly, and `Delete All` to clear unused files. `load stack files` Loading matlab stack file(s).|
+|Mode| Literal | `all` for general analysis including cell extraction, `Data Analysis` for only data analysis using existing database(.db),  `Data Analysis(all db)` for sequentially read all the databases in the root directly, and `Delete All` to clear unused files. `load stack file(beta)` Loading matlab stack file(experimental).|
 |Layer Mode|Literal|`Dual(PH,Fluo1,Fluo2)`/`Single(PH)`/`Normal(PH,Fluo1)`|
 
 For exmaple, if you have an nd2 file structured like PH_0, Fluo_0, PH_1, Fluo_1..., `Normal` Mode works the best.
