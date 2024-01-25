@@ -12,3 +12,5 @@ pillow
 tqdm
 seaborn
 pillow
+aiofiles
+aiofiles
