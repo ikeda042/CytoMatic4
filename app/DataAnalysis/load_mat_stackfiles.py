@@ -8,6 +8,8 @@ import shutil
 import cv2
 from matplotlib import gridspec
 from scipy.interpolate import interp1d
+from concurrent.futures import ProcessPoolExecutor
+import asyncio
 
 dir_name = "Matlab"
 if os.path.exists(dir_name):
@@ -78,7 +80,7 @@ class CellMat:
                     s=50,
                     color="lime",
                 )
-                fig.savefig(f"Matlab/contours/result_contour_{cell_id}.png", dpi=100)
+                fig.savefig(f"Matlab/contours/result_contour_{cell_id}.png", dpi=50)
                 plt.close()
                 self.contours.append(cell_i_contour)
             except Exception as e:
@@ -98,7 +100,7 @@ class CellMat:
             ax.set_aspect("equal")
             for i in cell_i_mesh:
                 ax.plot([i[2], i[0]], [i[3], i[1]], color="lime")
-            fig.savefig(f"Matlab/meshes/result_mesh_{cell_id}.png", dpi=100)
+            fig.savefig(f"Matlab/meshes/result_mesh_{cell_id}.png", dpi=50)
             plt.close()
 
     def overlay_meshes(self) -> None:
@@ -115,11 +117,11 @@ class CellMat:
             for j in self.meshes[i]:
                 print(j)
                 ax.plot([j[2], j[0]], [j[3], j[1]], color="lime")
-            fig.savefig(f"Matlab/overlay/overlay_{i}.png", dpi=100)
+            fig.savefig(f"Matlab/overlay/overlay_{i}.png", dpi=50)
             plt.close()
 
     def combine_images(self) -> None:
-        image_size = 700
+        image_size = 200
         num_images = len(os.listdir("Matlab/contours")) - 1
         total_rows = int(np.sqrt(num_images)) + 1
         total_cols = num_images // total_rows + 1
@@ -238,3 +240,17 @@ def load_mat(filename:str) -> None:
     cell_mat.combine_images()
     cell_mat.extract_peak_paths()
     cell_mat.heatmap()
+
+async def async_load_mat(filename:str) -> None:
+    cell_mat = CellMat(filename)
+
+    # Running CPU-bound operations in a ProcessPoolExecutor
+    with ProcessPoolExecutor() as pool:
+        await asyncio.gather(
+            asyncio.to_thread(cell_mat.extract_meshes),
+            asyncio.to_thread(cell_mat.extract_contours),
+            asyncio.to_thread(cell_mat.overlay_meshes),
+            asyncio.to_thread(cell_mat.combine_images),
+            asyncio.to_thread(cell_mat.extract_peak_paths),
+            asyncio.to_thread(cell_mat.heatmap)
+        )
