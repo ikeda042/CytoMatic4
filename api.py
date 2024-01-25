@@ -7,7 +7,7 @@ import aiofiles
 from app.DataAnalysis.load_mat_stackfiles import load_mat
 from datetime import datetime
 
-app = FastAPI(title="PhenoPixel4.0",docs_url="phenopixel4.0")
+app = FastAPI(title="PhenoPixel4.0",docs_url="/phenopixel4.0")
 
 @app.post("/uploadfile/",tags=["ここでスタックファイル(.mat)をアップロード"])
 async def create_upload_file(file: UploadFile = File(...)):
