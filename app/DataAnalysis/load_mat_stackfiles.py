@@ -142,7 +142,7 @@ class CellMat:
                         j * image_size : (j + 1) * image_size,
                     ] = img
         plt.axis("off")
-        cv2.imwrite(f"{self.file_name}_contours.png", result_image)
+        cv2.imwrite(f"{self.file_name.split('/')[-1].replace('.mat','')}_contours.png", result_image)
 
         for i in range(total_rows):
             for j in range(total_cols):
@@ -157,7 +157,7 @@ class CellMat:
                         j * image_size : (j + 1) * image_size,
                     ] = img
         plt.axis("off")
-        cv2.imwrite(f"{self.file_name}_meshes.png", result_image)
+        cv2.imwrite(f"{self.file_name.split('/')[-1].replace('.mat','')}_meshes.png", result_image)
 
         for i in range(total_rows):
             for j in range(total_cols):
@@ -172,7 +172,7 @@ class CellMat:
                         j * image_size : (j + 1) * image_size,
                     ] = img
         plt.axis("off")
-        cv2.imwrite(f"{self.file_name}_overlay.png", result_image)
+        cv2.imwrite(f"{self.file_name.split('/')[-1].replace('.mat','')}_overlay.png", result_image)
 
     def extract_peak_paths(self) -> None:
         peak_paths = []
@@ -228,8 +228,7 @@ class CellMat:
         ax2 = plt.subplot(gs[:, 1])
         plt.colorbar(im, cax=ax2)
         ax2.set_ylabel("Normalized fluo. intensity", rotation=270, labelpad=15)
-        plt.savefig(f"{self.file_name}_heatmap.png")
-
+        plt.savefig(f"{self.file_name.split('/')[-1].replace('.mat','')}_heatmap.png")
 
 def load_mat(filename:str) -> None:
     cell_mat = CellMat(filename)
