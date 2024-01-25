@@ -8,7 +8,7 @@ from app.DataAnalysis.load_mat_stackfiles import load_mat
 
 app = FastAPI(title="PhenoPixel4.0")
 
-@app.post("/uploadfile/")
+@app.post("/uploadfile/",tags=["ここでスタックファイル(.mat)をアップロード"])
 async def create_upload_file(file: UploadFile = File(...)):
     content = await file.read()
     filename = cast(str,file.filename)
@@ -19,12 +19,12 @@ async def create_upload_file(file: UploadFile = File(...)):
     file_path = f"{filename.replace('.mat','')}_heatmap.png"  
     return {"filename": filename}
 
-@app.get("/get-overlay-image")
+@app.get("/get-overlay-image",tags=["オーバーレイ画像を取得"])
 async def get_overlay():
     file_path = "mat_file_overlay.png"  
     return FileResponse(file_path)
 
-@app.get("/get-heatmap")
+@app.get("/get-heatmap",tags=["ヒートマップを取得"])
 async def get_heatmap():
     file_path = f"mat_file_heatmap.png"  
     return FileResponse(file_path)
