@@ -64,6 +64,9 @@ def PhenoPixel4():
     tk.Radiobutton(
         root, text="Delete All", variable=mode_var, value="delete_all"
     ).pack()
+    tk.Radiobutton(
+        root, text="load stack file(Oufti)-beta", variable=mode_var, value="load stackfile"
+    ).pack()
 
     layer_mode_var = tk.StringVar(value="dual")
     tk.Label(root, text="Layer Mode").pack()

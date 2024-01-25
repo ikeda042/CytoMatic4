@@ -1,6 +1,6 @@
 import scipy.io as sio
 import numpy as np
-from typing import Any, cast
+from typing import Any
 import matplotlib.pyplot as plt
 import matplotlib
 import os
@@ -17,7 +17,6 @@ os.mkdir("Matlab/overlay")
 
 matplotlib.use("Agg")
 plt.style.use("dark_background")
-
 
 class CellMat:
     def __init__(self, file_name) -> None:
@@ -80,8 +79,7 @@ class CellMat:
         for cell_id in range(cell_num):
             cell_i_mesh = cells[cell_id][0][0][self.params_dict["mesh"]]
             self.meshes.append(cell_i_mesh)
-            print(cell_i_mesh[0])
-            print(len(cell_i_mesh[0]))
+            print(cell_i_mesh)
             # reconstruct mesh
             fig = plt.figure(figsize=[7, 7])
             ax = fig.add_subplot(111)
@@ -176,9 +174,10 @@ class CellMat:
                 f.write(",".join(path) + "\n")
 
 
-cell_mat = CellMat("Ph_com_mesh_signal.mat")
-cell_mat.extract_meshes()
-cell_mat.extract_contours()
-cell_mat.overlay_meshes()
-cell_mat.combine_images()
-cell_mat.extract_peak_paths()
+def load_mat(filename:str) -> None:
+    cell_mat = CellMat(filename)
+    cell_mat.extract_meshes()
+    cell_mat.extract_contours()
+    cell_mat.overlay_meshes()
+    cell_mat.combine_images()
+    cell_mat.extract_peak_paths()

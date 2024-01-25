@@ -4,6 +4,7 @@ from .pyfiles.app import app
 from .DataAnalysis.data_analysis import data_analysis
 from .DataAnalysis.data_analysis_light import data_analysis_light
 from .DataAnalysis.data_analysis_singlemode import data_analysis_singlemode
+from .DataAnalysis.load_mat_stackfiles import load_mat
 import sqlite3
 from .pyfiles.database import Base, Cell
 from sqlalchemy import create_engine, update
@@ -21,7 +22,7 @@ def main(
     param1: int,
     param2: int,
     img_size: int,
-    mode: Literal["all", "data_analysis", "data_analysis_all", "delete_all",""] = "all",
+    mode: Literal["all", "data_analysis", "data_analysis_all", "delete_all","","load stackfile"] = "all",
     layer_mode: Literal["dual", "single", "normal"] = "dual",
 ):
     delete_all()
@@ -92,6 +93,8 @@ def main(
     #     delete_all(input_filename=file_name)
     elif mode == "delete_all":
         delete_all()
+    elif mode == 'load stackfile':
+        load_mat(file_name)
     elif mode == "data_analysis_all":
         times = []
         for file_name in [
@@ -124,6 +127,7 @@ def main(
         with open("time_analysis.txt", "w") as f:
             for i in times:
                 f.write(str(i) + "\n")
+            
 
 
 # Parameters to specify
