@@ -1128,7 +1128,7 @@ With the codes, we obtain a heatmap as shown in figure 9-1.
 Fig.9-1 The heatmap of the fluo. localization of the cells. (Sorted by the definition in the codes.) 
 </p>
 
-## Overlay of the peak paths
+## Overlay the peak paths
 You can overlay all the peak paths you have obtained in a single figure with the following scripts.
 
 ```python
