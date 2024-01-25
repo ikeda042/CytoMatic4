@@ -38,8 +38,6 @@ fig.savefig("result_contour.png", dpi=500)
 plt.close()
 
 
-print("+++++++++++++++test field+++++++++++++++")
-
 """
 @params_dict
 0: model
@@ -63,46 +61,48 @@ print("+++++++++++++++test field+++++++++++++++")
 18: stepvolume
 19: volume
 """
+
 params_dict = {
-    'model' : 0,
-    'algorithm' : 1,
-    'birthframe' : 2,
-    'mesh' : 3,
-    'stage' : 4,
-    'polarity' : 5,
-    'timelapse' : 6,
-    'box' : 7,
-    'divisions' : 8,
-    'ancestors' : 9,
-    'descendants' : 10,
-    'signal0' : 11,
-    'signal2' : 12,
-    'steplength' : 13,
-    'length' : 14,
-    'lengthvector' : 15,
-    'area' : 16,
-    'steparea' : 17,
-    'stepvolume' : 18,
-    'volume' : 19
+    "model": 0,
+    "algorithm": 1,
+    "birthframe": 2,
+    "mesh": 3,
+    "stage": 4,
+    "polarity": 5,
+    "timelapse": 6,
+    "box": 7,
+    "divisions": 8,
+    "ancestors": 9,
+    "descendants": 10,
+    "signal0": 11,
+    "signal2": 12,
+    "steplength": 13,
+    "length": 14,
+    "lengthvector": 15,
+    "area": 16,
+    "steparea": 17,
+    "stepvolume": 18,
+    "volume": 19,
 }
 
-# for i in cell.get_cellList()[0][0][0][0][0][0]:
-#     print(i.shape)
-#     print(i[0][0][3])
-#     print(len(i[0][0][3]))
+cells = cell.get_cellList()[0][0][0][0][0][0]
 
-cell_num = 0
-cell_0_mesh = cell.get_cellList()[0][0][0][0][0][0][cell_num][0][0][params_dict['mesh']]
-print(cell_0_mesh[0])
-print(len(cell_0_mesh[0]))
+cell_num = len(cells)
 
+for cell_id in range(cell_num):
+    cell_0_mesh = cell.get_cellList()[0][0][0][0][0][0][cell_id][0][0][params_dict["mesh"]]
+    print(cell_0_mesh[0])
+    print(len(cell_0_mesh[0]))
 
-# reconstruct mesh
-fig = plt.figure(figsize=[7, 7])
-ax = fig.add_subplot(111)
-ax.set_aspect("equal")
-for i in cell_0_mesh:
-    ax.plot([i[0], i[2]], [i[1], i[3]], color="r")
-fig.savefig("result_mesh.png", dpi=500)
+    # reconstruct mesh
+    fig = plt.figure(figsize=[7, 7])
+    ax = fig.add_subplot(111)
+    ax.set_aspect("equal")
+    for i in cell_0_mesh:
+        ax.plot([i[0], i[2]], [i[1], i[3]], color="r")
+    fig.savefig("result_mesh.png", dpi=500)
+    plt.close()
 
-
+print("+++++++++++++++test field+++++++++++++++")
+cell_id = 0
+print(cell.get_cellList()[0][0][0][0][0][0][cell_id][0][0][params_dict["mesh"]])
