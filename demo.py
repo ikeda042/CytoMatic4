@@ -10,7 +10,7 @@ def init():
     os.system("pip install -r app/requirements.txt")
 
 
-# init()
+init()
 # This demo file is for testing purposes only (Read the Quick Overview section in the README.md file for more information)
 main(
     "app/test_database.db",
