@@ -184,7 +184,7 @@ class CellMat:
             cell_i_peak_path = cells[cell_id][0][0][self.params_dict["signal2"]]
             peak_paths.append(cell_i_peak_path)
         # print(peak_paths)
-        with open(f"{self.file_name}_peak_paths.txt", "w") as f:
+        with open(f"{self.file_name}_peak_paths.txt", mode = "w") as f:
             for path in peak_paths:
                 path = [str(i[0]) for i in path]
                 f.write(",".join(path) + "\n")
@@ -195,7 +195,7 @@ class CellMat:
             interpolator = interp1d(x, y, kind='linear')
             y_new = interpolator(x_new)
             return x_new, y_new
-        with open(f"{self.file_name}_peak_paths.txt", "r") as f:
+        with open(f"{self.file_name}_peak_paths.txt", mode = "r") as f:
             ys = [
                 [float(x.replace("\n", "")) for x in line.split(",")] for line in f.readlines()
             ]
