@@ -24,11 +24,15 @@ async def create_upload_file(file: UploadFile = File(...)):
 
 @app.get("/get-overlay-image",tags=["オーバーレイ画像を取得"])
 async def get_overlay():
+    print("get_overlay+++++++++++++++++++++++++++++++++++++++++++++++")
+    print(datetime.now())
     file_path = "mat_file_overlay.png"  
     return FileResponse(file_path)
 
 @app.get("/get-heatmap",tags=["ヒートマップを取得"])
 async def get_heatmap():
+    print("get_heatmap+++++++++++++++++++++++++++++++++++++++++++++++")
+    print(datetime.now())
     file_path = f"mat_file_heatmap.png"  
     return FileResponse(file_path)
 
