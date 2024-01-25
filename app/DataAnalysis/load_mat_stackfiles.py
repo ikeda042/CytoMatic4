@@ -1,7 +1,9 @@
 import scipy.io as sio
 import numpy as np
 from typing import Any, cast
-
+import matplotlib.pyplot as plt
+import matplotlib
+matplotlib.use("Agg")
 
 class Cell:
     def __init__(self, file_name) -> None:
@@ -20,5 +22,19 @@ for i in range(11):
     data_i = data_i[0]
     if i == 8:
         cell_i = data_i
-print(len(cast(np.ndarray, cell_i)))
-print(cell_i)
+cell_i = cast(np.ndarray, cell_i)
+print(len(cell_i))
+contour = cell_i[2]
+print(contour)
+
+#reconstruct contour
+fig = plt.figure(figsize=[7, 7])
+ax = fig.add_subplot(111)
+ax.set_aspect("equal")
+ax.scatter([i[0] for i in contour], [i[1] for i in contour], s=50, color="lime")
+fig.savefig("result.png", dpi=500)
+
+
+
+
+
