@@ -82,6 +82,8 @@ class CellMat:
                 )
                 fig.savefig(f"Matlab/contours/result_contour_{cell_id}.png", dpi=50)
                 plt.close()
+                plt.clf()
+
                 self.contours.append(cell_i_contour)
             except Exception as e:
                 # print(e)
@@ -104,6 +106,7 @@ class CellMat:
                 ax.plot([i[2], i[0]], [i[3], i[1]], color="lime")
             fig.savefig(f"Matlab/meshes/result_mesh_{cell_id}.png", dpi=50)
             plt.close()
+            plt.clf()
 
     def overlay_meshes(self) -> None:
         for i in range(len(self.contours)):
@@ -120,6 +123,8 @@ class CellMat:
                 ax.plot([j[2], j[0]], [j[3], j[1]], color="lime")
             fig.savefig(f"Matlab/overlay/overlay_{i}.png", dpi=50)
             plt.close()
+            plt.clf()
+
 
     def combine_images(self) -> None:
         image_size = 200
@@ -244,7 +249,6 @@ def load_mat(filename:str) -> None:
 
 async def async_load_mat(filename:str) -> None:
     cell_mat = CellMat(filename)
-
     # Running CPU-bound operations in a ProcessPoolExecutor
     with ProcessPoolExecutor() as pool:
         await asyncio.gather(
