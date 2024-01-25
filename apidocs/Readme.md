@@ -1,0 +1,59 @@
+# Matlabデータから細胞情報を定性的に確認する方法
+
+## 以下のURLにアクセスする
+<a>http://10.32.17.44:8000/phenopixel4.0</a>
+
+(研究室のMolbio5Gに接続していないとアクセスがブロックされる。)
+
+## アプリケーショントップページ
+
+<div align="center">
+
+![Start-up window](1.png)
+
+</div>
+
+## スタックファイルをアップロードする
+1. 緑色の一番上のバーをクリックすると以下のような画面になる。
+
+<div align="center">
+
+![Start-up window](2.png)
+
+</div>
+
+2. 右端の`Try it out`をクリックする。
+   <div align="center">
+
+![Start-up window](3.png)
+
+</div>
+
+3. ファイルを選択してexecuteを押す。
+   この時、　Loadingが終了するまで待つ。（10秒くらい）
+<div align="center">
+
+![Start-up window](4.png)
+
+</div>
+
+4. Loadingが終わったら、スタックファイルのアップロード、読み込みが完了。
+
+## 解析結果を確認する
+1. 以下の青色のバーをクリックする。
+<div align="center">
+
+![Start-up window](5.png)
+
+</div>
+
+2. アップロード時と同様に右端の`Try it out`をクリックする。
+
+   
+
+
+
+
+
+
+
