@@ -10,5 +10,5 @@
     "extensions": [
         "ms-python.python"
     ],
-    "forwardPorts": [8000]
+    "appPort": [8000]
 }

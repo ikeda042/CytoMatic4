@@ -21,7 +21,7 @@ async def create_upload_file(file: UploadFile = File(...)):
 
 @app.get("/get-overlay-image")
 async def get_overlay():
-    file_path = "mat_file__overlay.png"  
+    file_path = "mat_file_overlay.png"  
     return FileResponse(file_path)
 
 @app.get("/get-heatmap")
