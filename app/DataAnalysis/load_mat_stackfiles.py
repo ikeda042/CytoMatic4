@@ -19,9 +19,10 @@ plt.style.use("dark_background")
 
 class CellMat:
     def __init__(self, file_name) -> None:
+        self.file_name: str = file_name  
         self.mat_data: Any = sio.loadmat(file_name=file_name)
-        self.keys = self.mat_data.keys()
-        self.params_dict = {
+        self.keys: list[str] = self.mat_data.keys()
+        self.params_dict: dict = {
                             "model": 0,
                             "algorithm": 1,
                             "birthframe": 2,
@@ -43,7 +44,7 @@ class CellMat:
                             "stepvolume": 18,
                             "volume": 19,
                         }
-        self.cell_list = self.mat_data["cellList"]
+        self.cell_list : list[np.ndarray] = self.mat_data["cellList"]
         self.meshes:list[np.ndarray] = []
         self.contours:list[np.ndarray] = []
 
@@ -86,8 +87,8 @@ class CellMat:
             fig.savefig(f"Matlab/meshes/result_mesh_{cell_id}.png", dpi=100)
             plt.close()
 
-    @staticmethod
-    def combine_images(image_size, filename):
+    def combine_images(self) -> None:
+        image_size = 700
         num_images = len(os.listdir('Matlab/contours')) - 1
         total_rows = int(np.sqrt(num_images))+ 1
         total_cols = num_images//total_rows + 1
@@ -103,29 +104,28 @@ class CellMat:
                     print(image_path)
                     img = cv2.imread(image_path)
                     img = cv2.resize(img, (image_size, image_size))
-
                     result_image[i * image_size: (i + 1) * image_size,
                                 j * image_size: (j + 1) * image_size] = img
         plt.axis('off')
-        cv2.imwrite(f'{filename}_contours.png', result_image)
+        cv2.imwrite(f'{self.file_name}_contours.png', result_image)
 
         for i in range(total_rows):
             for j in range(total_cols):
                 image_index = i * total_cols + j  
                 if image_index < num_images:
-                    image_path = f'Matlab/contours/result_mesh_{image_index}.png' 
+                    image_path = f'Matlab/meshes/result_mesh_{image_index}.png' 
                     print(image_path)
                     img = cv2.imread(image_path)
                     img = cv2.resize(img, (image_size, image_size))
                     result_image[i * image_size: (i + 1) * image_size,
                                 j * image_size: (j + 1) * image_size] = img
         plt.axis('off')
-        cv2.imwrite(f'{filename}_meshes.png', result_image)
+        cv2.imwrite(f'{self.file_name}_meshes.png', result_image)
+
+
 
 
 cell = CellMat("Ph_com_mesh_signal.mat")
 cell.extract_meshes()
 cell.extract_contours()
-cell.combine_images(700,  "test")
-
-img = cv2.imread("Matlab/meshes/result_mesh_0.png")
+cell.combine_images()
