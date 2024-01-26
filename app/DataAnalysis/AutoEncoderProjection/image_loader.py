@@ -141,7 +141,7 @@ with Session() as session:
             ax2 = ax.twinx()
             ax2.set_xlabel("u1")
             ax2.set_ylabel("Brightness")
-            ax2.set_ylim(0,900)
+            ax2.set_ylim(-10,900)
             ax2.scatter([i.u1 for i in sorted_projected_points],[i.G for i in sorted_projected_points], s=1, c="lime")
             fig.savefig(f"basis_conversion.png",dpi = 300)
             plt.close()
