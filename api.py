@@ -6,6 +6,7 @@ from typing import cast
 import aiofiles
 from app.DataAnalysis.load_mat_stackfiles import load_mat
 from datetime import datetime
+from fastapi import HTTPException
 
 app = FastAPI(title="PhenoPixel4.0",docs_url="/phenopixel4.0")
 
@@ -15,6 +16,8 @@ async def create_upload_file(file: UploadFile = File(...)):
     print(datetime.now())
     content = await file.read()
     filename = cast(str,file.filename)
+    if not filename.endswith('.mat'):
+        raise HTTPException(status_code=400, detail="Invalid file extension. Only .mat files are allowed.")
     filename = "mat_file.mat"
     async with aiofiles.open(filename, "wb") as f:
         await f.write(content)
