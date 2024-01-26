@@ -22,7 +22,8 @@ async def create_upload_file(file: UploadFile = File(...)):
     async with aiofiles.open(filename, "wb") as f:
         await f.write(content)
     load_mat(filename)
-    return FileResponse("mat_file_overlay.png")
+    # return FileResponse("mat_file_overlay.png")
+    return {"filename": file.filename,"status":"file uploaded"}
 
 @app.get("/get-overlay-image",tags=["オーバーレイ画像を取得"])
 async def get_overlay():
