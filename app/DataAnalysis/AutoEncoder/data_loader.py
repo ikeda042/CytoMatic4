@@ -7,8 +7,7 @@ import numpy as np
 import pickle
 import os 
 
-
-def load_database(output_dir:str, database_name: str) -> None:
+def load_database(output_dir:str, database_name: str, start_index:int = 0) -> int:
     for dir in [output_dir, f'{output_dir}/ph', f'{output_dir}/fluo']:
         try:
             os.mkdir(dir)
@@ -31,7 +30,7 @@ def load_database(output_dir:str, database_name: str) -> None:
         center_y = Column(FLOAT)
     engine = create_engine(f'sqlite:///{database_name}', echo=True)
     Session = sessionmaker(bind=engine)
-    n = 0
+    n = start_index
     with Session() as session:
         cells = session.query(Cell).all()
         for cell in cells:
@@ -53,5 +52,4 @@ def load_database(output_dir:str, database_name: str) -> None:
                 output_image_color[:, :, 0] = 0
                 output_image_color[:, :, 2] = 0
                 cv2.imwrite(f"{output_dir}/fluo/{n}.png", output_image_color)
-                
-    
+    return n
