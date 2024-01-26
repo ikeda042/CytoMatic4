@@ -99,6 +99,8 @@ You can connect to the database with the following scripts.
 ```python
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy import Column, Integer, String, BLOB, FLOAT
 
 engine = create_engine('sqlite:///database_name.db', echo=True)
 Session = sessionmaker(bind=engine)
