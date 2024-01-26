@@ -8,6 +8,7 @@ from app.DataAnalysis.load_mat_stackfiles import load_mat
 from datetime import datetime
 from fastapi import HTTPException
 import os
+import shutil
 
 app = FastAPI(title="PhenoPixel4.0",docs_url="/phenopixel4.0")
 
@@ -17,6 +18,7 @@ async def create_upload_file(file: UploadFile = File(...)):
         os.remove("mat_file.mat")
         os.remove("mat_file_overlay.png")
         os.remove("mat_file_heatmap.png")
+        shutil.rmtree("Matlab")
     except:
         pass
     print(file.filename,"uploaded+++++++++++++++++++++++++++++++++++++++++++++++")
