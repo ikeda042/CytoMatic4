@@ -271,11 +271,11 @@ def data_analysis(
                 scale_bar_position = (cropped_image.shape[1] - scale_bar_length_pixels - 10, cropped_image.shape[0] - 30)
                 cv2.rectangle(cropped_image, scale_bar_position, (scale_bar_position[0] + scale_bar_length_pixels, scale_bar_position[1] - 5), (255, 255, 255), -1)
                 
-                cv2.resize(cropped_image, (cropped_image.shape[1] * 4, cropped_image.shape[0] * 4))
+                cv2.resize(cropped_image, (cropped_image.shape[1] * 5, cropped_image.shape[0] * 5))
                 cv2.putText(    
                     cropped_image,    
                     f"{scale_bar_length_micrometers} um",    
-                    (scale_bar_position[0] + 10, scale_bar_position[1] + 20),    
+                    (scale_bar_position[0] + 13, scale_bar_position[1] + 20),    
                     cv2.FONT_HERSHEY_SIMPLEX,    
                     0.6,    
                     (255, 255, 255),    
