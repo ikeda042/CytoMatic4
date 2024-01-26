@@ -138,12 +138,3 @@ with Session() as session:
             fig.savefig(f"basis_conversion.png",dpi = 100)
             plt.close()
             plt.clf()
-
-           
-            
-
-
-            
-    
-
-            
