@@ -18,3 +18,4 @@
 !load_mat_stackfiles.py
 !AutoEncoder
 !AutoEncoderProjection
+!AutoEncoderPeakPath
