@@ -6,6 +6,7 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 import time
 import numpy as np
+import gc
 
 Base = declarative_base()
 
