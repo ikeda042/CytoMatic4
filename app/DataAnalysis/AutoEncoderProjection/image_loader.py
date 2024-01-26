@@ -66,7 +66,7 @@ class Point:
         
 
 
-engine = create_engine(f'sqlite:///{"/Users/leeyunosuke/Desktop/PhenoPixel4.0/app/test_database.db"}', echo=True)
+engine = create_engine(f'sqlite:///{"app/test_database.db"}', echo=True)
 Session = sessionmaker(bind=engine)
 with Session() as session:
     cells = session.query(Cell).all()
