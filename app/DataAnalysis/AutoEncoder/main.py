@@ -107,35 +107,37 @@ def evaluate_image(image_path, model):
     l2_norm = torch.sqrt(torch.sum((reconstructed - image) ** 2))
     return l2_norm.item()
 
-def autoencoder(train_mode: bool = True):
+def autoencoder(train_mode: bool = True,save_name:str = "l2_norm_losses"):
     model = Autoencoder()
     criterion = nn.MSELoss()
     optimizer = optim.Adam(model.parameters(), lr=1e-3)
     dataset = ImageDataset(folder_path='ctrl/fluo')
     dataloader = DataLoader(dataset, batch_size=32, shuffle=True)
-
-    num_epochs = 15
-    for epoch in range(num_epochs):
-        for data in dataloader:
-            optimizer.zero_grad()
-            outputs = model(data)
-            loss = criterion(outputs, data)
-            loss.backward()
-            optimizer.step()
-        print(f'Epoch [{epoch+1}/{num_epochs}], Loss: {loss.item():.4f}')
-    torch.save(model.state_dict(), 'model.pth')
+    if train_mode:
+        num_epochs = 15
+        for epoch in range(num_epochs):
+            for data in dataloader:
+                optimizer.zero_grad()
+                outputs = model(data)
+                loss = criterion(outputs, data)
+                loss.backward()
+                optimizer.step()
+            print(f'Epoch [{epoch+1}/{num_epochs}], Loss: {loss.item():.4f}')
+        torch.save(model.state_dict(), 'model.pth')
 
     model.load_state_dict(torch.load('model.pth'))  # 学習済みモデルの重みを読み込み
     data = []
-    for i in range(1,len(os.listdir('data/fluo'))):
-        image_path = f'data/fluo/{i}.png'
+    for i in range(1,len(os.listdir(f'{save_name}/fluo'))):
+        image_path = f'{save_name}/fluo/{i}.png'
         l2_norm_loss = evaluate_image(image_path, model)
         if l2_norm_loss <24:
             print(f"Image {i} is an outlier")
         print(f"L2 Norm Loss for the image: {l2_norm_loss:.4f}")
         data.append(l2_norm_loss)
     box_plot_function([np.array(data)], ["data"], "Image", "L2 Norm Loss", "l2_norm_loss")
-    
+    with open(f"{save_name.split('.')[0]}.txt", "w") as f:
+        for i in data:
+            f.write(str(i)+ "\n")
     # ctrl = []
     # for i in range(1,len(os.listdir('ctrl/fluo'))):
     #     image_path = f'ctrl/fluo/{i}.png'
@@ -148,12 +150,21 @@ def autoencoder(train_mode: bool = True):
     # box_plot_function([np.array(ctrl),np.array(data)], ["Ctrl.","data"], "Image", "L2 Norm Loss", "l2_norm_loss")
 
     
-
-
-
 if __name__ == '__main__':
+    ctrl_database_names : list[str] = ["sk320tri0min.db"]
+    start_index : int = 0
     #load control
-    load_database("ctrl", "sk320gen0min.db")
+    for ctrl_i in ctrl_database_names:
+        start_index = load_database("ctrl", ctrl_i, start_index)
     #load data
-    load_database("data", "sk320tri90min.db")
-    autoencoder(train_mode=True)
+    filenames = ["sk320tri30min.db", "sk320tri60min.db", "sk320tri90min.db", "sk320tri120min.db"]
+    for i in filenames:
+        start_index = load_database(f"{i.split('.')[0]}", i)
+        autoencoder(train_mode=False, save_name=f"{i.split('.')[0]}")
+    boxplot_data = []
+    for i in filenames:
+        with open(f"{i.split('.')[0]}.txt", "r") as f:
+            data = [float(i) for i in f.readlines()]
+            boxplot_data.append(np.array(data))
+    
+    box_plot_function(boxplot_data, ["30min","60min","90min","120min"], "Time", "L2 Norm Loss", "l2_norm_losses")
