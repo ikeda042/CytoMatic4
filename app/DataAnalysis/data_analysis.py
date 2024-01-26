@@ -15,6 +15,7 @@ from scipy.optimize import minimize
 import numpy as np
 import seaborn as sns
 from matplotlib.animation import FuncAnimation
+from PIL import Image, ImageDraw, ImageFont
 
 
 def find_minimum_distance_and_point(a, b, c, d, e, x_Q, y_Q):
@@ -212,7 +213,8 @@ def data_analysis(
             "Cell/projected_points",
             "Cell/peak_path",
             "Cell/sum_brightness",
-            "Cell/gradient_magnitude_replot"
+            "Cell/gradient_magnitude_replot",
+            "Cell/ph_scalebar",
         ]
     )
     sns.set()
@@ -259,6 +261,27 @@ def data_analysis(
                 )
                 cv2.imwrite(f"Cell/ph/{n}.png", image_ph_copy)
 
+                ###PH画像にスケールバーを追加
+                ph_gray = cv2.cvtColor(image_ph, cv2.COLOR_BGR2GRAY)
+                crop_top, crop_bottom, crop_left, crop_right = 25, 25, 25, 25
+                cropped_image = ph_gray[crop_top:-crop_bottom, crop_left:-crop_right]
+                scale_bar_length_micrometers = 5 
+                pixel_size_micrometers = 0.0625  
+                scale_bar_length_pixels = int(scale_bar_length_micrometers / pixel_size_micrometers) 
+                scale_bar_position = (cropped_image.shape[1] - scale_bar_length_pixels - 10, cropped_image.shape[0] - 30)
+                cv2.rectangle(cropped_image, scale_bar_position, (scale_bar_position[0] + scale_bar_length_pixels, scale_bar_position[1] - 5), (255, 255, 255), -1)
+                
+                cv2.resize(cropped_image, (cropped_image.shape[1] * 4, cropped_image.shape[0] * 4))
+                cv2.putText(    
+                    cropped_image,    
+                    f"{scale_bar_length_micrometers} um",    
+                    (scale_bar_position[0] + 10, scale_bar_position[1] + 20),    
+                    cv2.FONT_HERSHEY_SIMPLEX,    
+                    0.6,    
+                    (255, 255, 255),    
+                    1,    
+                )
+                cv2.imwrite(f"Cell/ph_scalebar/{n}.png", cropped_image)
                 cell_contour = [list(i[0]) for i in pickle.loads(cell.contour)]
                 print(cell_contour)
 
