@@ -42,7 +42,6 @@ while True:
                             np.frombuffer(cell.img_fluo1, dtype=np.uint8), cv2.IMREAD_GRAYSCALE
                         )
                 cell_contour = [list(i[0]) for i in pickle.loads(cell.contour)]
-                
                 image_size = image_fluo1.shape
                 mask = np.zeros((image_size[0],image_size[1]), dtype=np.uint8)
                 cv2.fillPoly(mask, [pickle.loads(cell.contour)], 1)
@@ -51,4 +50,5 @@ while True:
                 output_image_color[:, :, 0] = 0
                 output_image_color[:, :, 2] = 0
                 cv2.imwrite("test.png", output_image_color)
+                gc.collect()
             
