@@ -60,6 +60,15 @@ class Cell(Base):
     center_y = Column(FLOAT)
 
 
+class Point:
+    def __init__(self, u1: float, G: float):
+        self.u1 = u1
+        self.G = G
+    def __gt__(self, other):
+        return self.u1 > other.u1
+        
+
+
 #######################################################
 # 資料作成用関数
 def adjust_brightness(image: np.ndarray, brightness_factor: float) -> np.ndarray:
@@ -225,6 +234,7 @@ def data_analysis(
     with Session() as session:
         cells = session.query(Cell).all()
         for cell in tqdm(cells):
+            projected_points : list[Point] = []
             if cell.manual_label != "N/A" and cell.manual_label != None:
                 print("###############################################")
                 print(cell.cell_id)
@@ -561,6 +571,18 @@ def data_analysis(
                         va="top",
                     )
 
+                    for u, g in zip(u1, points_inside_cell_1):
+                        point = Point(u, g)
+                        projected_points.append(point)
+                    sorted_projected_points = sorted(projected_points)
+                    #add second axis
+                    ax2 = plt.twinx()
+                    ax2.grid(False)
+                    ax2.set_xlabel("u1")
+                    ax2.set_ylabel("Brightness")
+                    ax2.set_ylim(0, 900)
+                    ax2.set_xlim(min_u1 - 40, max_u1 + 40)
+                    ax2.scatter([i.u1 for i in sorted_projected_points], [i.G for i in sorted_projected_points], color="lime", s=1)
                     fig.savefig(f"Cell/replot/{n}.png")
                     fig.savefig(f"RealTimeData/replot.png")
                     plt.close()
