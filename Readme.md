@@ -1180,7 +1180,7 @@ def box_plot_function(data:list[np.ndarray] | list[float|int],
                       labels:list[str], 
                       xlabel:str, 
                       ylabel:str, 
-                      save_name:str):
+                      save_name:str) -> None:
     fig = plt.figure(figsize=[10,7])
     plt.boxplot(data,sym="")
     for i, d in enumerate(data, start=1):
