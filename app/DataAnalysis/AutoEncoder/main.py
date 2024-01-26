@@ -151,16 +151,18 @@ def autoencoder(train_mode: bool = True,save_name:str = "l2_norm_losses"):
 
     
 if __name__ == '__main__':
-    ctrl_database_names : list[str] = ["sk320tri0min.db"]
+    ctrl_database_names : list[str] = ["sk320tri0min.db","sk320gen0min.db"]
     start_index : int = 0
     #load control
     for ctrl_i in ctrl_database_names:
         start_index = load_database("ctrl", ctrl_i, start_index)
     #load data
     filenames = ["sk320tri30min.db", "sk320tri60min.db", "sk320tri90min.db", "sk320tri120min.db"]
+    not_learned = True
     for i in filenames:
         start_index = load_database(f"{i.split('.')[0]}", i)
-        autoencoder(train_mode=False, save_name=f"{i.split('.')[0]}")
+        autoencoder(train_mode=not_learned, save_name=f"{i.split('.')[0]}")
+        not_learned = False
     boxplot_data = []
     for i in filenames:
         with open(f"{i.split('.')[0]}.txt", "r") as f:
