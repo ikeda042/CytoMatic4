@@ -20,7 +20,7 @@ async def create_upload_file(file: UploadFile = File(...)):
         await f.write(content)
     load_mat(filename)
     file_path = f"{filename.replace('.mat','')}_heatmap.png"  
-    return {"filename": filename}
+    return {"filename": filename, "Status": "Success"}
 
 @app.get("/get-overlay-image",tags=["オーバーレイ画像を取得"])
 async def get_overlay():
