@@ -11,16 +11,7 @@ from scipy.interpolate import interp1d
 from concurrent.futures import ProcessPoolExecutor
 import asyncio
 
-dir_name = "Matlab"
-if os.path.exists(dir_name):
-    shutil.rmtree(dir_name)
-os.makedirs(dir_name)
-os.mkdir("Matlab/contours")
-os.mkdir("Matlab/meshes")
-os.mkdir("Matlab/overlay")
 
-matplotlib.use("Agg")
-plt.style.use("dark_background")
 
 class HeadmapVector:
     def __init__(self, heatmap_vector: np.ndarray, sample_num: int):
@@ -33,6 +24,8 @@ class HeadmapVector:
         return self_v < other_v
     
 class CellMat:
+    matplotlib.use("Agg")
+    plt.style.use("dark_background")
     def __init__(self, file_name) -> None:
         self.file_name: str = file_name
         self.mat_data: Any = sio.loadmat(file_name=file_name)
@@ -239,6 +232,15 @@ class CellMat:
         plt.savefig(f"{self.file_name.split('/')[-1].replace('.mat','')}_heatmap.png")
 
 def load_mat(filename:str) -> None:
+    dir_name = "Matlab"
+    if os.path.exists(dir_name):
+        shutil.rmtree(dir_name)
+    os.makedirs(dir_name)
+    os.mkdir("Matlab/contours")
+    os.mkdir("Matlab/meshes")
+    os.mkdir("Matlab/overlay")
+
+
     cell_mat = CellMat(filename)
     cell_mat.extract_meshes()
     cell_mat.extract_contours()
