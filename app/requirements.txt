@@ -16,7 +16,7 @@ aiofiles
 fastapi
 uvicorn
 python-multipart
-pytorch
+torch
 torchvision
 torchsummary
 torchmetrics
