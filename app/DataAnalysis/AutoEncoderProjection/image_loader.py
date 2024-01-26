@@ -58,83 +58,91 @@ class Cell(Base):
     center_y = Column(FLOAT)
 
 class Point:
-    def __init__(self, u1: float, G: float):
+    def __init__(self, u1: float,G: float,  u2: float = 0.0):
         self.u1 = u1
+        self.u2 = u2
         self.G = G
     def __gt__(self, other):
         return self.u1 > other.u1
         
 
-while True:
-    engine = create_engine(f'sqlite:///{"app/test_database.db"}', echo=True)
-    Session = sessionmaker(bind=engine)
-    with Session() as session:
-        cells = session.query(Cell).all()
-        for cell in cells:
-            if cell.manual_label == 1:
-                coords_inside_cell_1 = []
-                brightness_inside_cell = []
-                projected_points: list[Point] = []
-                image_fluo = cv2.imdecode(np.frombuffer(cell.img_fluo1, dtype=np.uint8), cv2.IMREAD_GRAYSCALE)
-                cell_contour = [list(i[0]) for i in pickle.loads(cell.contour)]
-                image_size = image_fluo.shape[0]
-                for i in range(image_size):
-                    for j in range(image_size):
-                        if (
-                            cv2.pointPolygonTest(
-                                pickle.loads(cell.contour), (i, j), False
-                            )
-                            >= 0
-                        ):
-                            coords_inside_cell_1.append([i, j])
-                            brightness_inside_cell.append(image_fluo[i, j])
-                contour = [
-                            [j, i] for i, j in [i[0] for i in pickle.loads(cell.contour)]
-                        ]
-                X = np.array(
-                    [
-                        [i[1] for i in coords_inside_cell_1],
-                        [i[0] for i in coords_inside_cell_1],
+
+engine = create_engine(f'sqlite:///{"app/test_database.db"}', echo=True)
+Session = sessionmaker(bind=engine)
+with Session() as session:
+    cells = session.query(Cell).all()
+    for cell in cells:
+        if cell.manual_label == 1:
+            coords_inside_cell_1 = []
+            brightness_inside_cell = []
+            projected_points: list[Point] = []
+            all_corrds = []
+            all_brightness = []
+            image_fluo = cv2.imdecode(np.frombuffer(cell.img_fluo1, dtype=np.uint8), cv2.IMREAD_GRAYSCALE)
+            mask = np.zeros(image_fluo.shape, dtype=np.uint8)
+            cv2.fillPoly(mask, [pickle.loads(cell.contour)], 1)
+            image_fluo = cv2.bitwise_and(image_fluo, image_fluo, mask=mask)
+            cell_contour = [list(i[0]) for i in pickle.loads(cell.contour)]
+            image_size = image_fluo.shape[0]
+            for i in range(image_size):
+                for j in range(image_size):
+                    all_corrds.append([i, j])
+                    all_brightness.append(image_fluo[i, j])
+                    if (
+                        cv2.pointPolygonTest(
+                            pickle.loads(cell.contour), (i, j), False
+                        )
+                        >= 0
+                    ):
+                        coords_inside_cell_1.append([i, j])
+                        brightness_inside_cell.append(image_fluo[i, j])
+            contour = [
+                        [j, i] for i, j in [i[0] for i in pickle.loads(cell.contour)]
                     ]
-                )
+            X = np.array(
+                [
+                    [i[1] for i in coords_inside_cell_1],
+                    [i[0] for i in coords_inside_cell_1],
+                ]
+            )
 
-                (
-                    u1,
-                    u2,
-                    u1_contour,
-                    u2_contour,
-                    min_u1,
-                    max_u1,
-                    u1_c,
-                    u2_c,
-                    U,
-                    contour_U,
-                ) = basis_conversion(
-                    contour, X, cell.center_x, cell.center_y, coords_inside_cell_1
-                )
-        
-                for u, g in zip(u1, brightness_inside_cell):
-                    point = Point(u, g)
-                    projected_points.append(point)
+            (
+                u1,
+                u2,
+                u1_contour,
+                u2_contour,
+                min_u1,
+                max_u1,
+                u1_c,
+                u2_c,
+                U,
+                contour_U,
+            ) = basis_conversion(
+                contour, X, cell.center_x, cell.center_y, all_corrds
+            )
+    
+            for u, g in zip(u1, all_brightness):
+                point = Point(u, g)
+                projected_points.append(point)
 
-                sorted_projected_points = sorted(projected_points, reverse=True)
-                fig = plt.figure(figsize=(7,7))
-                ax = fig.add_subplot(111)
-                ax.scatter(u1, u2, s=10, c="black")
-                ax.scatter(u1_c, u2_c, s=10, c="lime")
-                ax.scatter(u1_contour, u2_contour, c="lime",s = 20)
-                plt.axis("equal")
-                ax.set_xlabel("u1")
-                ax.set_ylabel("u2")
-                ax.set_aspect("equal")
-                ax.plot([min_u1, max_u1,], [u2_c,u2_c], c="red", linewidth=2)
-                ax.plot([u1_c,u1_c], [min(u2), max(u2)], c="red", linewidth=2)
-                # add second axis
-                ax2 = ax.twinx()
-                ax2.set_xlabel("u1")
-                ax2.set_ylabel("Brightness")
-                ax2.set_ylim(0,900)
-                ax2.scatter([i.u1 for i in sorted_projected_points],[i.G for i in sorted_projected_points], s=1, c="lime")
-                fig.savefig(f"basis_conversion.png",dpi = 300)
-                plt.close()
-                plt.clf()
+            sorted_projected_points = sorted(projected_points, reverse=True)
+            fig = plt.figure(figsize=(7,7))
+            ax = fig.add_subplot(111)
+            ax.scatter(u1, u2, s=10, c="black")
+            ax.scatter(u1_c, u2_c, s=10, c="lime")
+            ax.scatter(u1_contour, u2_contour, c="lime",s = 10)
+            plt.axis("equal")
+            ax.set_xlabel("u1")
+            ax.set_ylabel("u2")
+            ax.set_aspect("equal")
+            ax.plot([min_u1, max_u1,], [u2_c,u2_c], c="red", linewidth=2)
+            ax.plot([u1_c,u1_c], [min(u2), max(u2)], c="red", linewidth=2)
+            # add second axis
+            ax2 = ax.twinx()
+            ax2.set_xlabel("u1")
+            ax2.set_ylabel("Brightness")
+            ax2.set_ylim(0,900)
+            ax2.scatter([i.u1 for i in sorted_projected_points],[i.G for i in sorted_projected_points], s=1, c="lime")
+            fig.savefig(f"basis_conversion.png",dpi = 300)
+            plt.close()
+            plt.clf()
