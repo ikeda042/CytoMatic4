@@ -1,3 +1,4 @@
 *
 !.gitignore
 !image_loader.py
+!projection_demo.py
