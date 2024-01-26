@@ -7,11 +7,18 @@ import aiofiles
 from app.DataAnalysis.load_mat_stackfiles import load_mat
 from datetime import datetime
 from fastapi import HTTPException
+import os
 
 app = FastAPI(title="PhenoPixel4.0",docs_url="/phenopixel4.0")
 
 @app.post("/uploadfile/",tags=["ここでスタックファイル(.mat)をアップロード"])
 async def create_upload_file(file: UploadFile = File(...)):
+    try:
+        os.remove("mat_file.mat")
+        os.remove("mat_file_overlay.png")
+        os.remove("mat_file_heatmap.png")
+    except:
+        pass
     print(file.filename,"uploaded+++++++++++++++++++++++++++++++++++++++++++++++")
     print(datetime.now())
     content = await file.read()
