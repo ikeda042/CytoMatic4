@@ -22,7 +22,7 @@
 </div>
 
 2. ファイルを選択してexecuteを押す。
-   この時、　Loadingが終了するまで待つ。（10秒くらい）
+   この時、　Loadingが終了するまで待つ。（20秒くらい）
    <div align="center">
 
 ![Start-up window](apidocs/3.png)
