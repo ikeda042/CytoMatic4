@@ -899,7 +899,6 @@ Note that the for the coordinates are in the new basis U.
 
 Figure 8-7 shows the cumulative frequency plot for the cell.
 
-
 <div align="center">
 
 ![Start-up window](docs_images/0_replot.png)  
@@ -908,6 +907,9 @@ Figure 8-7 shows the cumulative frequency plot for the cell.
 <p align="center">
 Fig.8-7 Re-plotted fluo. information for the cell. 
 </p>
+
+There are also points(in green) that are projected onto the longer axis.
+(NOTE that the curvature of the cell axis is not taken account of.)
 
 The fluorescence information is normalized 0 to 1, then plotted with a colormap "inferno" as follows.
 
