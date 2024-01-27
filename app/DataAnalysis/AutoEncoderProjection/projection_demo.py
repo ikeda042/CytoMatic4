@@ -132,7 +132,7 @@ while True:
                 ax.scatter(u1_c,max(u2), c="red", s=40)
                 ax.scatter(min_u1,u2_c, c="red", s=40)
                 ax.scatter(max_u1,u2_c ,c="red", s=40)
-                ax.scatter(u1_c,min(u2), c="red", s=0)
+                ax.scatter(u1_c,min(u2), c="red", s=40)
 
                 # add second axis
                 ax2 = ax.twinx()
