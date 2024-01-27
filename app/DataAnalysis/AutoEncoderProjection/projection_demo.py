@@ -129,6 +129,11 @@ while True:
                 ax.set_aspect("equal")
                 ax.plot([min_u1, max_u1,], [u2_c,u2_c], c="red", linewidth=2)
                 ax.plot([u1_c,u1_c], [min(u2), max(u2)], c="red", linewidth=2)
+                ax.scatter(u1_c,max(u2), c="red", s=40)
+                ax.scatter(min_u1,u2_c, c="red", s=40)
+                ax.scatter(max_u1,u2_c ,c="red", s=40)
+                ax.scatter(u1_c,min(u2), c="red", s=0)
+
                 # add second axis
                 ax2 = ax.twinx()
                 ax2.set_xlabel("u1")
