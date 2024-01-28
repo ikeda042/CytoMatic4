@@ -8,6 +8,7 @@ import pickle
 import os 
 from numpy.linalg import inv, eig
 import matplotlib.pyplot as plt
+import random
 
 #set the theme dark
 plt.style.use('dark_background')
@@ -64,9 +65,9 @@ class Point:
     def __gt__(self, other):
         return self.u1 > other.u1
         
-
+db_list = ["app/test_database.db"]
 while True:
-    engine = create_engine(f'sqlite:///{"app/test_database.db"}', echo=True)
+    engine = create_engine(f'sqlite:///{random.choice(db_list)}', echo=True)
     Session = sessionmaker(bind=engine)
     with Session() as session:
         cells = session.query(Cell).all()
