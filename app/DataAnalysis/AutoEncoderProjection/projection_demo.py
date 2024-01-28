@@ -18,7 +18,9 @@ def basis_conversion(contour:list[list[int]],X:np.ndarray,center_x:float,center_
     eigenvalues, eigenvectors = eig(Sigma)
     if eigenvalues[1] < eigenvalues[0]:
         m = eigenvectors[1][1]/eigenvectors[1][0]
+        print(m)
         Q = np.array([eigenvectors[1],eigenvectors[0]])
+        print(Q)
         U = [Q.transpose()@np.array([i,j]) for i,j in coordinates_incide_cell]
         U = [[j,i] for i,j in U]
         contour_U = [Q.transpose()@np.array([j,i]) for i,j in contour]
@@ -84,15 +86,14 @@ while True:
                 total_iterations = image_size ** 2
                 current_iteration = 0
                 for i in range(image_size):
+                    progress = int((current_iteration / total_iterations) * 100)
+                    bar_length = 100
+                    filled_length = int(bar_length * progress // 100)
+                    bar = '=' * filled_length + '>' + ' ' * (bar_length - filled_length - 1)
+                    sys.stdout.write(f"\rHadamard product: {progress}% [{bar}]")
+                    sys.stdout.flush()
                     for j in range(image_size):
-                        # 進捗状況の更新
                         current_iteration += 1
-                        progress = int((current_iteration / total_iterations) * 100)
-                        bar_length = 100
-                        filled_length = int(bar_length * progress // 100)
-                        bar = '=' * filled_length + '>' + ' ' * (bar_length - filled_length - 1)
-                        sys.stdout.write(f"\rHadamard product: {progress}% [{bar}]")
-                        sys.stdout.flush()
                         if (
                             cv2.pointPolygonTest(
                                 pickle.loads(cell.contour), (i, j), False
@@ -155,6 +156,6 @@ while True:
                 ax2.set_ylabel("Brightness")
                 ax2.set_ylim(0,900)
                 ax2.scatter([i.u1 for i in sorted_projected_points],[i.G for i in sorted_projected_points], s=1, c="lime")
-                fig.savefig(f"basis_conversion.png",dpi = 300)
+                fig.savefig(f"basis_conversion.png",dpi = 600)
                 plt.close()
                 plt.clf()
