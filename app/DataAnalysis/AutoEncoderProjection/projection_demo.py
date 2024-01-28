@@ -9,6 +9,7 @@ import os
 from numpy.linalg import inv, eig
 import matplotlib.pyplot as plt
 import random
+import sys
 
 #set the theme dark
 plt.style.use('dark_background')
@@ -64,7 +65,7 @@ class Point:
         self.G = G
     def __gt__(self, other):
         return self.u1 > other.u1
-        
+
 db_list = ["app/test_database.db"]
 while True:
     engine = create_engine(f'sqlite:///{random.choice(db_list)}', echo=True)
@@ -79,8 +80,19 @@ while True:
                 image_fluo = cv2.imdecode(np.frombuffer(cell.img_fluo1, dtype=np.uint8), cv2.IMREAD_GRAYSCALE)
                 cell_contour = [list(i[0]) for i in pickle.loads(cell.contour)]
                 image_size = image_fluo.shape[0]
+
+                total_iterations = image_size ** 2
+                current_iteration = 0
                 for i in range(image_size):
                     for j in range(image_size):
+                        # 進捗状況の更新
+                        current_iteration += 1
+                        progress = int((current_iteration / total_iterations) * 100)
+                        bar_length = 100
+                        filled_length = int(bar_length * progress // 100)
+                        bar = '=' * filled_length + '>' + ' ' * (bar_length - filled_length - 1)
+                        sys.stdout.write(f"\rHadamard product: {progress}% [{bar}]")
+                        sys.stdout.flush()
                         if (
                             cv2.pointPolygonTest(
                                 pickle.loads(cell.contour), (i, j), False
@@ -89,6 +101,8 @@ while True:
                         ):
                             coords_inside_cell_1.append([i, j])
                             brightness_inside_cell.append(image_fluo[i, j])
+
+                sys.stdout.write("\n")
                 contour = [
                             [j, i] for i, j in [i[0] for i in pickle.loads(cell.contour)]
                         ]
