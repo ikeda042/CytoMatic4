@@ -561,11 +561,11 @@ def data_analysis(
                     # else:
                     #     plt.scatter(u1_c, y_pos, s=550, color="blue", zorder=100)
                     #     agg_bool.append(0)
-                        
+                    s=f"""Mean:{round(sum(normalized_points)/len(normalized_points),3)}\nMed:{round(sorted(normalized_points)[len(normalized_points)//2],3)}\nCell length(μm):{round(cell_length*0.0625,2)}\nvar:{round(np.var(normalized_points),3)}\nmax_int_minus_med:{round(max_points - med_raw,3)}\nmean_fluo_raw_intensities:{round(sum(points_inside_cell_1)/len(points_inside_cell_1),3)}\n"""
                     plt.text(
                         u1_c,
                         y_pos_text,
-                        s=f"Mean:{round(sum(normalized_points)/len(normalized_points),3)}\nMed:{round(sorted(normalized_points)[len(normalized_points)//2],3)}\nCell length(μm):{round(cell_length*0.0625,2)}\nvar:{round(np.var(normalized_points),3)}\nmax_int_minus_med:{round(max_points - med_raw,3)}\nmean_fluo_raw_intensities:{round(sum(points_inside_cell_1)/len(points_inside_cell_1),3)}\n",
+                        s=f"Cell ID:{cell.cell_id}\nCell length(μm):{round(cell_length*0.0625,2)}\n",
                         color="red",
                         ha="center",
                         va="top",
