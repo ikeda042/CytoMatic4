@@ -565,7 +565,7 @@ def data_analysis(
                     plt.text(
                         u1_c,
                         y_pos_text,
-                        s=f"Cell ID:{cell.cell_id}\nCell length(μm):{round(cell_length*0.0625,2)}\n",
+                        s=f"",
                         color="red",
                         ha="center",
                         va="top",
