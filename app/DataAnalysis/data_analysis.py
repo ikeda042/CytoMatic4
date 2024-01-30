@@ -999,7 +999,7 @@ def data_analysis(
                     cv2.imwrite(f"Cell/unified_cells/{n}.png", image_ph)
                 if not single_layer_mode:
                     if not dual_layer_mode:
-                        fluo_out1 = adjust_brightness(fluo_out1, 1)
+                        fluo_out1 = adjust_brightness(fluo_out1, 4)
                         cv2.imwrite("RealTimeData/fluo1.png", fluo_out1)
                         unify_images_ndarray(
                             image1=image_ph,
