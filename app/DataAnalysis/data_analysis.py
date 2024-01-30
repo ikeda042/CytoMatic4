@@ -955,6 +955,19 @@ def data_analysis(
                     scale_bar_color,
                     -1,
                 )
+                cv2.rectangle(
+                    fluo_out1,
+                    (
+                        image_size - scale_bar_mergins - scale_bar_length,
+                        image_size - scale_bar_mergins,
+                    ),
+                    (
+                        image_size - scale_bar_mergins,
+                        image_size - scale_bar_mergins - scale_bar_thickness,
+                    ),
+                    scale_bar_color,
+                    -1,
+                )
                 position = (
                     image_size - scale_bar_mergins - scale_bar_length,
                     image_size - scale_bar_mergins + scale_bar_thickness + 10,
@@ -972,12 +985,21 @@ def data_analysis(
                     font_color,
                     thickness,
                 )
+                cv2.putText(
+                    fluo_out1,
+                    f"{round(scale_bar_length*pixel_per_micro_meter,2)} um",
+                    position,
+                    font,
+                    font_scale,
+                    font_color,
+                    thickness,
+                )
 
                 if single_layer_mode:
                     cv2.imwrite(f"Cell/unified_cells/{n}.png", image_ph)
                 if not single_layer_mode:
                     if not dual_layer_mode:
-                        fluo_out1 = adjust_brightness(fluo_out1, 2)
+                        fluo_out1 = adjust_brightness(fluo_out1, 1)
                         cv2.imwrite("RealTimeData/fluo1.png", fluo_out1)
                         unify_images_ndarray(
                             image1=image_ph,
