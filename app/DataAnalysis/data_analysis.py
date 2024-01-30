@@ -921,7 +921,7 @@ def data_analysis(
 
                 ##########資料作成用(Cell/unified_cells）##########
 
-                cell_length_text = f"Cell length{round(cell_length*0.0625,2)} um"
+                cell_length_text = f"Cell length {round(cell_length*0.0625,2)} um"
                 position = (0, 31)
                 font = cv2.FONT_HERSHEY_SIMPLEX
                 font_scale = 0.5
