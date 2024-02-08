@@ -64,9 +64,9 @@ class Point:
     def __init__(self, u1: float, G: float):
         self.u1 = u1
         self.G = G
+
     def __gt__(self, other):
         return self.u1 > other.u1
-        
 
 
 #######################################################
@@ -92,15 +92,15 @@ def unify_images_ndarray2(image1, image2, image3, output_name):
 
     # Image 2
     offset_x_image2 = image1.shape[1]
-    canvas[
-        : image2.shape[0], offset_x_image2 : offset_x_image2 + image2.shape[1]
-    ] = image2
+    canvas[: image2.shape[0], offset_x_image2 : offset_x_image2 + image2.shape[1]] = (
+        image2
+    )
 
     # Image 3
     offset_x_image3 = offset_x_image2 + image2.shape[1]
-    canvas[
-        : image3.shape[0], offset_x_image3 : offset_x_image3 + image3.shape[1]
-    ] = image3
+    canvas[: image3.shape[0], offset_x_image3 : offset_x_image3 + image3.shape[1]] = (
+        image3
+    )
 
     cv2.imwrite(f"{output_name}.png", cv2.cvtColor(canvas, cv2.COLOR_BGR2RGB))
 
@@ -234,7 +234,7 @@ def data_analysis(
     with Session() as session:
         cells = session.query(Cell).all()
         for cell in tqdm(cells):
-            projected_points : list[Point] = []
+            projected_points: list[Point] = []
             if cell.manual_label != "N/A" and cell.manual_label != None:
                 print("###############################################")
                 print(cell.cell_id)
@@ -247,9 +247,7 @@ def data_analysis(
                 image_ph = cv2.imdecode(
                     np.frombuffer(cell.img_ph, dtype=np.uint8), cv2.IMREAD_COLOR
                 )
-                cv2.imwrite(
-                        f"RealTimeData/ph.png", image_ph
-                    )
+                cv2.imwrite(f"RealTimeData/ph.png", image_ph)
                 image_ph_copy = image_ph.copy()
                 image_size = image_ph.shape[0]
                 cv2.drawContours(
@@ -275,21 +273,38 @@ def data_analysis(
                 ph_gray = cv2.cvtColor(image_ph, cv2.COLOR_BGR2GRAY)
                 crop_top, crop_bottom, crop_left, crop_right = 25, 25, 25, 25
                 cropped_image = ph_gray[crop_top:-crop_bottom, crop_left:-crop_right]
-                scale_bar_length_micrometers = 5 
-                pixel_size_micrometers = 0.0625  
-                scale_bar_length_pixels = int(scale_bar_length_micrometers / pixel_size_micrometers) 
-                scale_bar_position = (cropped_image.shape[1] - scale_bar_length_pixels - 10, cropped_image.shape[0] - 30)
-                cv2.rectangle(cropped_image, scale_bar_position, (scale_bar_position[0] + scale_bar_length_pixels, scale_bar_position[1] - 5), (255, 255, 255), -1)
-                
-                cv2.resize(cropped_image, (cropped_image.shape[1] * 5, cropped_image.shape[0] * 5))
-                cv2.putText(    
-                    cropped_image,    
-                    f"{scale_bar_length_micrometers} um",    
-                    (scale_bar_position[0] + 13, scale_bar_position[1] + 20),    
-                    cv2.FONT_HERSHEY_SIMPLEX,    
-                    0.6,    
-                    (255, 255, 255),    
-                    1,    
+                scale_bar_length_micrometers = 5
+                pixel_size_micrometers = 0.0625
+                scale_bar_length_pixels = int(
+                    scale_bar_length_micrometers / pixel_size_micrometers
+                )
+                scale_bar_position = (
+                    cropped_image.shape[1] - scale_bar_length_pixels - 10,
+                    cropped_image.shape[0] - 30,
+                )
+                cv2.rectangle(
+                    cropped_image,
+                    scale_bar_position,
+                    (
+                        scale_bar_position[0] + scale_bar_length_pixels,
+                        scale_bar_position[1] - 5,
+                    ),
+                    (255, 255, 255),
+                    -1,
+                )
+
+                cv2.resize(
+                    cropped_image,
+                    (cropped_image.shape[1] * 5, cropped_image.shape[0] * 5),
+                )
+                cv2.putText(
+                    cropped_image,
+                    f"{scale_bar_length_micrometers} um",
+                    (scale_bar_position[0] + 13, scale_bar_position[1] + 20),
+                    cv2.FONT_HERSHEY_SIMPLEX,
+                    0.6,
+                    (255, 255, 255),
+                    1,
                 )
                 cv2.imwrite(f"Cell/ph_scalebar/{n}.png", cropped_image)
                 cell_contour = [list(i[0]) for i in pickle.loads(cell.contour)]
@@ -328,7 +343,9 @@ def data_analysis(
                     output_image_color[:, :, 0] = 0
                     output_image_color[:, :, 2] = 0
 
-                    cv2.imwrite(f"Cell/fluo1_incide_cell_only/{n}.png", output_image_color)
+                    cv2.imwrite(
+                        f"Cell/fluo1_incide_cell_only/{n}.png", output_image_color
+                    )
                     cv2.imwrite(
                         f"RealTimeData/fluo1_incide_cell_only.png", output_image_color
                     )
@@ -371,8 +388,9 @@ def data_analysis(
                     # 勾配の合成（勾配強度と角度を計算）
                     gradient_magnitude = np.sqrt(sobel_x**2 + sobel_y**2)
                     # 勾配の強度を正規化
-                    gradient_magnitude_normalized = cv2.normalize(gradient_magnitude, None, 0, 255, cv2.NORM_MINMAX, cv2.CV_8U)
-
+                    gradient_magnitude_normalized = cv2.normalize(
+                        gradient_magnitude, None, 0, 255, cv2.NORM_MINMAX, cv2.CV_8U
+                    )
 
                     # 勾配強度画像を保存
                     cv2.imwrite(
@@ -392,7 +410,9 @@ def data_analysis(
                                 ):
                                     coords_inside_cell_1.append([i, j])
                                     points_inside_cell_1.append(output_image[j][i])
-                                    gradient_magnitude_normalized_inside_cell.append(gradient_magnitude_normalized[j][i])
+                                    gradient_magnitude_normalized_inside_cell.append(
+                                        gradient_magnitude_normalized[j][i]
+                                    )
                     if single_layer_mode:
                         for i in range(image_size):
                             for j in range(image_size):
@@ -455,9 +475,7 @@ def data_analysis(
                         # plt.scatter(u1_contour, u2_contour, s=10, color="lime")
                         plt.grid()
 
-                    W = np.array(
-                        [[i**4, i**3, i**2, i, 1] for i in [i[1] for i in U]]
-                    )
+                    W = np.array([[i**4, i**3, i**2, i, 1] for i in [i[1] for i in U]])
                     print(W)
                     f = np.array([i[0] for i in U])
                     theta = inv(W.transpose() @ W) @ W.transpose() @ f
@@ -471,7 +489,6 @@ def data_analysis(
                         + theta[4]
                         for i in x
                     ]
-                    
 
                     cell_length = calc_arc_length(theta, min_u1, max_u1)
                     print(cell_lengths)
@@ -561,7 +578,7 @@ def data_analysis(
                     # else:
                     #     plt.scatter(u1_c, y_pos, s=550, color="blue", zorder=100)
                     #     agg_bool.append(0)
-                    s=f"""Mean:{round(sum(normalized_points)/len(normalized_points),3)}\nMed:{round(sorted(normalized_points)[len(normalized_points)//2],3)}\nCell length(μm):{round(cell_length*0.0625,2)}\nvar:{round(np.var(normalized_points),3)}\nmax_int_minus_med:{round(max_points - med_raw,3)}\nmean_fluo_raw_intensities:{round(sum(points_inside_cell_1)/len(points_inside_cell_1),3)}\n"""
+                    s = f"""Mean:{round(sum(normalized_points)/len(normalized_points),3)}\nMed:{round(sorted(normalized_points)[len(normalized_points)//2],3)}\nCell length(μm):{round(cell_length*0.0625,2)}\nvar:{round(np.var(normalized_points),3)}\nmax_int_minus_med:{round(max_points - med_raw,3)}\nmean_fluo_raw_intensities:{round(sum(points_inside_cell_1)/len(points_inside_cell_1),3)}\n"""
                     plt.text(
                         u1_c,
                         y_pos_text,
@@ -575,14 +592,19 @@ def data_analysis(
                         point = Point(u, g)
                         projected_points.append(point)
                     sorted_projected_points = sorted(projected_points)
-                    #add second axis
+                    # add second axis
                     ax2 = plt.twinx()
                     ax2.grid(False)
                     ax2.set_xlabel("u1")
                     ax2.set_ylabel("Brightness")
                     ax2.set_ylim(0, 900)
                     ax2.set_xlim(min_u1 - 40, max_u1 + 40)
-                    ax2.scatter([i.u1 for i in sorted_projected_points], [i.G for i in sorted_projected_points], color="lime", s=1)
+                    ax2.scatter(
+                        [i.u1 for i in sorted_projected_points],
+                        [i.G for i in sorted_projected_points],
+                        color="lime",
+                        s=1,
+                    )
                     fig.savefig(f"Cell/replot/{n}.png")
                     fig.savefig(f"RealTimeData/replot.png")
                     plt.close()
@@ -843,7 +865,7 @@ def data_analysis(
                         plt.grid()
                         plt.grid()
                         if len([i for i in points_inside_cell_1 if i == 255]) > 5:
-                            plt.scatter((max_x+min_x)/2,0, s = 500, color = "red")
+                            plt.scatter((max_x + min_x) / 2, 0, s=500, color="red")
                         fig_path.savefig(f"Cell/peak_path/{n}.png")
                         fig_path.savefig(f"RealTimeData/peak_path.png")
                         plt.close()
@@ -1079,9 +1101,9 @@ def data_analysis(
         for i in range(len(meds)):
             fpout.write(f"{max_int_minus_med[i]}\n")
 
-    # with open(f"{out_name}_mean_fluo_raw_intensities.txt",mode="w") as fpout:
-    #     for i in range(len(meds)):
-    #         fpout.write(f"{mean_fluo_raw_intensities[i]}\n")
+    with open(f"{out_name}_mean_fluo_raw_intensities.txt", mode="w") as fpout:
+        for i in range(len(meds)):
+            fpout.write(f"{mean_fluo_raw_intensities[i]}\n")
 
     # with open(f"{out_name}_energies.txt",mode="w") as fpout:
     #     for i in range(len(energies)):
