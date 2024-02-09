@@ -1083,21 +1083,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib import gridspec
 
-## Edit here
-file = "app/test_database_peak_points_ys.txt"
 
-with open(file, "r") as f:
-    ys = [
-        [float(x.replace("\n", "")) for x in line.split(",")] for line in f.readlines()
-    ]
-    ys_normalized = []
-    for i in ys:
-        i = np.array(i)
-        i = (i - i.min()) / (i.max() - i.min())
-        ys_normalized.append(i.tolist())
-
-
-class HeadmapVector:
+class HeatmapVector:
     def __init__(self, heatmap_vector: np.ndarray, sample_num: int):
         self.heatmap_vector: np.ndarray = heatmap_vector
         self.sample_num: int = sample_num
@@ -1108,43 +1095,63 @@ class HeadmapVector:
         return self_v < other_v
 
 
-# Edit here
-################################################################
-vectors = sorted([HeadmapVector(i, 1) for i in ys_normalized])
-################################################################
+def get_heatmap_vector(file: str):
+    with open(file, "r") as f:
+        ys = [
+            [float(x.replace("\n", "")) for x in line.split(",")]
+            for line in f.readlines()
+        ]
+        ys_normalized = []
+        for i in ys:
+            i = np.array(i)
+            i = (i - i.min()) / (i.max() - i.min())
+            ys_normalized.append(i.tolist())
+    return ys_normalized
 
-concatenated_samples = np.column_stack([i.heatmap_vector for i in vectors])
 
-plt.figure(figsize=(10, 10))
-gs = gridspec.GridSpec(
-    2, 2, width_ratios=[30, 1], height_ratios=[1, 10], hspace=0.05, wspace=0.05
-)
+def create_heatmap(files: list[str]) -> None:
+    vectors = []
+    for i, file in enumerate(files):
+        vectors += sorted([HeatmapVector(j, i) for j in get_heatmap_vector(file)])
 
-additional_row = np.array([i.sample_num / 4 for i in vectors])[None, :]
-plt.figure(figsize=(10, 6))
-gs = gridspec.GridSpec(
-    2, 2, width_ratios=[30, 1], height_ratios=[1, 10], hspace=0.05, wspace=0.05
-)
+    concatenated_samples = np.column_stack([i.heatmap_vector for i in vectors])
 
-ax0 = plt.subplot(gs[0, 0])
-ax0.imshow(
-    additional_row,
-    aspect="auto",
-    cmap="inferno",
-    extent=[0, concatenated_samples.shape[1], 0, 1],
-)
-ax0.set_xticks([])
-ax0.set_yticks([])
+    plt.figure(figsize=(10, 10))
+    gs = gridspec.GridSpec(
+        2, 2, width_ratios=[30, 1], height_ratios=[1, 10], hspace=0.05, wspace=0.05
+    )
+    additional_row = np.array([i.sample_num / 4 for i in vectors])[None, :]
+    plt.figure(figsize=(10, 6))
+    gs = gridspec.GridSpec(
+        2, 2, width_ratios=[30, 1], height_ratios=[1, 10], hspace=0.05, wspace=0.05
+    )
 
-ax1 = plt.subplot(gs[1, 0])
-im = ax1.imshow(concatenated_samples, aspect="auto", cmap="inferno")
-ax1.set_xlabel(f"Sample Number {title}")
-ax1.set_ylabel("Split index (Relative position)")
-ax2 = plt.subplot(gs[:, 1])
-plt.colorbar(im, cax=ax2)
-ax2.set_ylabel("Normalized fluo. intensity", rotation=270, labelpad=15)
+    ax0 = plt.subplot(gs[0, 0])
+    ax0.imshow(
+        additional_row,
+        aspect="auto",
+        cmap="inferno",
+        extent=[0, concatenated_samples.shape[1], 0, 1],
+    )
+    ax0.set_xticks([])
+    ax0.set_yticks([])
 
-plt.savefig("heatmap.png")
+    ax1 = plt.subplot(gs[1, 0])
+    im = ax1.imshow(concatenated_samples, aspect="auto", cmap="inferno")
+    ax1.set_xlabel(f"Sample Number")
+    ax1.set_ylabel("Split index (Relative position)")
+    ax2 = plt.subplot(gs[:, 1])
+    plt.colorbar(im, cax=ax2)
+    ax2.set_ylabel("Normalized fluo. intensity", rotation=270, labelpad=15)
+    plt.savefig("heatmap.png")
+
+
+## Edit here
+file1 = "file2.txt"
+file2 = "file1.txt"
+files = [file1, file2]
+
+create_heatmap(files)
 ```
 
 With the codes, we obtain a heatmap as shown in figure 9-1.
