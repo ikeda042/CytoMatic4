@@ -134,6 +134,18 @@ async def get_heatmap_all():
     return FileResponse("heatmap.png")
 
 
+@app.delete("/delete-files", tags=["ヒートマップをリセット"])
+async def delete_files():
+    file_paths = [
+        i
+        for i in os.listdir("./")
+        if i.split(".")[-1] == "txt" and i.split("_")[-1] == "heatmap.txt"
+    ]
+    for i in file_paths:
+        os.remove(i)
+    return {"status": "files deleted"}
+
+
 def main():
     uvicorn.run("api:app", host="0.0.0.0", port=8000, reload=True)
 
