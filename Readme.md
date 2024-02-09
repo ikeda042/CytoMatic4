@@ -51,13 +51,13 @@ After running the scripts, the landing window automatically pops up.
 
 Input parameters are listed below.
 
-| Parameters | Type | Description |
-| :---: | :---: | :--- |
-| Parameter 1 | int [0-255] | Lower threshold for Canny algorithm.|
-| Parameter 2 | int [0-255] | Higher threshold for Canny algorithm.|
-|Image Size | int | Size of the squares for each cell.|
-|Mode| Literal | `all` for general analysis including cell extraction, `Data Analysis` for only data analysis using existing database(.db),  `Data Analysis(all db)` for sequentially read all the databases in the root directly, and `Delete All` to clear unused files. `load stack file(beta)` Loading matlab stack file(experimental).|
-|Layer Mode|Literal|`Dual(PH,Fluo1,Fluo2)`/`Single(PH)`/`Normal(PH,Fluo1)`|
+| Parameters  |    Type     | Description                                                                                                                                                                                                                                                                                                                |
+| :---------: | :---------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Parameter 1 | int [0-255] | Lower threshold for Canny algorithm.                                                                                                                                                                                                                                                                                       |
+| Parameter 2 | int [0-255] | Higher threshold for Canny algorithm.                                                                                                                                                                                                                                                                                      |
+| Image Size  |     int     | Size of the squares for each cell.                                                                                                                                                                                                                                                                                         |
+|    Mode     |   Literal   | `all` for general analysis including cell extraction, `Data Analysis` for only data analysis using existing database(.db),  `Data Analysis(all db)` for sequentially read all the databases in the root directly, and `Delete All` to clear unused files. `load stack file(beta)` Loading matlab stack file(experimental). |
+| Layer Mode  |   Literal   | `Dual(PH,Fluo1,Fluo2)`/`Single(PH)`/`Normal(PH,Fluo1)`                                                                                                                                                                                                                                                                     |
 
 For exmaple, if you have an nd2 file structured like PH_0, Fluo_0, PH_1, Fluo_1..., `Normal` Mode works the best.
 
@@ -72,25 +72,25 @@ For exmaple, if you have an nd2 file structured like PH_0, Fluo_0, PH_1, Fluo_1.
 
 Each row has the following columns:
 
-| Column Name | Data Type | Description                   |
-|-------------|-----------|-------------------------------|
-| id          | int       | Unique ID                     |
-| image_id    | str       | Cell id                       |
-| label       | str       | Label data manually chosen    |
+| Column Name | Data Type | Description                |
+| ----------- | --------- | -------------------------- |
+| id          | int       | Unique ID                  |
+| image_id    | str       | Cell id                    |
+| label       | str       | Label data manually chosen |
 
 ## filename.db
-| Column Name      | Data Type      | Description                                         |
-|------------------|----------------|-----------------------------------------------------|
-| id               | int            | Unique ID                                           |
-| cell_id          | str            | Cell id (Frame n Cell n)                            |
-| label_experiment | str \| Null    | Experimental label (e.g., Series1 exposure30min)    |
-| manual_label     | str \| Null    | Label data from image_labels.db with respect to cell ID |
-| perimeter        | float          | Perimeter                                           |
-| area             | float          | Area                                                |
-| image_ph         | BLOB           | PH image in Square block (image size x image size)  |
-| image_flup1      | BLOB \| Null   | Fluo 1 image                                        |
-| image_flup2      | BLOB \| Null   | Fluo 2 image                                        |
-| contour          | BLOB           | 2D array cell contour                               |
+| Column Name      | Data Type    | Description                                             |
+| ---------------- | ------------ | ------------------------------------------------------- |
+| id               | int          | Unique ID                                               |
+| cell_id          | str          | Cell id (Frame n Cell n)                                |
+| label_experiment | str \| Null  | Experimental label (e.g., Series1 exposure30min)        |
+| manual_label     | str \| Null  | Label data from image_labels.db with respect to cell ID |
+| perimeter        | float        | Perimeter                                               |
+| area             | float        | Area                                                    |
+| image_ph         | BLOB         | PH image in Square block (image size x image size)      |
+| image_flup1      | BLOB \| Null | Fluo 1 image                                            |
+| image_flup2      | BLOB \| Null | Fluo 2 image                                            |
+| contour          | BLOB         | 2D array cell contour                                   |
 
 
 # Connecting to the database
