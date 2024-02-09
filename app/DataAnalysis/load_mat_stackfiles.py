@@ -250,6 +250,7 @@ class CellMat:
         plt.colorbar(im, cax=ax2)
         ax2.set_ylabel("Normalized fluo. intensity", rotation=270, labelpad=15)
         plt.savefig(f"{self.file_name.split('/')[-1].replace('.mat','')}_heatmap.png")
+        plt.savefig("mat_file_heatmap.png")
 
 
 def load_mat(filename: str) -> None:
