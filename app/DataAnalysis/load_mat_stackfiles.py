@@ -221,6 +221,9 @@ class CellMat:
             resample_to_n_points(np.arange(len(i)), i, 100)[1] for i in ys_normalized
         ]
         vectors = sorted([HeadmapVector(i, 1) for i in ys_normalized])
+        with open(f"{self.file_name}_heatmap.txt", mode="w") as f:
+            for i in vectors:
+                f.write(",".join([str(j) for j in i.heatmap_vector]) + "\n")
         concatenated_samples = np.column_stack([i.heatmap_vector for i in vectors])
         plt.figure(figsize=(10, 10))
         gs = gridspec.GridSpec(
