@@ -10,6 +10,7 @@ from matplotlib import gridspec
 from scipy.interpolate import interp1d
 from concurrent.futures import ProcessPoolExecutor
 import asyncio
+import random
 
 
 class HeadmapVector:
@@ -199,6 +200,50 @@ class CellMat:
                 for path in peak_paths:
                     path = [str(i[0]) for i in path]
                     f.write(",".join(path) + "\n")
+        fig = plt.figure(figsize=[16, 9])
+        ax = fig.add_subplot(111)
+        random.shuffle(peak_paths)
+        peak_paths = peak_paths
+        max_xnum = max([len(i) for i in peak_paths])
+        m_th = np.mean([np.mean(i) for i in peak_paths])
+        print("Threshold: ", m_th, max_xnum)
+        agg_positive = 0
+        for i in peak_paths:
+            i = np.array(i)
+            peak_path = np.array(i.copy()).flatten()
+
+            x_ = np.arange(1, len(peak_path) + 1)
+            th = np.max(peak_path) * 0.75
+            crossing_points = np.where(np.diff((peak_path - th) > 0))[0]
+            if len(crossing_points) > 2:
+                # 交差する2点のx座標を取得
+                x1, x2 = x_[crossing_points[:2]] + 1  # インデックス補正
+                # 2点間の距離を計算
+                distance = x2 - x1
+            else:
+                print("No crossing points")
+                distance = None
+
+            i = (i - i.min()) / (i.max() - i.min())
+            middle_index = len(i) // 2
+            if np.sum(i[:middle_index]) > np.sum(i[middle_index:]):
+                i = i[::-1]
+            x = np.linspace(0, 1, len(i))
+
+            if (
+                len([j for j in peak_path if j > m_th]) != 0
+                and distance is not None
+                and distance < 11
+            ):
+                ax.plot(x, i, color="lime", linewidth=0.3)
+                agg_positive += 1
+            else:
+                ax.plot(x, i, color="magenta", linewidth=0.3)
+
+        fig.savefig(
+            f"{self.file_name.split('/')[-1].replace('.mat','')}_peak_paths.png"
+        )
+        print("Positive: ", agg_positive / len(peak_paths) * 100, "%")
 
     def heatmap(self) -> None:
         def resample_to_n_points(x, y, n):
