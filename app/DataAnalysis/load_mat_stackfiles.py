@@ -58,8 +58,9 @@ class CellMat:
         self.contours: list[np.ndarray] = []
 
     def extract_contours(self) -> None:
+        k = 0
         for n in range(len(self.cell_list[0][0][0][0])):
-            cells = self.cell_list[0][0][0][0][0][n]
+            cells = self.cell_list[0][0][0][0][n][0]
             for cell_id in range(len(cells) - 1):
                 cell_i_contour = cells[cell_id][0][0][self.params_dict["birthframe"]]
                 # print(cell_i_contour)
@@ -74,10 +75,10 @@ class CellMat:
                         s=50,
                         color="lime",
                     )
-                    fig.savefig(f"Matlab/contours/result_contour_{cell_id}.png", dpi=50)
+                    fig.savefig(f"Matlab/contours/result_contour_{k}.png", dpi=50)
+                    k += 1
                     plt.close()
                     plt.clf()
-
                     self.contours.append(cell_i_contour)
                 except Exception as e:
                     # print(e)
@@ -85,21 +86,24 @@ class CellMat:
                     pass
 
     def extract_meshes(self) -> None:
-        cells = self.cell_list[0][0][0][0][0][0]
-        cell_num = len(cells)
-        for cell_id in range(cell_num):
-            cell_i_mesh = cells[cell_id][0][0][self.params_dict["mesh"]]
-            self.meshes.append(cell_i_mesh)
-            # print(cell_i_mesh)
-            # reconstruct mesh
-            fig = plt.figure(figsize=[7, 7])
-            ax = fig.add_subplot(111)
-            ax.set_aspect("equal")
-            for i in cell_i_mesh:
-                ax.plot([i[2], i[0]], [i[3], i[1]], color="lime")
-            fig.savefig(f"Matlab/meshes/result_mesh_{cell_id}.png", dpi=50)
-            plt.close()
-            plt.clf()
+        k = 0
+        for n in range(len(self.cell_list[0][0][0][0])):
+            cells = self.cell_list[0][0][0][0][n][0]
+            cell_num = len(cells)
+            for cell_id in range(cell_num):
+                cell_i_mesh = cells[cell_id][0][0][self.params_dict["mesh"]]
+                self.meshes.append(cell_i_mesh)
+                # print(cell_i_mesh)
+                # reconstruct mesh
+                fig = plt.figure(figsize=[7, 7])
+                ax = fig.add_subplot(111)
+                ax.set_aspect("equal")
+                for i in cell_i_mesh:
+                    ax.plot([i[2], i[0]], [i[3], i[1]], color="lime")
+                fig.savefig(f"Matlab/meshes/result_mesh_{k}.png", dpi=50)
+                k += 1
+                plt.close()
+                plt.clf()
 
     def overlay_meshes(self) -> None:
         for i in range(len(self.contours)):
@@ -185,15 +189,16 @@ class CellMat:
 
     def extract_peak_paths(self) -> None:
         peak_paths = []
-        cells = self.cell_list[0][0][0][0][0][0]
-        for cell_id in range(len(cells) - 1):
-            cell_i_peak_path = cells[cell_id][0][0][self.params_dict["signal2"]]
-            peak_paths.append(cell_i_peak_path)
-        # print(peak_paths)
-        with open(f"{self.file_name}_peak_paths.txt", mode="w") as f:
-            for path in peak_paths:
-                path = [str(i[0]) for i in path]
-                f.write(",".join(path) + "\n")
+        for n in range(len(self.cell_list[0][0][0][0])):
+            cells = self.cell_list[0][0][0][0][n][0]
+            for cell_id in range(len(cells) - 1):
+                cell_i_peak_path = cells[cell_id][0][0][self.params_dict["signal2"]]
+                peak_paths.append(cell_i_peak_path)
+            # print(peak_paths)
+            with open(f"{self.file_name}_peak_paths.txt", mode="w") as f:
+                for path in peak_paths:
+                    path = [str(i[0]) for i in path]
+                    f.write(",".join(path) + "\n")
 
     def heatmap(self) -> None:
         def resample_to_n_points(x, y, n):
@@ -254,10 +259,10 @@ def load_mat(filename: str) -> None:
     os.mkdir("Matlab/overlay")
 
     cell_mat = CellMat(filename)
-    cell_mat.extract_meshes()
-    cell_mat.extract_contours()
-    cell_mat.overlay_meshes()
-    cell_mat.combine_images()
+    # cell_mat.extract_meshes()
+    # cell_mat.extract_contours()
+    # cell_mat.overlay_meshes()
+    # cell_mat.combine_images()
     cell_mat.extract_peak_paths()
     cell_mat.heatmap()
 
