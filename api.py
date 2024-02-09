@@ -12,6 +12,72 @@ import shutil
 
 app = FastAPI(title="PhenoPixel4.0", docs_url="/phenopixel4.0")
 
+import numpy as np
+import matplotlib.pyplot as plt
+from matplotlib import gridspec
+
+
+class HeatmapVector:
+    def __init__(self, heatmap_vector: np.ndarray, sample_num: int):
+        self.heatmap_vector: np.ndarray = heatmap_vector
+        self.sample_num: int = sample_num
+
+    def __gt__(self, other):
+        self_v = np.sum(self.heatmap_vector)
+        other_v = np.sum(other.heatmap_vector)
+        return self_v < other_v
+
+
+def get_heatmap_vector(file: str):
+    with open(file, "r") as f:
+        ys = [
+            [float(x.replace("\n", "")) for x in line.split(",")]
+            for line in f.readlines()
+        ]
+        ys_normalized = []
+        for i in ys:
+            i = np.array(i)
+            i = (i - i.min()) / (i.max() - i.min())
+            ys_normalized.append(i.tolist())
+    return ys_normalized
+
+
+def create_heatmap(files: list[str]) -> None:
+    vectors = []
+    for i, file in enumerate(files):
+        vectors += sorted([HeatmapVector(j, i) for j in get_heatmap_vector(file)])
+
+    concatenated_samples = np.column_stack([i.heatmap_vector for i in vectors])
+
+    plt.figure(figsize=(10, 10))
+    gs = gridspec.GridSpec(
+        2, 2, width_ratios=[30, 1], height_ratios=[1, 10], hspace=0.05, wspace=0.05
+    )
+    additional_row = np.array([i.sample_num / 4 for i in vectors])[None, :]
+    plt.figure(figsize=(10, 6))
+    gs = gridspec.GridSpec(
+        2, 2, width_ratios=[30, 1], height_ratios=[1, 10], hspace=0.05, wspace=0.05
+    )
+
+    ax0 = plt.subplot(gs[0, 0])
+    ax0.imshow(
+        additional_row,
+        aspect="auto",
+        cmap="inferno",
+        extent=[0, concatenated_samples.shape[1], 0, 1],
+    )
+    ax0.set_xticks([])
+    ax0.set_yticks([])
+
+    ax1 = plt.subplot(gs[1, 0])
+    im = ax1.imshow(concatenated_samples, aspect="auto", cmap="inferno")
+    ax1.set_xlabel(f"Sample Number")
+    ax1.set_ylabel("Split index (Relative position)")
+    ax2 = plt.subplot(gs[:, 1])
+    plt.colorbar(im, cax=ax2)
+    ax2.set_ylabel("Normalized fluo. intensity", rotation=270, labelpad=15)
+    plt.savefig("heatmap.png")
+
 
 @app.post("/uploadfile/", tags=["ここでスタックファイル(.mat)をアップロード"])
 async def create_upload_file(file: UploadFile = File(...)):
@@ -53,6 +119,19 @@ async def get_heatmap():
     print(datetime.now())
     file_path = f"mat_file_heatmap.png"
     return FileResponse(file_path)
+
+
+@app.get("/get-heatmap_all", tags=["全結合ヒートマップを取得"])
+async def get_heatmap_all():
+    print("get_heatmap_all+++++++++++++++++++++++++++++++++++++++++++++++")
+    print(datetime.now())
+    file_paths = [
+        i
+        for i in os.listdir("./")
+        if i.split(".")[-1] == "txt" and i.split("_")[-1] == "heatmap.txt"
+    ]
+    create_heatmap(file_paths)
+    return FileResponse("heatmap.png")
 
 
 def main():
