@@ -31,7 +31,7 @@ async def create_upload_file(file: UploadFile = File(...)):
             status_code=400,
             detail="Invalid file extension. Only .mat files are allowed.",
         )
-    filename = "mat_file.mat"
+    filename = file.filename
     async with aiofiles.open(filename, "wb") as f:
         await f.write(content)
     load_mat(filename)
