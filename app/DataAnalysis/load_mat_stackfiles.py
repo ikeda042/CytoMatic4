@@ -12,7 +12,6 @@ from concurrent.futures import ProcessPoolExecutor
 import asyncio
 
 
-
 class HeadmapVector:
     def __init__(self, heatmap_vector: np.ndarray, sample_num: int):
         self.heatmap_vector: np.ndarray = heatmap_vector
@@ -22,10 +21,12 @@ class HeadmapVector:
         self_v = np.sum(self.heatmap_vector)
         other_v = np.sum(other.heatmap_vector)
         return self_v < other_v
-    
+
+
 class CellMat:
     matplotlib.use("Agg")
     plt.style.use("dark_background")
+
     def __init__(self, file_name) -> None:
         self.file_name: str = file_name
         self.mat_data: Any = sio.loadmat(file_name=file_name)
@@ -83,7 +84,6 @@ class CellMat:
                 # print(cell_id)
                 pass
 
-
     def extract_meshes(self) -> None:
         cells = self.cell_list[0][0][0][0][0][0]
         cell_num = len(cells)
@@ -118,7 +118,6 @@ class CellMat:
             plt.close()
             plt.clf()
 
-
     def combine_images(self) -> None:
         image_size = 100
         num_images = len(os.listdir("Matlab/contours")) - 1
@@ -143,7 +142,10 @@ class CellMat:
                         j * image_size : (j + 1) * image_size,
                     ] = img
         plt.axis("off")
-        cv2.imwrite(f"{self.file_name.split('/')[-1].replace('.mat','')}_contours.png", result_image)
+        cv2.imwrite(
+            f"{self.file_name.split('/')[-1].replace('.mat','')}_contours.png",
+            result_image,
+        )
 
         for i in range(total_rows):
             for j in range(total_cols):
@@ -158,7 +160,10 @@ class CellMat:
                         j * image_size : (j + 1) * image_size,
                     ] = img
         plt.axis("off")
-        cv2.imwrite(f"{self.file_name.split('/')[-1].replace('.mat','')}_meshes.png", result_image)
+        cv2.imwrite(
+            f"{self.file_name.split('/')[-1].replace('.mat','')}_meshes.png",
+            result_image,
+        )
 
         for i in range(total_rows):
             for j in range(total_cols):
@@ -173,7 +178,10 @@ class CellMat:
                         j * image_size : (j + 1) * image_size,
                     ] = img
         plt.axis("off")
-        cv2.imwrite(f"{self.file_name.split('/')[-1].replace('.mat','')}_overlay.png", result_image)
+        cv2.imwrite(
+            f"{self.file_name.split('/')[-1].replace('.mat','')}_overlay.png",
+            result_image,
+        )
 
     def extract_peak_paths(self) -> None:
         peak_paths = []
@@ -182,27 +190,31 @@ class CellMat:
             cell_i_peak_path = cells[cell_id][0][0][self.params_dict["signal2"]]
             peak_paths.append(cell_i_peak_path)
         # print(peak_paths)
-        with open(f"{self.file_name}_peak_paths.txt", mode = "w") as f:
+        with open(f"{self.file_name}_peak_paths.txt", mode="w") as f:
             for path in peak_paths:
                 path = [str(i[0]) for i in path]
                 f.write(",".join(path) + "\n")
-    
+
     def heatmap(self) -> None:
         def resample_to_n_points(x, y, n):
             x_new = np.linspace(np.min(x), np.max(x), n)
-            interpolator = interp1d(x, y, kind='linear')
+            interpolator = interp1d(x, y, kind="linear")
             y_new = interpolator(x_new)
             return x_new, y_new
-        with open(f"{self.file_name}_peak_paths.txt", mode = "r") as f:
+
+        with open(f"{self.file_name}_peak_paths.txt", mode="r") as f:
             ys = [
-                [float(x.replace("\n", "")) for x in line.split(",")] for line in f.readlines()
+                [float(x.replace("\n", "")) for x in line.split(",")]
+                for line in f.readlines()
             ]
             ys_normalized = []
             for i in ys:
                 i = np.array(i)
                 i = (i - i.min()) / (i.max() - i.min())
-                ys_normalized.append(i.tolist())  
-        ys_normalized = [resample_to_n_points(np.arange(len(i)), i, 100)[1] for i in ys_normalized]  
+                ys_normalized.append(i.tolist())
+        ys_normalized = [
+            resample_to_n_points(np.arange(len(i)), i, 100)[1] for i in ys_normalized
+        ]
         vectors = sorted([HeadmapVector(i, 1) for i in ys_normalized])
         concatenated_samples = np.column_stack([i.heatmap_vector for i in vectors])
         plt.figure(figsize=(10, 10))
@@ -231,7 +243,8 @@ class CellMat:
         ax2.set_ylabel("Normalized fluo. intensity", rotation=270, labelpad=15)
         plt.savefig(f"{self.file_name.split('/')[-1].replace('.mat','')}_heatmap.png")
 
-def load_mat(filename:str) -> None:
+
+def load_mat(filename: str) -> None:
     dir_name = "Matlab"
     if os.path.exists(dir_name):
         shutil.rmtree(dir_name)
@@ -239,7 +252,6 @@ def load_mat(filename:str) -> None:
     os.mkdir("Matlab/contours")
     os.mkdir("Matlab/meshes")
     os.mkdir("Matlab/overlay")
-
 
     cell_mat = CellMat(filename)
     cell_mat.extract_meshes()
@@ -249,7 +261,8 @@ def load_mat(filename:str) -> None:
     cell_mat.extract_peak_paths()
     cell_mat.heatmap()
 
-async def async_load_mat(filename:str) -> None:
+
+async def async_load_mat(filename: str) -> None:
     cell_mat = CellMat(filename)
     # Running CPU-bound operations in a ProcessPoolExecutor
     with ProcessPoolExecutor() as pool:
@@ -259,5 +272,5 @@ async def async_load_mat(filename:str) -> None:
             asyncio.to_thread(cell_mat.overlay_meshes),
             asyncio.to_thread(cell_mat.combine_images),
             asyncio.to_thread(cell_mat.extract_peak_paths),
-            asyncio.to_thread(cell_mat.heatmap)
+            asyncio.to_thread(cell_mat.heatmap),
         )
