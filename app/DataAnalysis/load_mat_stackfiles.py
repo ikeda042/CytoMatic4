@@ -58,31 +58,31 @@ class CellMat:
         self.contours: list[np.ndarray] = []
 
     def extract_contours(self) -> None:
-        cell_id = 0
-        cells = self.cell_list[0][0][0][0][0][0]
-        for cell_id in range(len(cells) - 1):
-            cell_i_contour = cells[cell_id][0][0][self.params_dict["birthframe"]]
-            # print(cell_i_contour)
-            try:
-                # reconstruct contour
-                fig = plt.figure(figsize=[7, 7])
-                ax = fig.add_subplot(111)
-                ax.set_aspect("equal")
-                ax.scatter(
-                    [i[0] for i in cell_i_contour],
-                    [i[1] for i in cell_i_contour],
-                    s=50,
-                    color="lime",
-                )
-                fig.savefig(f"Matlab/contours/result_contour_{cell_id}.png", dpi=50)
-                plt.close()
-                plt.clf()
+        for n in range(len(self.cell_list[0][0][0][0])):
+            cells = self.cell_list[0][0][0][0][0][n]
+            for cell_id in range(len(cells) - 1):
+                cell_i_contour = cells[cell_id][0][0][self.params_dict["birthframe"]]
+                # print(cell_i_contour)
+                try:
+                    # reconstruct contour
+                    fig = plt.figure(figsize=[7, 7])
+                    ax = fig.add_subplot(111)
+                    ax.set_aspect("equal")
+                    ax.scatter(
+                        [i[0] for i in cell_i_contour],
+                        [i[1] for i in cell_i_contour],
+                        s=50,
+                        color="lime",
+                    )
+                    fig.savefig(f"Matlab/contours/result_contour_{cell_id}.png", dpi=50)
+                    plt.close()
+                    plt.clf()
 
-                self.contours.append(cell_i_contour)
-            except Exception as e:
-                # print(e)
-                # print(cell_id)
-                pass
+                    self.contours.append(cell_i_contour)
+                except Exception as e:
+                    # print(e)
+                    # print(cell_id)
+                    pass
 
     def extract_meshes(self) -> None:
         cells = self.cell_list[0][0][0][0][0][0]
