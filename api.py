@@ -88,7 +88,7 @@ async def create_upload_file(file: UploadFile = File(...)):
         shutil.rmtree("Matlab")
     except:
         pass
-    print(file.filename, "uploaded+++++++++++++++++++++++++++++++++++++++++++++++")
+    print(file.filename, "uploaded+++++++++++++++++++++++++++++++++++++++++++++++++")
     print(datetime.now())
     content = await file.read()
     filename = cast(str, file.filename)
