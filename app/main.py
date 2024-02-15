@@ -14,6 +14,7 @@ from app.nd2extract import extract_nd2
 import os
 import time
 import matplotlib
+
 matplotlib.use("Agg")
 
 
@@ -22,7 +23,9 @@ def main(
     param1: int,
     param2: int,
     img_size: int,
-    mode: Literal["all", "data_analysis", "data_analysis_all", "delete_all","","load stackfile"] = "all",
+    mode: Literal[
+        "all", "data_analysis", "data_analysis_all", "delete_all", "", "load stackfile"
+    ] = "all",
     layer_mode: Literal["dual", "single", "normal"] = "dual",
 ):
     delete_all()
@@ -93,7 +96,7 @@ def main(
     #     delete_all(input_filename=file_name)
     elif mode == "delete_all":
         delete_all()
-    elif mode == 'load stackfile':
+    elif mode == "load stackfile":
         load_mat(file_name)
     elif mode == "data_analysis_all":
         times = []
@@ -111,8 +114,8 @@ def main(
                     db_name=f"{file_name.split('.')[0]}.db",
                     image_size=200,
                     out_name=file_name.split(".")[0],
-                    dual_layer_mode=dual_layer_mode
-                    )
+                    dual_layer_mode=dual_layer_mode,
+                )
                 n = 1
             else:
                 n = data_analysis(
@@ -121,13 +124,12 @@ def main(
                     out_name=file_name.split(".")[0],
                     dual_layer_mode=dual_layer_mode,
                 )
-            
+
             times.append((time.time() - t0) / n)
-            
+
         with open("time_analysis.txt", "w") as f:
             for i in times:
                 f.write(str(i) + "\n")
-            
 
 
 # Parameters to specify
