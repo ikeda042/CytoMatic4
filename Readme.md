@@ -284,7 +284,7 @@ This folder contains the entire images of each PH frame with detected contours (
 ### Objective:
 To implement an algorithm for calculating the direction of cell elongation.
 
-### Method: 
+### Methodologies: 
 
 In this section, we consider the elongation direction determination algorithm with regard to the cell with contour shown in Fig.1 below. 
 
@@ -365,7 +365,7 @@ Fig.2  <i>E.coli</i> cell with its contour (PH Left, Replotted contour with the 
 
 To implement an algorithm for replacing the basis of 2-dimentional space of the cell with the basis of the eigenspace(2-dimentional).
 
-### Method:
+### Methodologies:
 
 
 Let 
@@ -418,7 +418,7 @@ Fig.3  Each coordinate of contour in the new basis (Right).
 
 To implement an algorithm for calculating the cell length with respect to the center axis of the cell.
 
-### Method:
+### Methodologies:
 
 <i>E.coli</i> expresses filamentous phenotype when exposed to certain chemicals. (e.g. Ciprofloxacin)
 
@@ -575,7 +575,7 @@ Consequently, choosing K = 4 might remain a viable compromise in any case.
 To quantify the localization of fluorescence within cells.
 
 
-### Method:
+### Methodologies:
 
 Quantifying the localization of fluorescence is straightforward in cells with a "straight" morphology(fig. 7-1). 
 
