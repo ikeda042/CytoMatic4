@@ -92,33 +92,35 @@ def data_analysis_light(db_name:str = "test.db", image_size:int = 100,out_name:s
             thickness = 1 
             cv2.putText(image_ph, f"{cell.cell_id}", position, font, font_scale, font_color, thickness)
             cv2.imwrite(f"Cell/ph/{n}.png",image_ph_copy)
-            image_fluo1 = cv2.imdecode(np.frombuffer(cell.img_fluo1, dtype=np.uint8), cv2.IMREAD_GRAYSCALE)
-            mask = np.zeros((image_size,image_size), dtype=np.uint8)
-            cv2.fillPoly(mask, [pickle.loads(cell.contour)], 1)
-            output_image = cv2.bitwise_and(image_fluo1, image_fluo1, mask=mask)
-            for i in range(image_size):
-                for j in range(image_size):
-                    if (
-                    cv2.pointPolygonTest(
-                        pickle.loads(cell.contour), (i, j), False
-                    ) >= 0         
-                        ):
-                            points_inside_cell_1.append(output_image[j][i])
-            fluo_out1 = cv2.imdecode(np.frombuffer(cell.img_fluo1, dtype=np.uint8), cv2.IMREAD_COLOR)
-            cv2.drawContours(fluo_out1,pickle.loads(cell.contour),-1,(0,255,0),2)
-            cv2.imwrite(f"Cell/fluo1/{n}.png",fluo_out1)
+            if not single_layer_mode:
+                image_fluo1 = cv2.imdecode(np.frombuffer(cell.img_fluo1, dtype=np.uint8), cv2.IMREAD_GRAYSCALE)
+                mask = np.zeros((image_size,image_size), dtype=np.uint8)
+                cv2.fillPoly(mask, [pickle.loads(cell.contour)], 1)
+                output_image = cv2.bitwise_and(image_fluo1, image_fluo1, mask=mask)
+                for i in range(image_size):
+                    for j in range(image_size):
+                        if (
+                        cv2.pointPolygonTest(
+                            pickle.loads(cell.contour), (i, j), False
+                        ) >= 0         
+                            ):
+                                points_inside_cell_1.append(output_image[j][i])
+                fluo_out1 = cv2.imdecode(np.frombuffer(cell.img_fluo1, dtype=np.uint8), cv2.IMREAD_COLOR)
+                cv2.drawContours(fluo_out1,pickle.loads(cell.contour),-1,(0,255,0),2)
+                cv2.imwrite(f"Cell/fluo1/{n}.png",fluo_out1)
 
-            normalized_points_inside_cell_1 = np.array(points_inside_cell_1)/np.max(points_inside_cell_1)
-            median_fluo1 = np.median(normalized_points_inside_cell_1)
-            print(f"Median fluo1: {median_fluo1}")
-            medians.append(median_fluo1)
+                normalized_points_inside_cell_1 = np.array(points_inside_cell_1)/np.max(points_inside_cell_1)
+                median_fluo1 = np.median(normalized_points_inside_cell_1)
+                print(f"Median fluo1: {median_fluo1}")
+                medians.append(median_fluo1)
             
     total_rows = int(np.sqrt(n))+ 1
     total_cols = n//total_rows + 1
     num_images = n
     combine_images_function_light(total_rows, total_cols, image_size, num_images, out_name,single_layer_mode, dual_layer_mode) 
 
-    with open(f"{out_name}_meds.txt", "w") as f:
-       for i in medians:
-           f.write(str(i) + "\n")
-    print(medians)
+    if not single_layer_mode:
+        with open(f"{out_name}_meds.txt", "w") as f:
+            for i in medians:
+                f.write(str(i) + "\n")
+            print(medians)
