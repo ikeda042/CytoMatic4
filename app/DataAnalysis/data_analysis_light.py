@@ -114,8 +114,6 @@ def data_analysis_light(db_name:str = "test.db", image_size:int = 100,out_name:s
                 median_fluo1 = np.median(normalized_points_inside_cell_1)
                 print(f"Median fluo1: {median_fluo1}")
                 medians.append(median_fluo1)
-    images = os.listdir("Cell/ph")
-    n = len(images)
     total_rows = int(np.sqrt(n))+ 1
     total_cols = n//total_rows + 1
     num_images = n
