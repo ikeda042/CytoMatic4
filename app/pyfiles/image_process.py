@@ -21,7 +21,10 @@ def image_process(input_filename: str = "data.tif",
     Base.metadata.create_all(engine)
     Session = sessionmaker(bind=engine)
     num_tif = init(input_filename=input_filename, param1=param1, param2=param2,image_size=image_size,fluo_dual_layer_mode=fluo_dual_layer_mode,single_layer_mode=single_layer_mode)
-    for k in tqdm(range(0,num_tif//3)):
+    print(num_tif)
+    print("Processing images...\n+\n+\n+\n+\n+\n+\n+\n+\n+\n+\n+\n+\n+\n+\n+\n+\n+\n+\n+\n+\n")
+    iter_n = num_tif//3 if not single_layer_mode else num_tif
+    for k in tqdm(range(0,iter_n)):
         for j in range(len(os.listdir(f'TempData/frames/tiff_{k}/Cells/ph/'))):
             cell_id: str = f"F{k}C{j}"
             img_ph = cv2.imread(f'TempData/frames/tiff_{k}/Cells/ph/{j}.png')
