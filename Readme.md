@@ -1256,6 +1256,8 @@ Fig.9-3 A box plot figure of randomly generated data points for three series.
 [OpenCV License](https://github.com/opencv/opencv/blob/master/LICENSE)
 
 
+# Contributors 
 
+Haruya Tsurusako (e3131901@foreign.kitakyu-u.ac.jp)
 
 
