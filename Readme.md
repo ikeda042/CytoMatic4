@@ -1259,5 +1259,6 @@ Fig.9-3 A box plot figure of randomly generated data points for three series.
 # Contributors 
 
 Haruya Tsurusako (e3131901@foreign.kitakyu-u.ac.jp): Algorithms for determination of cell-elongation direction with a circumscribing rectangle.
+
 Kyota Sanagi (m245813@hiroshima-u.ac.jp): Fixed logic behind bugs related to the user interface. 
 
